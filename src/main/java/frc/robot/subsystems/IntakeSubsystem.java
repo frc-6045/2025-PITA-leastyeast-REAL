@@ -19,9 +19,11 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem() {
         m_IntakeMotor1 = new SparkFlex(MotorConstants.kIntakeMotor1CANID, MotorType.kBrushless);
         m_IntakeMotor2 = new SparkFlex(MotorConstants.kIntakeMotor2CANID, MotorType.kBrushless);
+        //m_AlgaeMotor = new SparkFlex(MotorConstants.kAlgaeRemovingMotorCANID, MotorType.kBrushless);
 
         updateMotorSettings(m_IntakeMotor1);
         updateMotorSettings(m_IntakeMotor2);
+        //updateMotorSettings(m_AlgaeMotor);
     }
     public void updateMotorSettings(SparkFlex motor) {
         config
@@ -34,5 +36,6 @@ public class IntakeSubsystem extends SubsystemBase {
           speed = MotorConstants.kIntakeMotorsMaxSpeed;
         m_IntakeMotor1.set(speed*runMotor1);
         m_IntakeMotor2.set(speed*runMotor2);
+        //m_AlgaeMotor.set(speed);
     }
 }
