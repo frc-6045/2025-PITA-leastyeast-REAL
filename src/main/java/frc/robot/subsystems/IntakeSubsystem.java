@@ -13,17 +13,17 @@ import frc.robot.Constants.MotorConstants;
 public class IntakeSubsystem extends SubsystemBase {
     private final SparkFlex m_IntakeMotor1;
     private final SparkFlex m_IntakeMotor2;
-    //private final SparkFlex m_AlgaeMotor;
+    private final SparkFlex m_AlgaeMotor;
     SparkFlexConfig config = new SparkFlexConfig();
 
     public IntakeSubsystem() {
         m_IntakeMotor1 = new SparkFlex(MotorConstants.kIntakeMotor1CANID, MotorType.kBrushless);
         m_IntakeMotor2 = new SparkFlex(MotorConstants.kIntakeMotor2CANID, MotorType.kBrushless);
-        //m_AlgaeMotor = new SparkFlex(MotorConstants.kAlgaeRemovingMotorCANID, MotorType.kBrushless);
+        m_AlgaeMotor = new SparkFlex(MotorConstants.kAlgaeRemovingMotorCANID, MotorType.kBrushless);
 
         updateMotorSettings(m_IntakeMotor1);
         updateMotorSettings(m_IntakeMotor2);
-        //updateMotorSettings(m_AlgaeMotor);
+        updateMotorSettings(m_AlgaeMotor);
     }
     public void updateMotorSettings(SparkFlex motor) {
         config

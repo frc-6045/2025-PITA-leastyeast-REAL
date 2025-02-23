@@ -25,7 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
   private final AbsoluteEncoder m_AbsoluteEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
   private final ArmFeedforward m_ArmFeedforward = new ArmFeedforward(0, 0, 0);
-  PIDController m_ArmPIDController = new PIDController(4, 0, 0);
+  PIDController m_ArmPIDController = new PIDController(9, 0, 0);
 
   /** Creates a new ExampleSubsystem. */
   public ArmSubsystem() {
@@ -52,10 +52,12 @@ public class ArmSubsystem extends SubsystemBase {
   //}
 
   public void goToSetpoint(double setpoint) {
+    SmartDashboard.putNumber("setpoint", setpoint);
+    SmartDashboard.putNumber("difference", setpoint-getAbsoluteEncoderPosition());
     double speed = m_ArmPIDController.calculate(getAbsoluteEncoderPosition(), setpoint);
     //speed = (speed>0) ? speed + feedforward : speed-feedforward;
     setSpeed(speed);
-    //System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
+    System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
   }
 
   public boolean atSetpoint() {
@@ -68,6 +70,7 @@ public class ArmSubsystem extends SubsystemBase {
     if (speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = -MotorConstants.kSparkFlexArmMotorMaxSpeed;
     m_ArmMotor.set(speed);
+    SmartDashboard.putNumber("speed", speed);
   }
 
   public void stopArmMotor() {

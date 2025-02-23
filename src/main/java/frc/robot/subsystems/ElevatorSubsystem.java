@@ -71,11 +71,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     speed = (speed > MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
     speed = (speed < -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
     //System.out.println("speed: " + speed);
-    speed = ((!topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
+   //
+   
+   
+   
+   
+   speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
     //System.out.println("speed: " + speed + "\n" + bottomLimitSwitch.get() + " "  + topLimitSwitch.get());
 
-    m_ElevatorMotor1.set(speed);
-    m_ElevatorMotor2.set(-speed);
+    m_ElevatorMotor1.set(-speed);
+    m_ElevatorMotor2.set(speed);
   }
 
   public void stopElevatorMotors() {
@@ -94,7 +99,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void zeroEncoder() {
     m_RelativeEncoder.setPosition(0);
-    System.out.println("zero elevator encoder!!");
   }
 
   public boolean getTopLimitSwitchState() {
@@ -109,6 +113,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Elevator", getRelativeEncoderPosition());
     if (bottomLimitSwitch.get()) {zeroEncoder();}
+    SmartDashboard.putBoolean("Upper", getTopLimitSwitchState());
+    SmartDashboard.putBoolean("lower", getBottomLimitSwitchState());
   }
 
   @Override
