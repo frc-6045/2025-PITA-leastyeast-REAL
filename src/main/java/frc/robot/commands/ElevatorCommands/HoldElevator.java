@@ -11,7 +11,7 @@ public class HoldElevator extends Command {
   private double position;
 
   /**
-   * Creates a new TestSparkFlex.
+   * Creates a new HoldElevator.
    *
    * @param subsystem The subsystem used by this command.
    */

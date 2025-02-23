@@ -8,16 +8,13 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
+
 public final class Constants {
+  /**  <p>MotorSpeed is the open loop speed.
+   *  <p>MotorMaxSpeed is a hard limit on speed.
+   */
   public static class MotorConstants {
+
     // arm constants
     public static final int kSparkFlexArmMotorCANID = 9;
 
@@ -68,8 +65,9 @@ public final class Constants {
   }
 
   public static class PositionConstants {
+    // so many :(
 
-    // A- Human player/coral intake setpoint
+    // Human player/coral intake setpoint - A
     public static final double kHumanArmPosition = 0.7170278;
     public static final double kHumanElevatorPosition = -39.62;
 
@@ -77,39 +75,49 @@ public final class Constants {
     public static final double kHumanGapArmPosition = 0.68967;
     public static final double kHumanGapElevatorPosition = -29.3663;
 
-    // Y- Home setpoint
+    // Home setpoint - Y
     public static final double kHomeArmPosition = 0.81;
     public static final double kHomeElevatorPosition = -17;
 
-    // B- L1
+    // L1 - B
     public static final double kL1ArmPosition = 0.937577;
-  public static final double kL1ElevatorPosition = -2.29429;
+    public static final double kL1ElevatorPosition = -2.29429;
 
     // L1 Gap
+    public static final double kL1GapArmPosition = .81;
+    public static final double kL1GapElevatorPosition = .81;
 
     // L2
     public static final double kL2ArmPosition = 0.8916632533;
     public static final double kL2ElevatorPosition = -33.58844757;
 
     // L2 Gap
+    public static final double kL2GapArmPosition = .81;
+    public static final double kL2GapElevatorPosition = .81;
 
-    // left stick (top left paddle)- L3
+    // L3 - left stick (top left paddle)
     public static final double kL3ArmPosition = 0.22141972;
     public static final double kL3ElevatorPosition = -1.62234926;
 
     // L3 Gap
+    public static final double kL3GapArmPosition = 0.1960784345;
+    public static final double kL3GapElevatorPosition = -16.60658489;
 
-    // right stick (top right paddle)- L4
+    // L4 - right stick (top right paddle)
     public static final double kL4ArmPosition = 0.18726785;
     public static final double kL4ElevatorPosition = -71.241875;
 
+    // L4 Gap
+    public static final double kL4GapArmPosition = 0.203837424;
+    public static final double kL4GapElevatorPosition = -76.78836822;
+
     // algae high
-    public static final double kHighAlgaeArmPosition = 0.81;
-    public static final double kHighAlgaeElevatorPosition = -17;
+    public static final double kHighAlgaeArmPosition = 0.23901982;
+    public static final double kHighAlgaeElevatorPosition = -27.0249729;
     
     // algae low
-    public static final double kLowAlgaeArmPosition = 0.81;
-    public static final double kLowAlgaeElevatorPosition = -17;
+    public static final double kLowAlgaeArmPosition = 0.212592096;
+    public static final double kLowAlgaeElevatorPosition = -0.3056640625;
 
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;

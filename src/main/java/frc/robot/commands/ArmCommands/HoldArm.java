@@ -3,14 +3,14 @@ package frc.robot.commands.ArmCommands;
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** Default command for arm to prevent drift. */
+/** Default command for arm to prevent drift using PID. */
 public class HoldArm extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ArmSubsystem m_ArmSubsystem;
   private double position;
 
   /**
-   * Creates a new TestSparkFlex.
+   * Creates a new HoldArm.
    *
    * @param subsystem The subsystem used by this command.
    */

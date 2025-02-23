@@ -11,9 +11,9 @@ public class IntakeAuto extends Command {
     private final Timer timer = new Timer();
     private final boolean direction;
     
-    public IntakeAuto(IntakeSubsystem intakeSubsystem, double timee, boolean direction) {
+    public IntakeAuto(IntakeSubsystem intakeSubsystem, double time, boolean direction) {
         m_IntakeSubsystem = intakeSubsystem;
-        time = timee;
+        this.time = time;
         addRequirements(m_IntakeSubsystem);
         this.direction=direction;
     }
@@ -28,8 +28,7 @@ public class IntakeAuto extends Command {
     @Override
     public void execute() {
         if (timer.get() < time) {
-            double speed = direction ? 0.7 : -0.7;
-            m_IntakeSubsystem.setSpeed(speed, 1, 1);
+            m_IntakeSubsystem.setSpeed(direction ? 1 : -1, direction ? 1 : -1);
             System.out.println("timer value: "+ timer.get() + " time: " + time);
         }
     }
@@ -44,7 +43,7 @@ public class IntakeAuto extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        m_IntakeSubsystem.setSpeed(0, 0, 0);    
+        m_IntakeSubsystem.stopIntake();  
     }
 
 }

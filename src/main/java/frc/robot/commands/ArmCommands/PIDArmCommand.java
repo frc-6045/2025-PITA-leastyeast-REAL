@@ -25,7 +25,6 @@ public class PIDArmCommand extends Command {
     @Override
     public void end(boolean Interrupted) {
         m_ArmSubsystem.stopArmMotor();
-        System.out.println("owo");
     }
 
     @Override

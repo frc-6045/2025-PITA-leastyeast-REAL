@@ -20,11 +20,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
 
 public class ArmSubsystem extends SubsystemBase {
-/** thing */
   private final SparkFlex m_ArmMotor;
   private final AbsoluteEncoder m_AbsoluteEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
-  private final ArmFeedforward m_ArmFeedforward = new ArmFeedforward(0, 0, 0);
+  //private final ArmFeedforward m_ArmFeedforward = new ArmFeedforward(0, 0, 0);
   PIDController m_ArmPIDController = new PIDController(9, 0, 0);
 
   /** Creates a new ExampleSubsystem. */
@@ -46,11 +45,6 @@ public class ArmSubsystem extends SubsystemBase {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
   }
 
-  //public void hold(TrapezoidProfile.State setpoint) {
-  //  double feedforward = m_ArmFeedforward.calculate(setpoint.position*2*Math.PI, setpoint.velocity);
-  //  goToSetpoint(setpoint.position);
-  //}
-
   public void goToSetpoint(double setpoint) {
     SmartDashboard.putNumber("setpoint", setpoint);
     SmartDashboard.putNumber("difference", setpoint-getAbsoluteEncoderPosition());
@@ -70,7 +64,7 @@ public class ArmSubsystem extends SubsystemBase {
     if (speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = -MotorConstants.kSparkFlexArmMotorMaxSpeed;
     m_ArmMotor.set(speed);
-    SmartDashboard.putNumber("speed", speed);
+    SmartDashboard.putNumber("ARM speed", speed);
   }
 
   public void stopArmMotor() {

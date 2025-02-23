@@ -14,9 +14,7 @@ import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
-import frc.robot.commands.ArmCommands.ArmFlick;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
-import frc.robot.commands.IntakeCommands.IntakeAuto;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -34,38 +32,42 @@ public class Bindings {
         ElevatorSubsystem m_ElevatorSubsystem, 
         IntakeSubsystem m_IntakeSubsystem) {
 
-        // Gyro Heading Reset
-        // m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
 
-        // Operator Controller bindings
+        /* Operator Controller bindings */
+
+        //intake
         m_operatorController.leftTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
         m_operatorController.rightTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
-
+        
+        //misc
         m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {System.out.println("\narm encoder value: " + m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println("elev encoder value: " + m_ElevatorSubsystem.getRelativeEncoderPosition());}));
         m_operatorController.x().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm and elevator
         
-        m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL2ArmPosition, m_ElevatorSubsystem, PositionConstants.kL2ElevatorPosition));
-        m_operatorController.b().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition));
+        //setpoints
         m_operatorController.y().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition));
         m_operatorController.a().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
+
+        m_operatorController.b().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition));
+        m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL2ArmPosition, m_ElevatorSubsystem, PositionConstants.kL2ElevatorPosition));
         m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition));
         m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL4ArmPosition, m_ElevatorSubsystem, PositionConstants.kL4ElevatorPosition));
         
-        //m_operatorController.rightBumper().onTrue(new ArmFlick(m_ArmSubsystem));
-        //m_operatorController.rightBumper().onTrue(new IntakeAuto(m_IntakeSubsystem, 2, true));
-        m_operatorController.rightBumper().onTrue(new InstantCommand(() -> {System.out.println(m_ElevatorSubsystem.getBottomLimitSwitchState());}));
-
+        //elev
         m_operatorController.pov(0).whileTrue(new ElevatorOpenLoop(m_ElevatorSubsystem, true));
         m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_ElevatorSubsystem, false));
 
-        // Driver Controller bindings
+
+        /* Driver Controller arm and intake */
+
         m_driverController.leftTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_driverController));
         m_driverController.rightTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_driverController));
 
         m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_ArmSubsystem, true));
         m_driverController.leftBumper().whileTrue(new ArmOpenLoop(m_ArmSubsystem, false));
 
-        // Controller with both driver and operator functions
+
+        /* Controller with both driver and operator functions */
+
         m_godController.leftTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
         m_godController.rightTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
 
