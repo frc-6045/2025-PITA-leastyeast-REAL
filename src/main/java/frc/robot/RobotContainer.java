@@ -15,6 +15,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.HoldArm;
+import frc.robot.commands.ElevatorCommands.HoldElevator;
 import frc.robot.commands.IntakeCommands.IntakeAuto;
 
 import com.pathplanner.lib.auto.NamedCommands;
@@ -70,7 +71,7 @@ public class RobotContainer {
     Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem);
     Bindings.configureDrivetrain(m_DriveSubsystem, m_driverController);
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
-    //m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
+    m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
     DriverStation.silenceJoystickConnectionWarning(true);
     
     

@@ -39,7 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     topLimitSwitch = new DigitalInput(2);
     bottomLimitSwitch = new DigitalInput(1);
 
-    m_ElevatorPIDController = new PIDController(0.04, 0, 0);
+    m_ElevatorPIDController = new PIDController(0.04, 0, 0.001);
     //m_ElevatorPIDController.enableContinuousInput(0, 1);
     m_ElevatorPIDController.setTolerance(1.434);
 
@@ -57,7 +57,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void goToSetpoint(double setpoint) {
     //double feedforward = 0.01;
         //if (m_ArmMotor.getAbsoluteEncoderPosition()-setPoint<0.01 && m_ArmMotor.getAbsoluteEncoderPosition()-setPoint>-0.01) m_ArmMotor.stopArmMotor();;;
-        double speed = m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
+        double speed = -m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
         //speed = (speed>0) ? speed + feedforward : speed-feedforward;
         setSpeed(speed);
         System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());

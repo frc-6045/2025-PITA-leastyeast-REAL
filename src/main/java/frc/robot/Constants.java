@@ -38,8 +38,8 @@ public final class Constants {
     public static final int kIntakeMotor2CANID = 13;
 
     public static final int kIntakeMotorsCurrentLimit = 40;
-    public static final double kIntakeMotorsSpeed = .5;
-    public static final double kIntakeMotorsMaxSpeed = .6;
+    public static final double kIntakeMotorsSpeed = .9;
+    public static final double kIntakeMotorsMaxSpeed = .91;
 
     //algae-removing constants
     public static final int kAlgaeRemovingMotorCANID = 14;
@@ -70,28 +70,28 @@ public final class Constants {
   public static class PositionConstants {
 
     // A- Human player/coral intake setpoint
-    public static final double kHumanArmPosition = 0.4262903034687042;
-    public static final double kHumanElevatorPosition = 59;
+    public static final double kHumanArmPosition = 0.81;
+    public static final double kHumanElevatorPosition = -17;
 
     // Y- Home setpoint
-    public static final double kHomeArmPosition = 0.32972583174705505;
-    public static final double kHomeElevatorPosition = 14;
+    public static final double kHomeArmPosition = 0.81;
+    public static final double kHomeElevatorPosition = -17;
 
     // B- L1
-    public static final double kL1ArmPosition = 0.46141165494918823;
-    public static final double kL1ElevatorPosition = 0;
+    public static final double kL1ArmPosition = 0.81;
+  public static final double kL1ElevatorPosition = -17;
 
     // L2
-    public static final double kL2ArmPosition = 0.277045;
-    public static final double kL2ElevatorPosition = 22.1052;
+    public static final double kL2ArmPosition = 0.81;
+    public static final double kL2ElevatorPosition = -17;
 
     // left stick (top left paddle)- L3
-    public static final double kL3ArmPosition = 0.9638405442237854;
-    public static final double kL3ElevatorPosition = 0;
+    public static final double kL3ArmPosition = 0.81;
+    public static final double kL3ElevatorPosition = -17;
 
     // right stick (top right paddle)- L4
-    public static final double kL4ArmPosition = 0.9521994590759277;
-    public static final double kL4ElevatorPosition = 100;
+    public static final double kL4ArmPosition = 0.81;
+    public static final double kL4ElevatorPosition = -17;
 
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;
