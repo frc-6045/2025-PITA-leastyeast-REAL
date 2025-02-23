@@ -70,28 +70,46 @@ public final class Constants {
   public static class PositionConstants {
 
     // A- Human player/coral intake setpoint
-    public static final double kHumanArmPosition = 0.81;
-    public static final double kHumanElevatorPosition = -17;
+    public static final double kHumanArmPosition = 0.7170278;
+    public static final double kHumanElevatorPosition = -39.62;
+
+    // Human player with gap
+    public static final double kHumanGapArmPosition = 0.68967;
+    public static final double kHumanGapElevatorPosition = -29.3663;
 
     // Y- Home setpoint
     public static final double kHomeArmPosition = 0.81;
     public static final double kHomeElevatorPosition = -17;
 
     // B- L1
-    public static final double kL1ArmPosition = 0.81;
-  public static final double kL1ElevatorPosition = -17;
+    public static final double kL1ArmPosition = 0.937577;
+  public static final double kL1ElevatorPosition = -2.29429;
+
+    // L1 Gap
 
     // L2
-    public static final double kL2ArmPosition = 0.81;
-    public static final double kL2ElevatorPosition = -17;
+    public static final double kL2ArmPosition = 0.8916632533;
+    public static final double kL2ElevatorPosition = -33.58844757;
+
+    // L2 Gap
 
     // left stick (top left paddle)- L3
-    public static final double kL3ArmPosition = 0.81;
-    public static final double kL3ElevatorPosition = -17;
+    public static final double kL3ArmPosition = 0.22141972;
+    public static final double kL3ElevatorPosition = -1.62234926;
+
+    // L3 Gap
 
     // right stick (top right paddle)- L4
-    public static final double kL4ArmPosition = 0.81;
-    public static final double kL4ElevatorPosition = -17;
+    public static final double kL4ArmPosition = 0.18726785;
+    public static final double kL4ElevatorPosition = -71.241875;
+
+    // algae high
+    public static final double kHighAlgaeArmPosition = 0.81;
+    public static final double kHighAlgaeElevatorPosition = -17;
+    
+    // algae low
+    public static final double kLowAlgaeArmPosition = 0.81;
+    public static final double kLowAlgaeElevatorPosition = -17;
 
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;
