@@ -108,15 +108,15 @@ public class Bindings {
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
    */
-  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX,
-                                                                                             m_driverController::getRightY)
-                                                           .headingWhile(true);
+  //SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX,
+  //                                                                                           m_driverController::getRightY)
+  //                                                         .headingWhile(true);
 
   /**
    * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
    */
-  SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
-                                                             .allianceRelativeControl(false);
+  //SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
+  //                                                           .allianceRelativeControl(false);
 
   SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(m_DriveSubsystem.getSwerveDrive(),
                                                                         () -> -m_driverController.getLeftY(),
@@ -142,15 +142,15 @@ public class Bindings {
                                                                                                                   Math.PI) *
                                                                                                               (Math.PI *2))
                                                                                .headingWhile(true);
-        Command driveFieldOrientedDirectAngle      = m_DriveSubsystem.driveFieldOriented(driveDirectAngle);
+        //Command driveFieldOrientedDirectAngle      = m_DriveSubsystem.driveFieldOriented(driveDirectAngle);
         Command driveFieldOrientedAnglularVelocity = m_DriveSubsystem.driveFieldOriented(driveAngularVelocity);
-        Command driveRobotOrientedAngularVelocity  = m_DriveSubsystem.driveFieldOriented(driveRobotOriented);
-        Command driveSetpointGen = m_DriveSubsystem.driveWithSetpointGeneratorFieldRelative(
-            driveDirectAngle);
+        //Command driveRobotOrientedAngularVelocity  = m_DriveSubsystem.driveFieldOriented(driveRobotOriented);
+        //Command driveSetpointGen = m_DriveSubsystem.driveWithSetpointGeneratorFieldRelative(
+        //    driveDirectAngle);
         Command driveFieldOrientedDirectAngleKeyboard      = m_DriveSubsystem.driveFieldOriented(driveDirectAngleKeyboard);
-        Command driveFieldOrientedAnglularVelocityKeyboard = m_DriveSubsystem.driveFieldOriented(driveAngularVelocityKeyboard);
-        Command driveSetpointGenKeyboard = m_DriveSubsystem.driveWithSetpointGeneratorFieldRelative(
-            driveDirectAngleKeyboard);
+        //Command driveFieldOrientedAnglularVelocityKeyboard = m_DriveSubsystem.driveFieldOriented(driveAngularVelocityKeyboard);
+        //Command driveSetpointGenKeyboard = m_DriveSubsystem.driveWithSetpointGeneratorFieldRelative(
+        //    driveDirectAngleKeyboard);
 
         if (RobotBase.isSimulation())
         {

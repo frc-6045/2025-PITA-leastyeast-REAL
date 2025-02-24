@@ -38,6 +38,7 @@ import frc.robot.Constants.SwerveConstants;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -56,7 +57,7 @@ public class SwerveSubsystem extends SubsystemBase
 {
 
   private final SwerveDrive swerveDrive;
-  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo);
+  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -675,5 +676,27 @@ public class SwerveSubsystem extends SubsystemBase
   public SwerveDrive getSwerveDrive()
   {
     return swerveDrive;
+  }
+
+  public Pose2d closestAprilTag(Pose2d robotPose) {
+    // Use the robot pose and return the closest AprilTag on a REEF
+    List<Integer> tagIDs = List.of(17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11);
+
+    double minDistance = Double.MAX_VALUE;
+    Pose2d closestTagPose = new Pose2d();
+
+    for (int tagID : tagIDs) {
+      var tagPoseOptional = aprilTagFieldLayout.getTagPose(tagID);
+      var tagPose = tagPoseOptional.get();
+      Pose2d tagPose2d = new Pose2d(tagPose.getX(), tagPose.getY(), new Rotation2d(tagPose.getRotation().getZ()));
+      double distance = robotPose.getTranslation().getDistance(tagPose2d.getTranslation());
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestTagPose = tagPose2d;
+      }
+    }
+
+    return closestTagPose;
   }
 }
