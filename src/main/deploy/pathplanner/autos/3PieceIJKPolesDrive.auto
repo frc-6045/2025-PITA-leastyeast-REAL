@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "StartToIPole"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "IPoleToHPS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HPSToJPole"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "JPoleToHPS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HPSToKPole"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "4PieceIJKLPoles",
+  "choreoAuto": false
+}

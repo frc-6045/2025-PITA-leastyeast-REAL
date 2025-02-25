@@ -7,7 +7,11 @@
     "algae",
     "coral"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "3PieceJKLPoles",
+    "New Folder",
+    "4PieceIJKLPoles"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
