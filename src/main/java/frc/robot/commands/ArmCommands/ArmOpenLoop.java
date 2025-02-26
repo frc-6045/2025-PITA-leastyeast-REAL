@@ -23,7 +23,7 @@ public class ArmOpenLoop extends Command {
    */
   public ArmOpenLoop(ArmSubsystem armMotor, boolean up) {
     m_ArmMotor = armMotor;
-    goUp = up;
+    goUp = up; // (maybe wrong) true goes counterclockwise when facing robot from side with less clutter
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_ArmMotor);
@@ -39,7 +39,7 @@ public class ArmOpenLoop extends Command {
     double speed = MotorConstants.kSparkFlexArmMotorSpeed;
     //double triggerAxis = m_Controller.getLeftTriggerAxis()-m_Controller.getRightTriggerAxis();
     //speed*=triggerAxis;
-    System.out.println("open loop ARM: speed is " +speed + "\nencoder position is" + m_ArmMotor.getAbsoluteEncoderPosition());
+    //System.out.println("open loop ARM: speed is " +speed + "\nencoder position is" + m_ArmMotor.getAbsoluteEncoderPosition());
     if (goUp) m_ArmMotor.setSpeed(speed);
     else m_ArmMotor.setSpeed(-1*speed);
   }

@@ -42,8 +42,8 @@ public final class Constants {
     public static final int kAlgaeRemovingMotorCANID = 14;
 
     public static final int kAlgaeRemovingMotorCurrentLimit = 40;
-    public static final double kAlgaeRemovingMotorSpeed = 0.5;
-    public static final double kAlgaeRemovingMotorMaxSpeed = 0.6;
+    public static final double kAlgaeRemovingMotorSpeed = 0.99;
+    public static final double kAlgaeRemovingMotorMaxSpeed = 1;
 
     //climb constants
     public static final int kClimbMotorCANID = 15;
@@ -76,8 +76,8 @@ public final class Constants {
     public static final double kHumanGapElevatorPosition = -29.3663;
 
     // Home setpoint - Y
-    public static final double kHomeArmPosition = 0.81;
-    public static final double kHomeElevatorPosition = -17;
+    public static final double kHomeArmPosition = 0.9063;
+    public static final double kHomeElevatorPosition = 0;
 
     // L1 - B
     public static final double kL1ArmPosition = 0.937577;
@@ -112,8 +112,8 @@ public final class Constants {
     public static final double kL4GapElevatorPosition = -76.78836822;
 
     // algae high
-    public static final double kHighAlgaeArmPosition = 0.23901982;
-    public static final double kHighAlgaeElevatorPosition = -27.0249729;
+    public static final double kHighAlgaeArmPosition = 0.27118;
+    public static final double kHighAlgaeElevatorPosition = -20.3655;
     
     // algae low
     public static final double kLowAlgaeArmPosition = 0.212592096;
@@ -122,6 +122,11 @@ public final class Constants {
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;
     public static final double kArmFlickDistance2=-0.01;
+
+    //nonospaces
+    public static final double kArmLimit1=.229-.01;
+    public static final double kArmLimit2=.332+.01;
+    public static final double kMiddleOfArmLimit = 0.27;
   }
 
   public static class SwerveConstants {

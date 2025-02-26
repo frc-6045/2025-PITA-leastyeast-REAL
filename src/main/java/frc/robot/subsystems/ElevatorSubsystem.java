@@ -60,7 +60,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         double speed = -m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
         //speed = (speed>0) ? speed + feedforward : speed-feedforward;
         setSpeed(speed);
-        System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());
+        //System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());
   }
 
   public boolean atSetpoint() {
@@ -82,6 +82,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void stopElevatorMotors() {
     m_ElevatorMotor1.stopMotor();
     m_ElevatorMotor2.stopMotor();
+    SmartDashboard.putNumber("ELEVATOR speed", 0);
   }
 
   public RelativeEncoder getRelativeEncoder() {

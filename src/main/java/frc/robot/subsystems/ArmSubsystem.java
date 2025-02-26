@@ -18,6 +18,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
+import frc.robot.Constants.PositionConstants;
 
 public class ArmSubsystem extends SubsystemBase {
   private final SparkFlex m_ArmMotor;
@@ -51,7 +52,7 @@ public class ArmSubsystem extends SubsystemBase {
     double speed = m_ArmPIDController.calculate(getAbsoluteEncoderPosition(), setpoint);
     //speed = (speed>0) ? speed + feedforward : speed-feedforward;
     setSpeed(speed);
-    System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
+    //System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
   }
 
   public boolean atSetpoint() {
@@ -59,16 +60,30 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
+    // ( myabe wrong)positive speed goes counterclockwise when facing the side where you can see stuff
     if (speed>MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = MotorConstants.kSparkFlexArmMotorMaxSpeed;
     if (speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = -MotorConstants.kSparkFlexArmMotorMaxSpeed;
+    if (speed<0 && 
+    (getAbsoluteEncoderPosition()<PositionConstants.kArmLimit2 && 
+    getAbsoluteEncoderPosition()>PositionConstants.kMiddleOfArmLimit)) {
+      speed = 0;
+      System.out.println("LIMIT 2");
+    }
+    if (speed>0 &&
+    (getAbsoluteEncoderPosition()>PositionConstants.kArmLimit1) &&
+    getAbsoluteEncoderPosition()<PositionConstants.kMiddleOfArmLimit) {
+      speed=0;
+      System.out.println("LIMIT 1");
+    }
     m_ArmMotor.set(speed);
     SmartDashboard.putNumber("ARM speed", speed);
   }
 
   public void stopArmMotor() {
     m_ArmMotor.stopMotor();
+    SmartDashboard.putNumber("ARM speed", 0);
   }
 
   public AbsoluteEncoder getAbsoluteEncoder() {
