@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.PIDArmAndElevator;
-import frc.robot.commands.IntakeCommands.IntakeAuto;
+import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -30,8 +30,8 @@ public class Autos {
         //m_DriveSubsystem = drive;
 
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-        NamedCommands.registerCommand("coralSpit", new IntakeAuto(m_IntakeSubsystem, 1, false));
-        NamedCommands.registerCommand("coralIntake", new IntakeAuto(m_IntakeSubsystem, 1, true));
+        NamedCommands.registerCommand("coralSpit", new IntakeClosedLoop(m_IntakeSubsystem, 1, false));
+        NamedCommands.registerCommand("coralIntake", new IntakeClosedLoop(m_IntakeSubsystem, 1, true));
         NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition));
         NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL2ArmPosition, m_ElevatorSubsystem, PositionConstants.kL2ElevatorPosition));
         NamedCommands.registerCommand("coralL3", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition));

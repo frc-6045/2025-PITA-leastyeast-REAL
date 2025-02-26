@@ -42,8 +42,9 @@ public class PIDArmAndElevator extends Command {
     @Override
     public void execute() {
         if (Bindings.isShift() && has2) {
-            m_ArmSubsystem.goToSetpoint(armSetpoint2);
-            m_ElevatorSubsystem.goToSetpoint(elevatorSetpoint2);
+            //m_ArmSubsystem.goToSetpoint(armSetpoint2);
+            //m_ElevatorSubsystem.goToSetpoint(elevatorSetpoint2);
+            System.out.println("xook");
         } else{
             m_ArmSubsystem.goToSetpoint(armSetpoint);
             m_ElevatorSubsystem.goToSetpoint(elevatorSetpoint);

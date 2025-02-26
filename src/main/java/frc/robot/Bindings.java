@@ -41,6 +41,8 @@ public class Bindings {
 
         /* Operator Controller bindings */
 
+        //arm
+
         //intake
         m_operatorController.leftTrigger().whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
         m_operatorController.rightTrigger().whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
@@ -52,12 +54,18 @@ public class Bindings {
         
         //setpoints
         m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elevator, PositionConstants.kHomeElevatorPosition));
-        m_operatorController.a().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHumanArmPosition, m_Elevator, PositionConstants.kHumanElevatorPosition));
+        m_operatorController.a().onTrue(new PIDArmAndElevator(
+            m_Arm, PositionConstants.kHumanArmPosition, PositionConstants.kHumanGapArmPosition,
+            m_Elevator, PositionConstants.kHumanElevatorPosition, PositionConstants.kHumanGapElevatorPosition));
         
         m_operatorController.pov(90).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL1ArmPosition, m_Elevator, PositionConstants.kL1ElevatorPosition));
         m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL2ArmPosition, m_Elevator, PositionConstants.kL2ElevatorPosition));
-        m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL3ArmPosition, m_Elevator, PositionConstants.kL3ElevatorPosition));
-        m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL4ArmPosition, m_Elevator, PositionConstants.kL4ElevatorPosition));
+        m_operatorController.leftStick().onTrue(new PIDArmAndElevator(
+            m_Arm, PositionConstants.kL3ArmPosition, PositionConstants.kL3GapArmPosition, 
+            m_Elevator, PositionConstants.kL3ElevatorPosition, PositionConstants.kL3GapElevatorPosition));
+        m_operatorController.rightStick().onTrue(new PIDArmAndElevator(
+            m_Arm, PositionConstants.kL4ArmPosition, PositionConstants.kL4GapArmPosition, 
+            m_Elevator, PositionConstants.kL4ElevatorPosition, PositionConstants.kL4GapElevatorPosition));
         
         m_operatorController.x().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHighAlgaeArmPosition, m_Elevator, PositionConstants.kHighAlgaeElevatorPosition));
         m_operatorController.b().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kLowAlgaeArmPosition, m_Elevator, PositionConstants.kLowAlgaeElevatorPosition));

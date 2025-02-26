@@ -20,7 +20,7 @@ public final class Constants {
 
     public static final int kSparkFlexArmMotorCurrentLimit = 40;
     public static final double kSparkFlexArmMotorSpeed = .2;
-    public static final double kSparkFlexArmMotorMaxSpeed = 0.40;
+    public static final double kSparkFlexArmMotorMaxSpeed = 0.21;
 
     // elevator constants
     public static final int kSparkFlexElevatorMotor1CANID = 10;
@@ -65,68 +65,64 @@ public final class Constants {
   }
 
   public static class PositionConstants {
-    // so many :(
+    public static final double kOffset = 0.3297;
 
     // Human player/coral intake setpoint - A
-    public static final double kHumanArmPosition = 0.7170278;
-    public static final double kHumanElevatorPosition = -39.62;
+    public static final double kHumanArmPosition = 0.7170278 + kOffset;
+    public static final double kHumanElevatorPosition = -39.62 + kOffset;
 
     // Human player with gap
-    public static final double kHumanGapArmPosition = 0.68967;
-    public static final double kHumanGapElevatorPosition = -29.3663;
+    public static final double kHumanGapArmPosition = 0.68967 + kOffset;
+    public static final double kHumanGapElevatorPosition = -29.3663 + kOffset;
 
     // Home setpoint - Y
-    public static final double kHomeArmPosition = 0.9063;
-    public static final double kHomeElevatorPosition = 0;
+    public static final double kHomeArmPosition = 0.9063 + kOffset;
+    public static final double kHomeElevatorPosition = 0 + kOffset;
 
     // L1 - B
-    public static final double kL1ArmPosition = 0.937577;
-    public static final double kL1ElevatorPosition = -2.29429;
-
-    // L1 Gap
-    public static final double kL1GapArmPosition = .81;
-    public static final double kL1GapElevatorPosition = .81;
+    public static final double kL1ArmPosition = 0.937577 + kOffset;
+    public static final double kL1ElevatorPosition = -2.29429 + kOffset;
 
     // L2
-    public static final double kL2ArmPosition = 0.8916632533;
-    public static final double kL2ElevatorPosition = -33.58844757;
-
-    // L2 Gap
-    public static final double kL2GapArmPosition = .81;
-    public static final double kL2GapElevatorPosition = .81;
+    public static final double kL2ArmPosition = 0.8916632533 + kOffset;
+    public static final double kL2ElevatorPosition = -33.58844757 + kOffset;
 
     // L3 - left stick (top left paddle)
-    public static final double kL3ArmPosition = 0.22141972;
-    public static final double kL3ElevatorPosition = -1.62234926;
+    public static final double kL3ArmPosition = 0.22141972 + kOffset;
+    public static final double kL3ElevatorPosition = -1.62234926 + kOffset;
 
     // L3 Gap
-    public static final double kL3GapArmPosition = 0.1960784345;
-    public static final double kL3GapElevatorPosition = -16.60658489;
+    public static final double kL3GapArmPosition = 0.1960784345 + kOffset;
+    public static final double kL3GapElevatorPosition = -16.60658489 + kOffset;
 
     // L4 - right stick (top right paddle)
-    public static final double kL4ArmPosition = 0.18726785;
-    public static final double kL4ElevatorPosition = -71.241875;
+    public static final double kL4ArmPosition = 0.18726785 + kOffset;
+    public static final double kL4ElevatorPosition = -71.241875 + kOffset;
 
     // L4 Gap
-    public static final double kL4GapArmPosition = 0.203837424;
-    public static final double kL4GapElevatorPosition = -76.78836822;
+    public static final double kL4GapArmPosition = 0.203837424 + kOffset;
+    public static final double kL4GapElevatorPosition = -76.78836822 + kOffset;
 
     // algae high
-    public static final double kHighAlgaeArmPosition = 0.27118;
-    public static final double kHighAlgaeElevatorPosition = -20.3655;
+    public static final double kHighAlgaeArmPosition = 0.27118 + kOffset;
+    public static final double kHighAlgaeElevatorPosition = -20.3655 + kOffset;
     
     // algae low
-    public static final double kLowAlgaeArmPosition = 0.212592096;
-    public static final double kLowAlgaeElevatorPosition = -0.3056640625;
+    public static final double kLowAlgaeArmPosition = 0.212592096 + kOffset;
+    public static final double kLowAlgaeElevatorPosition = -0.3056640625 + kOffset;
 
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;
     public static final double kArmFlickDistance2=-0.01;
 
-    //nonospaces
+    // algae shoot setpoints
+    public static final double kAlgaeShootArm = 0;
+    public static final double kAlgaeShootElev = 0;
+
+    //nonospaces that make turnbuckle vewy vewy sad :(
     public static final double kArmLimit1=.229-.01;
     public static final double kArmLimit2=.332+.01;
-    public static final double kMiddleOfArmLimit = 0.27;
+    public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
   }
 
   public static class SwerveConstants {

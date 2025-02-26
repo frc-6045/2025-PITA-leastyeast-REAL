@@ -60,11 +60,13 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    // ( myabe wrong)positive speed goes counterclockwise when facing the side where you can see stuff
     if (speed>MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = MotorConstants.kSparkFlexArmMotorMaxSpeed;
     if (speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = -MotorConstants.kSparkFlexArmMotorMaxSpeed;
+    
+    // prevent turnbuckle from being run
+    /* 
     if (speed<0 && 
     (getAbsoluteEncoderPosition()<PositionConstants.kArmLimit2 && 
     getAbsoluteEncoderPosition()>PositionConstants.kMiddleOfArmLimit)) {
@@ -76,7 +78,8 @@ public class ArmSubsystem extends SubsystemBase {
     getAbsoluteEncoderPosition()<PositionConstants.kMiddleOfArmLimit) {
       speed=0;
       System.out.println("LIMIT 1");
-    }
+    } */
+
     m_ArmMotor.set(speed);
     SmartDashboard.putNumber("ARM speed", speed);
   }

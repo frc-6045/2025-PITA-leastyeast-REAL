@@ -2,19 +2,20 @@ package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Constants.MotorConstants;
+import frc.robot.subsystems.AlgaeRemovingSubsystem;
 
-/** Run intake for a set period of time either direction. */
-public class IntakeAuto extends Command {
-    private final IntakeSubsystem m_IntakeSubsystem;
+/** Run algae intake for a set period of time either direction. */
+public class AlgaeClosedLoop extends Command {
+    private final AlgaeRemovingSubsystem m_Algae;
     private final double time;
     private final Timer timer = new Timer();
     private final boolean direction;
     
-    public IntakeAuto(IntakeSubsystem intakeSubsystem, double time, boolean direction) {
-        m_IntakeSubsystem = intakeSubsystem;
+    public AlgaeClosedLoop(AlgaeRemovingSubsystem algae, double time, boolean direction) {
+        m_Algae = algae;
         this.time = time;
-        addRequirements(m_IntakeSubsystem);
+        addRequirements(m_Algae);
         this.direction=direction;
     }
 
@@ -22,13 +23,12 @@ public class IntakeAuto extends Command {
     public void initialize() {
         timer.reset();
         timer.start();
-        System.out.println("auto pls work!");
     }
 
     @Override
     public void execute() {
         if (timer.get() < time) {
-            m_IntakeSubsystem.setSpeed(direction ? 1 : -1, direction ? 1 : -1);
+            m_Algae.setSpeed(MotorConstants.kAlgaeRemovingMotorSpeed * (direction ? 1 : -1));
             System.out.println("timer value: "+ timer.get() + " time: " + time);
         }
     }
@@ -43,7 +43,7 @@ public class IntakeAuto extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        m_IntakeSubsystem.stopIntake();  
+        m_Algae.stopMotor();  
     }
 
 }
