@@ -7,13 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "StartToJPole"
+            "pathName": "StartToIPole"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.0
+            "pathName": "IPoleToHPS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HPSToJPole"
           }
         },
         {
@@ -23,33 +29,15 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "HPSToKPole"
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "KPoleToHPS"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
           }
         },
         {
@@ -62,6 +50,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "3PieceJKLPoles",
+  "folder": "4PieceIJKLPoles",
   "choreoAuto": false
 }
