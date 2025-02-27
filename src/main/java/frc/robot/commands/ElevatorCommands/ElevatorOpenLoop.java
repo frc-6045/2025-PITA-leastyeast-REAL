@@ -25,7 +25,6 @@ public class ElevatorOpenLoop extends Command {
   @Override
   public void execute() {
     double speed = MotorConstants.kSparkFlexElevatorMotorsSpeed;
-    System.out.println("open loop ELEVATOR " + m_elevatorSubsystem.getRelativeEncoderPosition() + " top: " + m_elevatorSubsystem.getTopLimitSwitchState() + " bottom: " + m_elevatorSubsystem.getBottomLimitSwitchState());
     if (goUp) {
         m_elevatorSubsystem.setSpeed(speed);
     } else {
