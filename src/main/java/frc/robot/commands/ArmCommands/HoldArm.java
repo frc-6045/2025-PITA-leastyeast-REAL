@@ -26,8 +26,8 @@ public class HoldArm extends Command {
   @Override
   public void initialize() {
     position = m_ArmSubsystem.getAbsoluteEncoderPosition();
-    //SmartDashboard.putBoolean("arm hold", true);
-    System.out.println("holding arm");
+    SmartDashboard.putBoolean("arm hold", true);
+    //System.out.println("holding arm");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,8 +40,8 @@ public class HoldArm extends Command {
   @Override
   public void end(boolean interrupted) {
     m_ArmSubsystem.stopArmMotor();
-    System.out.println("holding arm interrupt");
-    //SmartDashboard.putBoolean("arm hold", false);
+    //System.out.println("holding arm interrupt");
+    SmartDashboard.putBoolean("arm hold", false);
   }
 
   // Returns true when the command should end.

@@ -20,7 +20,7 @@ public final class Constants {
 
     public static final int kSparkFlexArmMotorCurrentLimit = 40;
     public static final double kSparkFlexArmMotorSpeed = .2;
-    public static final double kSparkFlexArmMotorMaxSpeed = 0.3;
+    public static final double kSparkFlexArmMotorMaxSpeed = 0.55;
 
     // elevator constants
     public static final int kSparkFlexElevatorMotor1CANID = 10;
@@ -98,7 +98,7 @@ public final class Constants {
 
     // L4 - right stick (top right paddle)
     public static final double kL4ArmPosition = 0.18726785 + kOffset;
-    public static final double kL4ElevatorPosition = -71.241875 + kOffset;
+    public static final double kL4ElevatorPosition = -77.241875 + kOffset;
 
     // L4 Gap
     public static final double kL4GapArmPosition = 0.203837424 + kOffset;

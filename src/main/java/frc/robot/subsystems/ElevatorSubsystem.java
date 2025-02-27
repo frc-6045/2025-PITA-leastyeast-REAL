@@ -40,7 +40,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     bottomLimitSwitch = new DigitalInput(1);
 
     m_ElevatorPIDController = new PIDController(0.04, 0, 0.001);
-    m_ElevatorPIDController.setTolerance(1.434);
+    m_ElevatorPIDController.setTolerance(1);
 
   }
 

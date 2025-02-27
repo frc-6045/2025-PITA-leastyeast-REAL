@@ -50,8 +50,9 @@ public class Bindings {
         //misc
         m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
         m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
-        
+        //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
+        m_operatorController.rightBumper().onTrue(new InstantCommand(() -> {while (true) {}}));
+
         //setpoints
         m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elevator, PositionConstants.kHomeElevatorPosition));
         m_operatorController.a().onTrue(new PIDArmAndElevator(
@@ -205,15 +206,15 @@ public class Bindings {
         } else
         {
         m_driverController.a().onTrue((Commands.runOnce(m_DriveSubsystem::zeroGyro)));
-        m_driverController.x().onTrue(Commands.runOnce(m_DriveSubsystem::addFakeVisionReading));
-        m_driverController.b().whileTrue(
-            m_DriveSubsystem.driveToPose(
-                new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-                                );
-        m_driverController.start().whileTrue(Commands.none());
-        m_driverController.back().whileTrue(Commands.none());
-        m_driverController.leftBumper().whileTrue(Commands.runOnce(m_DriveSubsystem::lock, m_DriveSubsystem).repeatedly());
-        m_driverController.rightBumper().onTrue(Commands.none());
+        //m_driverController.x().onTrue(Commands.runOnce(m_DriveSubsystem::addFakeVisionReading));
+        //m_driverController.b().whileTrue(
+        //    m_DriveSubsystem.driveToPose(
+        //        new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+        //                        );
+        //m_driverController.start().whileTrue(Commands.none());
+        //m_driverController.back().whileTrue(Commands.none());
+        //m_driverController.leftBumper().whileTrue(Commands.runOnce(m_DriveSubsystem::lock, m_DriveSubsystem).repeatedly());
+        //m_driverController.rightBumper().onTrue(Commands.none());
         }
   }
 
