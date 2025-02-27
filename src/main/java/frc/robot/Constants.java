@@ -20,15 +20,15 @@ public final class Constants {
 
     public static final int kSparkFlexArmMotorCurrentLimit = 40;
     public static final double kSparkFlexArmMotorSpeed = .2;
-    public static final double kSparkFlexArmMotorMaxSpeed = 0.21;
+    public static final double kSparkFlexArmMotorMaxSpeed = 0.3;
 
     // elevator constants
     public static final int kSparkFlexElevatorMotor1CANID = 10;
     public static final int kSparkFlexElevatorMotor2CANID = 11;
 
     public static final int kSparkFlexElevatorMotorsCurrentLimit = 40;
-    public static final double kSparkFlexElevatorMotorsSpeed = .3;
-    public static final double kSparkFlexElevatorMotorsMaxSpeed = 0.5;
+    public static final double kSparkFlexElevatorMotorsSpeed = .4;
+    public static final double kSparkFlexElevatorMotorsMaxSpeed = 0.7;
 
     // intake constants
     public static final int kIntakeMotor1CANID = 12;
@@ -65,7 +65,8 @@ public final class Constants {
   }
 
   public static class PositionConstants {
-    public static final double kOffset = 0.3297;
+    public static final double kOffset = -.17;
+    public static final double kSketchyOffset = -0.4342;
 
     // Human player/coral intake setpoint - A
     public static final double kHumanArmPosition = 0.7170278 + kOffset;
@@ -120,8 +121,8 @@ public final class Constants {
     public static final double kAlgaeShootElev = 0;
 
     //nonospaces that make turnbuckle vewy vewy sad :(
-    public static final double kArmLimit1=.229-.01;
-    public static final double kArmLimit2=.332+.01;
+    public static final double kArmLimit1=.172-.01;
+    public static final double kArmLimit2=0.4342+.01;
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
   }
 

@@ -40,7 +40,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     bottomLimitSwitch = new DigitalInput(1);
 
     m_ElevatorPIDController = new PIDController(0.04, 0, 0.001);
-    //m_ElevatorPIDController.enableContinuousInput(0, 1);
     m_ElevatorPIDController.setTolerance(1.434);
 
   }
@@ -68,11 +67,24 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
+    // positive speed goes up
     speed = (speed > MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
     speed = (speed < -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
 
     speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
-
+    if (getRelativeEncoderPosition() > -3 && speed<0) {
+      speed*=0.35;
+      //SmartDashboard.putBoolean("close to switch", true);
+    } else {
+      //SmartDashboard.putBoolean("close to switch", false);
+    }
+    if (getRelativeEncoderPosition()<-75 && speed>0) {
+      speed*=0.2;
+      //SmartDashboard.putBoolean("close to switch", true);
+    }
+      else {
+      //SmartDashboard.putBoolean("close to switch", false);
+    }
     m_ElevatorMotor1.set(-speed);
     m_ElevatorMotor2.set(speed);
 
@@ -107,7 +119,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Elevator", getRelativeEncoderPosition());
+    SmartDashboard.putNumber("ELEVATOR position", getRelativeEncoderPosition());
     if (getBottomLimitSwitchState()) {zeroEncoder();}
 
     SmartDashboard.putBoolean("Upper Limit Switch", getTopLimitSwitchState());

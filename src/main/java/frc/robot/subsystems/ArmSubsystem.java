@@ -31,7 +31,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     m_ArmMotor = new SparkFlex(MotorConstants.kSparkFlexArmMotorCANID, MotorType.kBrushless);
     m_AbsoluteEncoder = m_ArmMotor.getAbsoluteEncoder();
-    m_ArmPIDController.enableContinuousInput(0, 1);
+    //m_ArmPIDController.enableContinuousInput(0, 1);
     m_ArmPIDController.setTolerance(0.01);
 
     updateMotorSettings(m_ArmMotor);
@@ -47,9 +47,9 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void goToSetpoint(double setpoint) {
-    SmartDashboard.putNumber("setpoint", setpoint);
-    SmartDashboard.putNumber("difference", setpoint-getAbsoluteEncoderPosition());
-    double speed = m_ArmPIDController.calculate(getAbsoluteEncoderPosition(), setpoint);
+    SmartDashboard.putNumber("ARM setpoint", setpoint+PositionConstants.kSketchyOffset);
+    SmartDashboard.putNumber("ARM difference", setpoint-getAbsoluteEncoderPosition());
+    double speed = m_ArmPIDController.calculate((getAbsoluteEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, (setpoint+14+PositionConstants.kSketchyOffset)%1);
     //speed = (speed>0) ? speed + feedforward : speed-feedforward;
     setSpeed(speed);
     //System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
@@ -65,20 +65,20 @@ public class ArmSubsystem extends SubsystemBase {
     if (speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = -MotorConstants.kSparkFlexArmMotorMaxSpeed;
     
-    // prevent turnbuckle from being run
-    /* 
+    // prevent turnbuckle from being run over
+    
     if (speed<0 && 
     (getAbsoluteEncoderPosition()<PositionConstants.kArmLimit2 && 
     getAbsoluteEncoderPosition()>PositionConstants.kMiddleOfArmLimit)) {
       speed = 0;
-      System.out.println("LIMIT 2");
+      //System.out.println("LIMIT 2");
     }
     if (speed>0 &&
     (getAbsoluteEncoderPosition()>PositionConstants.kArmLimit1) &&
     getAbsoluteEncoderPosition()<PositionConstants.kMiddleOfArmLimit) {
       speed=0;
-      System.out.println("LIMIT 1");
-    } */
+      //System.out.println("LIMIT 1");
+    } 
 
     m_ArmMotor.set(speed);
     SmartDashboard.putNumber("ARM speed", speed);
@@ -99,7 +99,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Arm", getAbsoluteEncoderPosition());
+    SmartDashboard.putNumber("ARM position", getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset);
+    SmartDashboard.putNumber("raw ARM position", getAbsoluteEncoderPosition());
   }
 
   @Override

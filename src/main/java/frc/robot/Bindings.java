@@ -44,8 +44,8 @@ public class Bindings {
         //arm
 
         //intake
-        m_operatorController.leftTrigger().whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
-        m_operatorController.rightTrigger().whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
+        m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
+        m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
 
         //misc
         m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
@@ -78,8 +78,8 @@ public class Bindings {
 
         /* Driver Controller arm and intake */
 
-        m_driverController.leftTrigger().whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
-        m_driverController.rightTrigger().whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
+        m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
+        m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
 
         m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_Arm, true));
         m_driverController.leftBumper().whileTrue(new ArmOpenLoop(m_Arm, false));

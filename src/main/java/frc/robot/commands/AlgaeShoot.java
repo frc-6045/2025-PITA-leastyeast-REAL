@@ -1,8 +1,8 @@
+// WIP
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Bindings;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.subsystems.AlgaeRemovingSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -35,7 +35,8 @@ public class AlgaeShoot extends Command {
     @Override
     public void execute() {
         m_ElevatorSubsystem.goToSetpoint(elevatorSetpoint);
-        
+        m_ArmSubsystem.goToSetpoint(armSetpoint);
+
     }
 
     @Override
