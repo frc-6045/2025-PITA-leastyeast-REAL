@@ -43,21 +43,21 @@ public class Autos {
 
         //incorporate pathplanner into code
         autoChooser = new SendableChooser<Command>();
-        autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
-        autoChooser.addOption("SetpointThenIntake", AutoBuilder.buildAuto("SetpointThenIntake"));
-        autoChooser.addOption("3piece", AutoBuilder.buildAuto("3PieceJKLTesting"));
-        autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
-        autoChooser.addOption("3PieceJKLPolesWithCommands", AutoBuilder.buildAuto("3PieceJKLPoles"));
-        autoChooser.addOption("3PieceJKLPolesDriveOnly", AutoBuilder.buildAuto("3PieceJKLPolesOld"));
-        autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
-        autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
-        SmartDashboard.putData("autos", autoChooser);
+        //autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
+        //autoChooser.addOption("SetpointThenIntake", AutoBuilder.buildAuto("SetpointThenIntake"));
+        //autoChooser.addOption("3piece", AutoBuilder.buildAuto("3PieceJKLTesting"));
+        //autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
+        //autoChooser.addOption("3PieceJKLPolesWithCommands", AutoBuilder.buildAuto("3PieceJKLPoles"));
+        //autoChooser.addOption("3PieceJKLPolesDriveOnly", AutoBuilder.buildAuto("3PieceJKLPolesOld"));
+        //autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
+        //autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
         autoChooser.addOption("IPole1Piece", AutoBuilder.buildAuto("1PieceIPole"));
         autoChooser.addOption("IJPoles2Piece", AutoBuilder.buildAuto("2PieceIJPoles"));
         autoChooser.addOption("IJKPoles3Piece", AutoBuilder.buildAuto("3PieceIJKPoles"));
         autoChooser.addOption("IJKLPoles4Piece", AutoBuilder.buildAuto("4PieceIJKLPoles"));
         autoChooser.addOption("1PieceHPoleBackRightToStart", AutoBuilder.buildAuto("1PieceHPoleToStart"));
         autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
+        SmartDashboard.putData("autos", autoChooser);
     }
 
     public Command getAutonomousCommand() {
