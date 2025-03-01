@@ -40,7 +40,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     bottomLimitSwitch = new DigitalInput(1);
 
     m_ElevatorPIDController = new PIDController(0.04, 0, 0.001);
-    m_ElevatorPIDController.setTolerance(1);
+    m_ElevatorPIDController.setTolerance(1.434);
 
   }
 
@@ -59,6 +59,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         double speed = -m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
         //speed = (speed>0) ? speed + feedforward : speed-feedforward;
         setSpeed(speed);
+        SmartDashboard.putNumber("ELEVATOR setpoint", setpoint);
         //System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());
   }
 
@@ -78,7 +79,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else {
       //SmartDashboard.putBoolean("close to switch", false);
     }
-    if (getRelativeEncoderPosition()<-75 && speed>0) {
+    if (getRelativeEncoderPosition()<-76.5 && speed>0) {
       speed*=0.2;
       //SmartDashboard.putBoolean("close to switch", true);
     }
