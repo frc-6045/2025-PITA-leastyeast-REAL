@@ -5,9 +5,28 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "StartToIPole"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StartToIPole"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpit"
           }
         }
       ]
