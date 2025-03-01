@@ -122,7 +122,7 @@ public final class Constants {
     public static final double kAlgaeShootElev = 0;
 
     //nonospaces that make turnbuckle vewy vewy sad :(
-    public static final double kArmLimit1=.172-.01;
+    public static final double kArmLimit1=.173;
     public static final double kArmLimit2=0.4342+.01;
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
   }
