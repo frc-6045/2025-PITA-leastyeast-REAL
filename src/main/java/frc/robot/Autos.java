@@ -55,6 +55,7 @@ public class Autos {
         autoChooser.addOption("IJKLPoles3PieceDrive", AutoBuilder.buildAuto("3PieceIJKPolesDrive"));
         autoChooser.addOption("IJKLPoles4PieceDrive", AutoBuilder.buildAuto("4PieceIJKLPolesDrive"));
         autoChooser.addOption("1PieceHPoleBackRight", AutoBuilder.buildAuto("1PieceHPole"));
+        autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
     }
 
     public Command getAutonomousCommand() {
