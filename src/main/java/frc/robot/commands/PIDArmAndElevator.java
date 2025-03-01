@@ -75,6 +75,7 @@ public class PIDArmAndElevator extends Command {
             System.out.println("hello pidarmandelev is done :3");
             return true;
         }
+        System.out.println("hello hello hello arm " + m_ArmSubsystem.atSetpoint() + " elev " + m_ElevatorSubsystem.atSetpoint());
         return false;
     }
 
