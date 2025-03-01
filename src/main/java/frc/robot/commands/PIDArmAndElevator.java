@@ -72,6 +72,7 @@ public class PIDArmAndElevator extends Command {
     @Override
     public boolean isFinished() {
         if (m_ArmSubsystem.atSetpoint() && m_ElevatorSubsystem.atSetpoint()) {
+            System.out.println("hello pidarmandelev is done :3");
             return true;
         }
         return false;
