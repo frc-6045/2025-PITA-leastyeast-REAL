@@ -9,28 +9,15 @@
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "path",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "StartToHPole"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0
-                      }
-                    }
-                  ]
+                  "pathName": "StartToHPole"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralL1"
+                  "name": "coralL1"
                 }
               }
             ]
