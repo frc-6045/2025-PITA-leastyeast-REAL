@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "JPoleToHPS"
+            "pathName": "JPoleToHPS2"
           }
         },
         {
@@ -43,7 +43,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "KPoleToHPS"
+            "pathName": "KPoleToHPS2"
           }
         },
         {

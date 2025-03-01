@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "StartToJPole"
+                  "pathName": "StartToIPole"
                 }
               },
               {
@@ -30,6 +30,68 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "IPoleToHPS1"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "IPoleToHPS2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralIntake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "HPSToJPole"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpit"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "JPoleToHPS1"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -40,22 +102,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "CoralIntakeSetpoint"
-                      }
-                    }
-                  ]
+                  "name": "coralIntakeSetpoint"
                 }
               }
             ]
@@ -93,6 +142,12 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "KPoleToHPS1"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -103,22 +158,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "CoralIntakeSetpoint"
-                      }
-                    }
-                  ]
+                  "name": "coralIntakeSetpoint"
                 }
               }
             ]
@@ -159,6 +201,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "3PieceJKLPoles",
+  "folder": "4PieceIJKLPoles",
   "choreoAuto": false
 }

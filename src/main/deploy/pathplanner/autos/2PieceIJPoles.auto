@@ -30,19 +30,25 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "IPoleToHPS1"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "IPoleToHPS"
+                  "pathName": "IPoleToHPS2"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "coralIntakeSetpoint"
+                  "name": "coralIntake"
                 }
               }
             ]
@@ -67,7 +73,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "coralSpit"
+                  "name": "coralL4"
                 }
               }
             ]
