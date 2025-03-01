@@ -50,6 +50,7 @@ public final class Constants {
 
     public static final int kClimbMotorCurrentLimit = 50;
     public static final double kClimbMotorSpeed = 0.5;
+    public static final double kClimbMotorMaximumSpeed = 0.5;
   }
 
   public static class OperatorConstants {

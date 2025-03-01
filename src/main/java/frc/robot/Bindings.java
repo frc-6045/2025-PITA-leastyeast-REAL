@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PositionConstants;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
@@ -20,6 +20,7 @@ import frc.robot.commands.IntakeCommands.AlgaeOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
 import frc.robot.subsystems.AlgaeRemovingSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -36,7 +37,8 @@ public class Bindings {
         ArmSubsystem m_Arm, 
         ElevatorSubsystem m_Elevator, 
         IntakeSubsystem m_Intake,
-        AlgaeRemovingSubsystem m_Algae) {
+        AlgaeRemovingSubsystem m_Algae,
+        ClimbSubsystem m_ClimbSubsystem) {
 
 
         /* Operator Controller bindings */
@@ -58,7 +60,11 @@ public class Bindings {
         m_operatorController.a().onTrue(new PIDArmAndElevator(
             m_Arm, PositionConstants.kHumanArmPosition, PositionConstants.kHumanGapArmPosition,
             m_Elevator, PositionConstants.kHumanElevatorPosition, PositionConstants.kHumanGapElevatorPosition));
-        
+
+        //Climb Subsystem
+        m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
+        m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
+
         m_operatorController.pov(90).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL1ArmPosition, m_Elevator, PositionConstants.kL1ElevatorPosition));
         m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL2ArmPosition, m_Elevator, PositionConstants.kL2ElevatorPosition));
         m_operatorController.leftStick().onTrue(new PIDArmAndElevator(
