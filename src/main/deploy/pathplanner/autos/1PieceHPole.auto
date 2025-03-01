@@ -5,22 +5,21 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "StartToHPole"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "coralL4"
-                }
-              }
-            ]
+            "pathName": "StartHalfwayToHPole"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HalfwayToHPoleToHPole"
           }
         },
         {
