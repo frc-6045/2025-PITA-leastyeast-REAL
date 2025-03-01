@@ -52,10 +52,10 @@ public class Autos {
         autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
         autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
         SmartDashboard.putData("autos", autoChooser);
-        autoChooser.addOption("IJKLPoles1Piece", AutoBuilder.buildAuto("1PieceIPoleDrive"));
-        autoChooser.addOption("IJKLPoles2Piece", AutoBuilder.buildAuto("2PieceIJPolesDrive"));
-        autoChooser.addOption("IJKLPoles3Piece", AutoBuilder.buildAuto("3PieceIJKPolesDrive"));
-        autoChooser.addOption("IJKLPoles4Piece", AutoBuilder.buildAuto("4PieceIJKLPolesDrive"));
+        autoChooser.addOption("IPole1Piece", AutoBuilder.buildAuto("1PieceIPole"));
+        autoChooser.addOption("IJPoles2Piece", AutoBuilder.buildAuto("2PieceIJPoles"));
+        autoChooser.addOption("IJKPoles3Piece", AutoBuilder.buildAuto("3PieceIJKPoles"));
+        autoChooser.addOption("IJKLPoles4Piece", AutoBuilder.buildAuto("4PieceIJKLPoles"));
         autoChooser.addOption("1PieceHPoleBackRightToStart", AutoBuilder.buildAuto("1PieceHPoleToStart"));
         autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
     }
