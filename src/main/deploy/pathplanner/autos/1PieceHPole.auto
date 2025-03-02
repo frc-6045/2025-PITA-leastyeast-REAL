@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "HPoleBack"
+            "pathName": "HPoleToHPS1"
           }
         },
         {
@@ -69,6 +69,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2PieceGHPoles",
   "choreoAuto": false
 }

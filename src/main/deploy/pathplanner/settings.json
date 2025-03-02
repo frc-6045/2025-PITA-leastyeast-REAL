@@ -9,11 +9,13 @@
     "JPole",
     "KPole",
     "LPole",
+    "GPole",
     "Other"
   ],
   "autoFolders": [
     "4PieceIJKLPoles",
-    "New Folder"
+    "Dominic's Folder",
+    "2PieceGHPoles"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
