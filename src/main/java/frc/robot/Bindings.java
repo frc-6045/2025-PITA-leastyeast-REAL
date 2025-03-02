@@ -141,14 +141,14 @@ public class Bindings {
                                                             .allianceRelativeControl(true);
 
   /**
-   * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
+   * Clones the angular velocity input stream and converts it to a fieldRelative input stream.
    */
   //SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX,
   //                                                                                           m_driverController::getRightY)
   //                                                         .headingWhile(true);
 
   /**
-   * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
+   * Clones the angular velocity input stream and converts it to a robotRelative input stream.
    */
   //SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
   //                                                           .allianceRelativeControl(false);
