@@ -8,7 +8,6 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
-
 public final class Constants {
   /*  MotorSpeed is the open loop speed.
    *  MotorMaxSpeed is a hard limit on speed.
@@ -51,8 +50,8 @@ public final class Constants {
   }
 
   public static class ControllerConstants {
-    public static final int kDriverControllerPort = 1;
-    public static final int kOperatorControllerPort = 0;
+    public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
     public static final int kGodControllerPort = 2;
 
     // Joystick Deadband
