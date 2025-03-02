@@ -6,7 +6,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -24,7 +24,7 @@ import frc.robot.Constants.PositionConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
   private final SparkFlex m_ClimbMotor;
-  private final AbsoluteEncoder m_AbsoluteEncoder;
+  private final RelativeEncoder m_RelativeEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
   //private final ClimbFeedforward m_ClimbFeedforward = new ClimbFeedforward(0, 0, 0);
   PIDController m_ClimbPIDController = new PIDController(9, 0, 0);
@@ -32,7 +32,7 @@ public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public ClimbSubsystem() {
     m_ClimbMotor = new SparkFlex(MotorConstants.kClimbMotorCANID, MotorType.kBrushless);
-    m_AbsoluteEncoder = m_ClimbMotor.getAbsoluteEncoder();
+    m_RelativeEncoder = m_ClimbMotor.getEncoder();
     //m_ClimbPIDController.enableContinuousInput(0, 1);
     m_ClimbPIDController.setTolerance(0.01);
 
@@ -50,8 +50,8 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void goToSetpoint(double setpoint) {
     SmartDashboard.putNumber("Climb setpoint", setpoint+PositionConstants.kSketchyOffset);
-    SmartDashboard.putNumber("Climb difference", setpoint-getAbsoluteEncoderPosition());
-    double speed = m_ClimbPIDController.calculate((getAbsoluteEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, (setpoint+14+PositionConstants.kSketchyOffset)%1);
+    SmartDashboard.putNumber("Climb difference", setpoint-getRelativeEncoderPosition());
+    double speed = m_ClimbPIDController.calculate((getRelativeEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, (setpoint+14+PositionConstants.kSketchyOffset)%1);
     //speed = (speed>0) ? speed + feedforward : speed-feedforward;
     setSpeed(speed);
     //System.out.println("PIDClimb output (speed): " + speed + "\nset point: " + m_ClimbPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
@@ -80,18 +80,18 @@ public class ClimbSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Climb speed", 0);
   }
 
-  public AbsoluteEncoder getAbsoluteEncoder() {
-    return m_AbsoluteEncoder;
+  public RelativeEncoder getRelativeEncoder() {
+    return m_RelativeEncoder;
   }
 
-  public double getAbsoluteEncoderPosition() {
-    return m_AbsoluteEncoder.getPosition();
+  public double getRelativeEncoderPosition() {
+    return m_RelativeEncoder.getPosition();
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Climb position", getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset);
-    SmartDashboard.putNumber("raw Climb position", getAbsoluteEncoderPosition());
+    SmartDashboard.putNumber("Climb position", getRelativeEncoderPosition()+PositionConstants.kSketchyOffset);
+    SmartDashboard.putNumber("raw Climb position", getRelativeEncoderPosition());
   }
 
   @Override
