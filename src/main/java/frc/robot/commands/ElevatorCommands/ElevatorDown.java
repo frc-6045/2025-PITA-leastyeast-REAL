@@ -1,11 +1,9 @@
 package frc.robot.commands.ElevatorCommands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 
 /** Run intake for a set period of time either direction. */
 public class ElevatorDown extends Command {
