@@ -3,14 +3,17 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "New Folder",
-    "algae",
-    "coral"
+    "Dominic's Folder",
+    "HPole",
+    "IPole",
+    "JPole",
+    "KPole",
+    "LPole",
+    "Other"
   ],
   "autoFolders": [
-    "3PieceJKLPoles",
-    "New Folder",
-    "4PieceIJKLPoles"
+    "4PieceIJKLPoles",
+    "New Folder"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

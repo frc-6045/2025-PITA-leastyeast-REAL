@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.526331967213115,
-        "y": 4.102920081967213
+        "x": 7.120696721311476,
+        "y": 4.774231557377049
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.7604142616053755,
-        "y": 4.190700942364312
+        "x": 6.914686240261633,
+        "y": 4.6325993516552835
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.108709016393442,
-        "y": 4.786219262295081
+        "x": 6.149692622950819,
+        "y": 4.1149077868852455
       },
       "prevControl": {
-        "x": 6.880256129238378,
-        "y": 4.684684645781719
+        "x": 6.373299420700798,
+        "y": 4.226711185760235
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.02633136029132
+    "rotation": -179.42706130231653
   },
   "reversed": false,
-  "folder": "coral",
+  "folder": "HPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.31157167505734
+    "rotation": 180.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

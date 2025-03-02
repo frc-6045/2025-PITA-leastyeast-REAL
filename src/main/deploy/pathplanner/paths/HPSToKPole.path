@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.408945381625853,
+        "x": 1.4089453816258533,
         "y": 6.886554334933658
       },
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": -58.85767356323332
   },
   "reversed": false,
-  "folder": "coral",
+  "folder": "KPole",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -53.48541836822542

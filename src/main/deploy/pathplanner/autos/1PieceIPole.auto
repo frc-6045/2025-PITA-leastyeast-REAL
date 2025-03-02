@@ -28,6 +28,24 @@
           "data": {
             "name": "coralSpit"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "IPoleToHPS1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "homePosition"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorDown"
+          }
         }
       ]
     }

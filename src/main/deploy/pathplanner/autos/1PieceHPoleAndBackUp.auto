@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "StartPartwayToHPole"
+            "pathName": "StartToHPole1"
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "PartwayToHPoleToHPole"
+            "pathName": "StartToHPole2"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "HPoleToStart"
+            "pathName": "HPoleBack"
           }
         },
         {
