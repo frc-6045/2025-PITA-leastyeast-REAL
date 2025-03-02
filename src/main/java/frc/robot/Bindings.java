@@ -49,12 +49,6 @@ public class Bindings {
         m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
         m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
 
-        //misc
-        m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
-        m_operatorController.rightBumper().onTrue(new InstantCommand(() -> {while (true) {}}));
-
         //setpoints
         m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elevator, PositionConstants.kHomeElevatorPosition));
         m_operatorController.a().onTrue(new PIDArmAndElevator(
@@ -72,14 +66,23 @@ public class Bindings {
         
         m_operatorController.x().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHighAlgaeArmPosition, m_Elevator, PositionConstants.kHighAlgaeElevatorPosition));
         m_operatorController.b().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kLowAlgaeArmPosition, m_Elevator, PositionConstants.kLowAlgaeElevatorPosition));
-        
 
         //elev
         m_operatorController.pov(0).whileTrue(new ElevatorOpenLoop(m_Elevator, true));
         m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_Elevator, false));
 
+        //misc
+        m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
+        m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
+        //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
+        m_operatorController.rightBumper().onTrue(new InstantCommand(() -> {while (true) {}}));
+        
 
-        /* Driver Controller arm, intake, and climb */
+
+        
+
+
+        /* Driver Controller non-drive bindings */
 
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
@@ -94,7 +97,7 @@ public class Bindings {
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
 
-        /* Controller with both driver and operator functions */
+        /* God Controller non-drive bindings */
 
         m_godController.leftTrigger().whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
         m_godController.rightTrigger().whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
@@ -103,7 +106,7 @@ public class Bindings {
         m_godController.leftBumper().whileTrue(new ArmOpenLoop(m_Arm, false));
 
         m_godController.b().onTrue(new InstantCommand(() -> {System.out.println("\narm encoder value: " + m_Arm.getAbsoluteEncoderPosition()); System.out.println("elev encoder value: " + m_Elevator.getRelativeEncoderPosition());}));
-        m_godController.x().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
+        m_godController.x().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator));
         
         m_godController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elevator, PositionConstants.kHomeElevatorPosition));
         m_godController.a().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHumanArmPosition, m_Elevator, PositionConstants.kHumanElevatorPosition));

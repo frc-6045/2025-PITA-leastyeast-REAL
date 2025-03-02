@@ -1,8 +1,6 @@
 package frc.robot;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,6 +25,7 @@ public class Autos {
         m_ElevatorSubsystem = elev;
         m_ArmSubsystem = arm;
 
+        // Named Commands
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
         NamedCommands.registerCommand("coralSpit", new IntakeClosedLoop(m_IntakeSubsystem, 1, false));
         NamedCommands.registerCommand("coralIntake", new IntakeClosedLoop(m_IntakeSubsystem, 1, true));
@@ -38,22 +37,21 @@ public class Autos {
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition));
 
-   
+        // Autos
         autoChooser = new SendableChooser<Command>();
         //autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
-        autoChooser.addOption("IPole1Piece", AutoBuilder.buildAuto("1PieceIPole"));
-        autoChooser.addOption("IJPoles2Piece", AutoBuilder.buildAuto("2PieceIJPoles"));
-        autoChooser.addOption("IJKPoles3Piece", AutoBuilder.buildAuto("3PieceIJKPoles"));
-        autoChooser.addOption("IJKLPoles4Piece", AutoBuilder.buildAuto("4PieceIJKLPoles"));
-        autoChooser.addOption("1PieceHPoleBackRightToStart", AutoBuilder.buildAuto("1PieceHPoleToStart"));
+        autoChooser.addOption("1PieceIPole", AutoBuilder.buildAuto("1PieceIPole"));
+        autoChooser.addOption("2PieceIJPoles", AutoBuilder.buildAuto("2PieceIJPoles"));
+        autoChooser.addOption("3PieceIJKPoles", AutoBuilder.buildAuto("3PieceIJKPoles"));
+        autoChooser.addOption("4PieceIJKLPoles", AutoBuilder.buildAuto("4PieceIJKLPoles"));
+        autoChooser.addOption("1PieceHPole", AutoBuilder.buildAuto("1PieceHPole"));
+        autoChooser.addOption("2PieceHGPoles", AutoBuilder.buildAuto("2PieceHGPoles"));
         autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
-
         //Dominic's Autos
         //autoChooser.addOption("SetpointThenIntake", AutoBuilder.buildAuto("SetpointThenIntake"));
         //autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
         //autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
         //autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
-
         SmartDashboard.putData("autos", autoChooser);
     }
 
