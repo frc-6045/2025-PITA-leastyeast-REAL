@@ -17,7 +17,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class Autos {
-    //private final SwerveSubsystem m_DriveSubsystem;
     private final IntakeSubsystem m_IntakeSubsystem;
     private final ElevatorSubsystem m_ElevatorSubsystem;
     private final ArmSubsystem m_ArmSubsystem;
@@ -27,7 +26,6 @@ public class Autos {
         m_IntakeSubsystem = intake;
         m_ElevatorSubsystem = elev;
         m_ArmSubsystem = arm;
-        //m_DriveSubsystem = drive;
 
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
         NamedCommands.registerCommand("coralSpit", new IntakeClosedLoop(m_IntakeSubsystem, 1, false));
@@ -40,22 +38,22 @@ public class Autos {
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition));
 
-        //incorporate pathplanner into code
+   
         autoChooser = new SendableChooser<Command>();
         //autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
-        //autoChooser.addOption("SetpointThenIntake", AutoBuilder.buildAuto("SetpointThenIntake"));
-        //autoChooser.addOption("3piece", AutoBuilder.buildAuto("3PieceJKLTesting"));
-        //autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
-        //autoChooser.addOption("3PieceJKLPolesWithCommands", AutoBuilder.buildAuto("3PieceJKLPoles"));
-        //autoChooser.addOption("3PieceJKLPolesDriveOnly", AutoBuilder.buildAuto("3PieceJKLPolesOld"));
-        //autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
-        //autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
         autoChooser.addOption("IPole1Piece", AutoBuilder.buildAuto("1PieceIPole"));
         autoChooser.addOption("IJPoles2Piece", AutoBuilder.buildAuto("2PieceIJPoles"));
         autoChooser.addOption("IJKPoles3Piece", AutoBuilder.buildAuto("3PieceIJKPoles"));
         autoChooser.addOption("IJKLPoles4Piece", AutoBuilder.buildAuto("4PieceIJKLPoles"));
         autoChooser.addOption("1PieceHPoleBackRightToStart", AutoBuilder.buildAuto("1PieceHPoleToStart"));
         autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
+
+        //Dominic's Autos
+        //autoChooser.addOption("SetpointThenIntake", AutoBuilder.buildAuto("SetpointThenIntake"));
+        //autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
+        //autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
+        //autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
+
         SmartDashboard.putData("autos", autoChooser);
     }
 

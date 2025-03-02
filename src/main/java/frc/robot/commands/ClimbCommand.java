@@ -8,17 +8,17 @@ import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** Driver controller bumpers move Climb. */
+/** Driver controller D-Pad moves the climber. */
 public class ClimbCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimbSubsystem m_ClimbMotor;
   private final boolean goUp;
 
   /**
-   * Creates a new ClimbOpenLoop.
+   * Creates a new ClimberCommand.
    *
    * @param subsystem The subsystem used by this command.
-   * @param up Direction the Climb should move
+   * @param up Direction the Climber should move
    */
   public ClimbCommand(ClimbSubsystem ClimbMotor, boolean up) {
     m_ClimbMotor = ClimbMotor;
@@ -36,9 +36,6 @@ public class ClimbCommand extends Command {
   @Override
   public void execute() {
     double speed = MotorConstants.kClimbMotorSpeed;
-    //double triggerAxis = m_Controller.getLeftTriggerAxis()-m_Controller.getRightTriggerAxis();
-    //speed*=triggerAxis;
-    //System.out.println("open loop Climb: speed is " +speed + "\nencoder position is" + m_ClimbMotor.getAbsoluteEncoderPosition());
     if (goUp) m_ClimbMotor.setSpeed(speed);
     else m_ClimbMotor.setSpeed(-1*speed);
   }

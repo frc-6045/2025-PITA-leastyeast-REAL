@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
@@ -61,10 +61,6 @@ public class Bindings {
             m_Arm, PositionConstants.kHumanArmPosition, PositionConstants.kHumanGapArmPosition,
             m_Elevator, PositionConstants.kHumanElevatorPosition, PositionConstants.kHumanGapElevatorPosition));
 
-        //Climb Subsystem
-        m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
-        m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
-
         m_operatorController.pov(90).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL1ArmPosition, m_Elevator, PositionConstants.kL1ElevatorPosition));
         m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL2ArmPosition, m_Elevator, PositionConstants.kL2ElevatorPosition));
         m_operatorController.leftStick().onTrue(new PIDArmAndElevator(
@@ -83,7 +79,7 @@ public class Bindings {
         m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_Elevator, false));
 
 
-        /* Driver Controller arm and intake */
+        /* Driver Controller arm, intake, and climb */
 
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
@@ -93,6 +89,9 @@ public class Bindings {
 
         m_driverController.pov(90).whileTrue(new AlgaeOpenLoop(m_Algae, true));
         m_driverController.pov(270).whileTrue(new AlgaeOpenLoop(m_Algae, false));
+
+        m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
+        m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
 
         /* Controller with both driver and operator functions */
@@ -134,7 +133,7 @@ public class Bindings {
                                                                 () -> m_driverController.getLeftY() * -1,
                                                                 () -> m_driverController.getLeftX() * -1)
                                                             .withControllerRotationAxis(()->{return -m_driverController.getRightX();})
-                                                            .deadband(OperatorConstants.DEADBAND)
+                                                            .deadband(ControllerConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
 
@@ -156,7 +155,7 @@ public class Bindings {
                                                                         () -> -m_driverController.getLeftX())
                                                                     .withControllerRotationAxis(() -> m_driverController.getRawAxis(
                                                                         2))
-                                                                    .deadband(OperatorConstants.DEADBAND)
+                                                                    .deadband(ControllerConstants.DEADBAND)
                                                                     .scaleTranslation(0.8)
                                                                     .allianceRelativeControl(true);
   // Derive the heading axis with math!

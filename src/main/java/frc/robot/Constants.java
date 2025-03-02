@@ -10,50 +10,47 @@ import swervelib.math.Matter;
 
 
 public final class Constants {
-  /**  <p>MotorSpeed is the open loop speed.
-   *  <p>MotorMaxSpeed is a hard limit on speed.
+  /*  MotorSpeed is the open loop speed.
+   *  MotorMaxSpeed is a hard limit on speed.
    */
   public static class MotorConstants {
 
-    // arm constants
+    // CAN IDs
     public static final int kSparkFlexArmMotorCANID = 9;
+    public static final int kSparkFlexElevatorMotor1CANID = 10;
+    public static final int kSparkFlexElevatorMotor2CANID = 11;
+    public static final int kIntakeMotor1CANID = 12;
+    public static final int kIntakeMotor2CANID = 13;
+    public static final int kAlgaeRemovingMotorCANID = 14;
+    public static final int kClimbMotorCANID = 15;
 
+    // arm constants
     public static final int kSparkFlexArmMotorCurrentLimit = 40;
     public static final double kSparkFlexArmMotorSpeed = .2;
     public static final double kSparkFlexArmMotorMaxSpeed = 0.55;
 
     // elevator constants
-    public static final int kSparkFlexElevatorMotor1CANID = 10;
-    public static final int kSparkFlexElevatorMotor2CANID = 11;
-
     public static final int kSparkFlexElevatorMotorsCurrentLimit = 40;
     public static final double kSparkFlexElevatorMotorsSpeed = .4;
     public static final double kSparkFlexElevatorMotorsMaxSpeed = 0.7;
 
     // intake constants
-    public static final int kIntakeMotor1CANID = 12;
-    public static final int kIntakeMotor2CANID = 13;
-
     public static final int kIntakeMotorsCurrentLimit = 40;
     public static final double kIntakeMotorsSpeed = .9;
     public static final double kIntakeMotorsMaxSpeed = .91;
 
     //algae-removing constants
-    public static final int kAlgaeRemovingMotorCANID = 14;
-
     public static final int kAlgaeRemovingMotorCurrentLimit = 40;
     public static final double kAlgaeRemovingMotorSpeed = 0.99;
     public static final double kAlgaeRemovingMotorMaxSpeed = 1;
 
     //climb constants
-    public static final int kClimbMotorCANID = 15;
-
     public static final int kClimbMotorCurrentLimit = 50;
     public static final double kClimbMotorSpeed = 0.5;
     public static final double kClimbMotorMaximumSpeed = 0.5;
   }
 
-  public static class OperatorConstants {
+  public static class ControllerConstants {
     public static final int kDriverControllerPort = 1;
     public static final int kOperatorControllerPort = 0;
     public static final int kGodControllerPort = 2;
@@ -123,7 +120,7 @@ public final class Constants {
 
     //nonospaces that make turnbuckle vewy vewy sad :(
     public static final double kArmLimit1=.173;
-    public static final double kArmLimit2=0.4342+.01;
+    public static final double kArmLimit2=0.4442;
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
   }
 
