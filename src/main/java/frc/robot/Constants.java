@@ -62,6 +62,9 @@ public final class Constants {
   }
 
   public static class PositionConstants {
+    // kOffset is the encoder offset, so it is easy to refactor all setpoints when the encoder is moved.
+    // kSketchyOffset makes PID go the right way. It essentially gives a convenient spot (that being a bit behind the intake setpoint) the value of 0.
+    // It is likely possible to combine these offsets, but this works for now!
     public static final double kOffset = -.17;
     public static final double kSketchyOffset = -0.4342;
 
