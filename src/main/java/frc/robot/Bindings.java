@@ -74,8 +74,7 @@ public class Bindings {
         //misc
         m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
         m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
-        m_operatorController.rightBumper().onTrue(new InstantCommand(() -> {while (true) {}}));
+        m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
         
 
 
