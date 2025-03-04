@@ -42,14 +42,10 @@ public class Autos {
         //autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
         autoChooser.addOption("1PieceIPole", AutoBuilder.buildAuto("1PieceIPole"));
         autoChooser.addOption("2PieceIKPoles", AutoBuilder.buildAuto("2PieceIKPoles"));
+        autoChooser.addOption("3PieceIKJPoles", AutoBuilder.buildAuto("3PieceIKJPoles"));
         autoChooser.addOption("1PieceHPole", AutoBuilder.buildAuto("1PieceHPole"));
         autoChooser.addOption("2PieceHGPoles", AutoBuilder.buildAuto("2PieceHGPoles"));
         autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
-        //Dominic's Autos
-        //autoChooser.addOption("SetpointThenIntake", AutoBuilder.buildAuto("SetpointThenIntake"));
-        //autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
-        //autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
-        //autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
         SmartDashboard.putData("autos", autoChooser);
     }
 
