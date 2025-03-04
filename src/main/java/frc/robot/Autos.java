@@ -27,7 +27,7 @@ public class Autos {
 
         // Named Commands
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-        NamedCommands.registerCommand("coralSpit", new IntakeClosedLoop(m_IntakeSubsystem, 1, false));
+        NamedCommands.registerCommand("coralSpit", new IntakeClosedLoop(m_IntakeSubsystem, 0.5, false));
         NamedCommands.registerCommand("coralIntake", new IntakeClosedLoop(m_IntakeSubsystem, 1, true));
         NamedCommands.registerCommand("elevatorDown", new ElevatorDown(m_ElevatorSubsystem, 1));
         NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition));
