@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.0044549334490736,
-        "y": 5.252357132523148
+        "x": 1.194525101273147,
+        "y": 7.015099826388889
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.8910057670200313,
-        "y": 5.47513344777357
+        "x": 1.4089453816258533,
+        "y": 6.886554334933658
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.862892795138888,
-        "y": 5.497514105902777
+        "x": 3.8507805266203694,
+        "y": 5.485343605324074
       },
       "prevControl": {
-        "x": 3.9767554059142034,
-        "y": 5.274948821396345
+        "x": 3.6788389636066494,
+        "y": 5.66682665937706
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
+    "maxVelocity": 5.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -60.437344304305114
+    "rotation": -58.85767356323332
   },
   "reversed": false,
   "folder": "KPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -61.76068878991907
+    "rotation": -53.48541836822542
   },
   "useDefaultConstraints": false
 }

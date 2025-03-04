@@ -41,9 +41,7 @@ public class Autos {
         autoChooser = new SendableChooser<Command>();
         //autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
         autoChooser.addOption("1PieceIPole", AutoBuilder.buildAuto("1PieceIPole"));
-        autoChooser.addOption("2PieceIJPoles", AutoBuilder.buildAuto("2PieceIJPoles"));
-        autoChooser.addOption("3PieceIJKPoles", AutoBuilder.buildAuto("3PieceIJKPoles"));
-        autoChooser.addOption("4PieceIJKLPoles", AutoBuilder.buildAuto("4PieceIJKLPoles"));
+        autoChooser.addOption("2PieceIKPoles", AutoBuilder.buildAuto("2PieceIKPoles"));
         autoChooser.addOption("1PieceHPole", AutoBuilder.buildAuto("1PieceHPole"));
         autoChooser.addOption("2PieceHGPoles", AutoBuilder.buildAuto("2PieceHGPoles"));
         autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
