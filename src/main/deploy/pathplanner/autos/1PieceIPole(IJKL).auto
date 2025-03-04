@@ -5,21 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "WallStartToIPole1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralL4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "WallStartToIPole2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "WallStartToIPole1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL4"
+                }
+              }
+            ]
           }
         },
         {
@@ -50,6 +51,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "3PieceIKJPoles",
+  "folder": "4PieceIJKLPoles",
   "choreoAuto": false
 }
