@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.00505642361111,
-        "y": 5.268312717013889
+        "x": 1.1958644386574062,
+        "y": 7.017836733217592
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.138027638458752,
-        "y": 5.480016888021317
+        "x": 1.4216581438272706,
+        "y": 6.910518502214354
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.160128399884258,
-        "y": 5.491632667824074
+        "x": 5.114940321180555,
+        "y": 5.546720196759258
       },
       "prevControl": {
-        "x": 5.0622574182760856,
-        "y": 5.261586431256178
+        "x": 4.879321936824085,
+        "y": 5.6302903885338775
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -117.68704545111027
+    "rotation": -121.74517159850777
   },
   "reversed": false,
   "folder": "JPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -118.7173602239471
+    "rotation": -52.59303883132323
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
