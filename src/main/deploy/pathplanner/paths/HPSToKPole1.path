@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.882284794560184,
-        "y": 7.377245008680555
+        "x": 0.7155664062499989,
+        "y": 7.340209418402778
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.096705074912891,
-        "y": 7.248699517225324
+        "x": 0.9299866866027054,
+        "y": 7.211663926947547
       },
       "isLocked": false,
       "linkedName": null
@@ -48,7 +48,7 @@
   "folder": "KPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -53.48541836822542
+    "rotation": -40.645006251209075
   },
   "useDefaultConstraints": false
 }
