@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.1958644386574062,
-        "y": 7.017836733217592
+        "x": 0.6966409866898137,
+        "y": 7.368859592013889
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4216581438272706,
-        "y": 6.910518502214354
+        "x": 0.9224346918596779,
+        "y": 7.261541361010651
       },
       "isLocked": false,
       "linkedName": null
@@ -48,7 +48,7 @@
   "folder": "JPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -52.59303883132323
+    "rotation": -38.46859286476407
   },
   "useDefaultConstraints": true
 }
