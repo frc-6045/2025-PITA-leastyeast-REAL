@@ -46,6 +46,7 @@ public class Autos {
         autoChooser.addOption("1PieceHPole", AutoBuilder.buildAuto("1PieceHPole"));
         autoChooser.addOption("2PieceHGPoles", AutoBuilder.buildAuto("2PieceHGPoles"));
         autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
+        autoChooser.addOption("Test Auto", AutoBuilder.buildAuto("New Auto"));  
         SmartDashboard.putData("autos", autoChooser);
     }
 

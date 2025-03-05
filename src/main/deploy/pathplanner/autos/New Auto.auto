@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "coralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "homePosition"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "homePosition"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
