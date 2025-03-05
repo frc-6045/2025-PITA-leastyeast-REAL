@@ -98,7 +98,7 @@ public final class Constants {
 
     // L4 - right stick (top right paddle)
     public static final double kL4ArmPosition = 0.18726785 + kOffset;
-    public static final double kL4ElevatorPosition = -77.241875 + kOffset;
+    public static final double kL4ElevatorPosition = -78.241875 + kOffset;
 
     // L4 Gap
     public static final double kL4GapArmPosition = 0.203837424 + kOffset;

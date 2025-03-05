@@ -79,7 +79,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else {
       //SmartDashboard.putBoolean("close to switch", false);
     }
-    if (getRelativeEncoderPosition()<-76.5 && speed>0) {
+    if (getRelativeEncoderPosition()<-77 && speed>0) {
       speed*=0.2;
       //SmartDashboard.putBoolean("close to switch", true);
     }
