@@ -53,9 +53,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "HPSToKPole1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "HPSToKPole1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL3"
+                }
+              }
+            ]
           }
         },
         {
@@ -101,9 +114,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "HPSToJPole1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "HPSToJPole1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL3"
+                }
+              }
+            ]
           }
         },
         {
