@@ -42,6 +42,7 @@ public class HoldArm extends Command {
     m_ArmSubsystem.stopArmMotor();
     //System.out.println("holding arm interrupt");
     SmartDashboard.putBoolean("arm hold", false);
+    System.out.println("This statement prints when the arm is being held.");
   }
 
   // Returns true when the command should end.
