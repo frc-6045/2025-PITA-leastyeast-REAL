@@ -122,7 +122,7 @@ public final class Constants {
 
     //nonospaces that make turnbuckle vewy vewy sad :(
     public static final double kArmLimit1=0.06;
-    public static final double kArmLimit2=0.4;
+    public static final double kArmLimit2=0.44;
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
   }
 
