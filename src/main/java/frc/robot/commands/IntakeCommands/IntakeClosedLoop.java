@@ -22,14 +22,13 @@ public class IntakeClosedLoop extends Command {
     public void initialize() {
         timer.reset();
         timer.start();
-        System.out.println("auto pls work!");
+        System.out.println("intake!!!!!!!!!!!!!!!!!!!");
     }
 
     @Override
     public void execute() {
         if (timer.get() < time) {
             m_IntakeSubsystem.setSpeed(direction ? 1 : -1, direction ? 1 : -1);
-            System.out.println("timer value: "+ timer.get() + " time: " + time);
         }
     }
 
@@ -44,6 +43,7 @@ public class IntakeClosedLoop extends Command {
     @Override
     public void end(boolean interrupted) {
         m_IntakeSubsystem.stopIntake();  
+        System.out.println("stop intake!!!!!!!!!!!!!!!!!!!");
     }
 
 }
