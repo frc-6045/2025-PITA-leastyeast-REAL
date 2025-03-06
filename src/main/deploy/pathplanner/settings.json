@@ -4,12 +4,13 @@
   "holonomicMode": true,
   "pathFolders": [
     "Dominic's Folder",
+    "GPole",
     "HPole",
     "IPole",
     "JPole",
     "KPole",
     "LPole",
-    "GPole",
+    "Test Paths",
     "Other"
   ],
   "autoFolders": [

@@ -29,27 +29,40 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "IPoleToHPS1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralIntakeSetpoint"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "IPoleToHPS2"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "test"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "IPoleToHPS1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralIntakeSetpoint"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
             "name": "coralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "IPoleToHPS2"
           }
         },
         {

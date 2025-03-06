@@ -5,27 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "New Path"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "coralL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralIntake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
           }
         },
         {
@@ -35,9 +17,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.0
+            "pathName": "thing1"
           }
         },
         {
@@ -47,21 +29,21 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 1.0
+            "name": "coralSpit"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "thing2"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "coralL4"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
           }
         },
         {
