@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.PIDArmAndElevator;
-import frc.robot.commands.ElevatorCommands.ElevatorDown;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
