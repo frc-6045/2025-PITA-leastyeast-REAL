@@ -60,12 +60,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "elevatorDown"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -143,12 +137,6 @@
           "type": "named",
           "data": {
             "name": "homePosition"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorDown"
           }
         }
       ]

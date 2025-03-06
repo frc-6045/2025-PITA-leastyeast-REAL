@@ -58,12 +58,6 @@
           "data": {
             "name": "homePosition"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorDown"
-          }
         }
       ]
     }
