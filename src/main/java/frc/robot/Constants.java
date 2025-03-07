@@ -69,8 +69,8 @@ public final class Constants {
     public static final double kSketchyOffset = 0;
 
     // Human player/coral intake setpoint - A
-    public static final double kHumanArmPosition = 0.9678;
-    public static final double kHumanElevatorPosition = -34.48004;
+    public static final double kHumanArmPosition = 0.9561;
+    public static final double kHumanElevatorPosition = -40.229;
 
     // Human player with gap
     public static final double kHumanGapArmPosition = 0.8896; //temp
