@@ -47,14 +47,13 @@ public class AlignToReefTagRelative extends Command {
 
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Limelight Target Count", LimelightHelpers.getTargetCount(""));
+
     if (LimelightHelpers.getTV("")) {
       this.dontSeeTagTimer.reset();
 
       double[] postions = LimelightHelpers.getBotPose_TargetSpace("");
-      SmartDashboard.putNumber("x", postions[2]);
-
       double xSpeed = xController.calculate(postions[2]);
-      SmartDashboard.putNumber("xspee", xSpeed);
       double ySpeed = -yController.calculate(postions[0]);
       double rotValue = -rotController.calculate(postions[4]);
 
