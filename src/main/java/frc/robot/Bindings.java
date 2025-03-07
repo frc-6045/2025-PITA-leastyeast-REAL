@@ -18,6 +18,7 @@ import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.AlgaeOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
+import frc.robot.commands.SwerveCommands.AlignToReefTagRelative;
 import frc.robot.subsystems.AlgaeRemovingSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -75,11 +76,6 @@ public class Bindings {
         m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
         m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
         m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
-        
-
-
-        
-
 
         /* Driver Controller non-drive bindings */
 
@@ -95,6 +91,7 @@ public class Bindings {
         m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
+        m_driverController.x().onTrue(new AlignToReefTagRelative(m_driveSubsystem).withTimeout(3));
 
         /* God Controller non-drive bindings */
 

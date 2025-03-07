@@ -62,6 +62,19 @@ public final class Constants {
   }
 
   public static class PositionConstants {
+    // LimeLight Constants
+    public static final double X_REEF_ALIGNMENT_P = 2.5;
+    public static final double Y_REEF_ALIGNMENT_P = 4.5;
+    public static final double ROT_REEF_ALIGNMENT_P = 0.058;
+    public static final double ROT_SETPOINT_REEF_ALIGNMENT = 0;  // Rotation
+    public static final double ROT_TOLERANCE_REEF_ALIGNMENT = 0.5;
+    public static final double X_SETPOINT_REEF_ALIGNMENT = -0.5;  // Vertical pose
+    public static final double X_TOLERANCE_REEF_ALIGNMENT = 0.005;
+    public static final double Y_SETPOINT_REEF_ALIGNMENT = 0.19;  // Horizontal pose
+    public static final double Y_TOLERANCE_REEF_ALIGNMENT = 0.005;
+    public static final double DONT_SEE_TAG_WAIT_TIME = 1;
+    public static final double POSE_VALIDATION_TIME = 0.3;
+
     // kOffset is the encoder offset, so it is easy to refactor all setpoints when the encoder is moved.
     // kSketchyOffset makes PID go the right way. It essentially gives a convenient spot (that being a bit behind the intake setpoint) the value of 0.
     // It is likely possible to combine these offsets, but this works for now!
