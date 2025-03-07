@@ -71,13 +71,13 @@ public class ArmSubsystem extends SubsystemBase {
     (getAbsoluteEncoderPosition()<PositionConstants.kArmLimit2 && 
     getAbsoluteEncoderPosition()>PositionConstants.kMiddleOfArmLimit)) {
       speed = 0;
-      //System.out.println("LIMIT 2");
+      System.out.println("LIMIT 2");
     }
     if (speed>0 &&
     (getAbsoluteEncoderPosition()>PositionConstants.kArmLimit1) &&
     getAbsoluteEncoderPosition()<PositionConstants.kMiddleOfArmLimit) {
       speed=0;
-      //System.out.println("LIMIT 1");
+      System.out.println("LIMIT 1");
     } 
 
     m_ArmMotor.set(speed);
@@ -99,7 +99,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ARM position", getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset);
+    SmartDashboard.putNumber("ARM position (SKETCHY)", getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset);
     SmartDashboard.putNumber("raw ARM position", getAbsoluteEncoderPosition());
   }
 
