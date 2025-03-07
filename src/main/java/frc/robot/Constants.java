@@ -45,8 +45,8 @@ public final class Constants {
 
     //climb constants
     public static final int kClimbMotorCurrentLimit = 50;
-    public static final double kClimbMotorSpeed = 0.5;
-    public static final double kClimbMotorMaximumSpeed = 0.5;
+    public static final double kClimbMotorSpeed = 0.9;
+    public static final double kClimbMotorMaximumSpeed = 0.91;
   }
 
   public static class ControllerConstants {
@@ -111,6 +111,10 @@ public final class Constants {
     // algae low
     public static final double kLowAlgaeArmPosition = 0.6486;
     public static final double kLowAlgaeElevatorPosition = -2;
+    
+    // barge
+    public static final double kBargeArm = 0.331647;
+    public static final double kBargeElev = -77.2;
 
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;
