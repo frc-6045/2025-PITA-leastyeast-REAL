@@ -15,17 +15,17 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class Autos {
+    private final SwerveSubsystem m_SwerveSubsystem;
     private final IntakeSubsystem m_IntakeSubsystem;
     private final ElevatorSubsystem m_ElevatorSubsystem;
     private final ArmSubsystem m_ArmSubsystem;
-    private final SwerveSubsystem m_SwerveSubsystem;
     private SendableChooser<Command> autoChooser;
 
-    public Autos(SwerveSubsystem drive, IntakeSubsystem intake, ElevatorSubsystem elev, ArmSubsystem arm, SwerveSubsystem swerve) {
+    public Autos(SwerveSubsystem drive, IntakeSubsystem intake, ElevatorSubsystem elev, ArmSubsystem arm) {
+        m_SwerveSubsystem = drive;
         m_IntakeSubsystem = intake;
         m_ElevatorSubsystem = elev;
         m_ArmSubsystem = arm;
-        m_SwerveSubsystem = swerve;
 
         // Named Commands
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
