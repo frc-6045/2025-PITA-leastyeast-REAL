@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.PositionConstants;
+import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
 import frc.robot.subsystems.ArmSubsystem;
@@ -14,26 +15,27 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class Autos {
-    private final IntakeSubsystem m_IntakeSubsystem;
-    private final ElevatorSubsystem m_ElevatorSubsystem;
-    private final ArmSubsystem m_ArmSubsystem;
+    private final IntakeSubsystem m_Intake;
+    private final ElevatorSubsystem m_Elevator;
+    private final ArmSubsystem m_Arm;
     private SendableChooser<Command> autoChooser;
 
     public Autos(SwerveSubsystem drive, IntakeSubsystem intake, ElevatorSubsystem elev, ArmSubsystem arm) {
-        m_IntakeSubsystem = intake;
-        m_ElevatorSubsystem = elev;
-        m_ArmSubsystem = arm;
+        m_Intake = intake;
+        m_Elevator = elev;
+        m_Arm = arm;
 
         // Named Commands
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-        NamedCommands.registerCommand("coralSpit", new IntakeClosedLoop(m_IntakeSubsystem, 1, false));
-        NamedCommands.registerCommand("coralIntake", new IntakeClosedLoop(m_IntakeSubsystem, 0.5, true));
-        NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition).asProxy());
-        NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL2ArmPosition, m_ElevatorSubsystem, PositionConstants.kL2ElevatorPosition).asProxy());
-        NamedCommands.registerCommand("coralL3", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition).asProxy());
-        NamedCommands.registerCommand("coralL4", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL4ArmPosition, m_ElevatorSubsystem, PositionConstants.kL4ElevatorPosition).asProxy());
-        NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition).asProxy());
-        NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition).asProxy());
+        NamedCommands.registerCommand("coralSpit", new IntakeClosedLoop(m_Intake, 1, false));
+        NamedCommands.registerCommand("coralIntake", new IntakeClosedLoop(m_Intake, 0.5, true));
+        NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L1).asProxy());
+        NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L2).asProxy());
+        NamedCommands.registerCommand("coralL3", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L3).asProxy());
+        NamedCommands.registerCommand("coralL4", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L4).asProxy());
+        NamedCommands.registerCommand("algaeHigh", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.ALGAE_HIGH));
+        NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.INTAKE).asProxy());
+        NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.HOME).asProxy());
 
         // Autos
         autoChooser = new SendableChooser<Command>();

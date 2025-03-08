@@ -13,6 +13,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 //import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,7 +30,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public ArmSubsystem() {
-    m_ArmMotor = new SparkFlex(MotorConstants.kSparkFlexArmMotorCANID, MotorType.kBrushless);
+    m_ArmMotor = new SparkFlex(MotorConstants.kArmMotorCANID, MotorType.kBrushless);
     m_AbsoluteEncoder = m_ArmMotor.getAbsoluteEncoder();
     //m_ArmPIDController.enableContinuousInput(0, 1);
     m_ArmPIDController.setTolerance(0.01);
@@ -46,13 +47,24 @@ public class ArmSubsystem extends SubsystemBase {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
   }
 
+  public void goToSetpoint(double setpoint, double speedLimit) {
+    SmartDashboard.putNumber("ARM setpoint", setpoint+PositionConstants.kSketchyOffset);
+    SmartDashboard.putNumber("ARM difference", setpoint-getAbsoluteEncoderPosition());
+    double speed = m_ArmPIDController.calculate(
+      (getAbsoluteEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, 
+      (setpoint+14+PositionConstants.kSketchyOffset)%1);
+    //speed = (speed>0) ? speed + feedforward : speed-feedforward;
+    setSpeed(MathUtil.clamp(speed, -speedLimit, speedLimit));
+    //System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
+  }
+
   public void goToSetpoint(double setpoint) {
     SmartDashboard.putNumber("ARM setpoint", setpoint+PositionConstants.kSketchyOffset);
     SmartDashboard.putNumber("ARM difference", setpoint-getAbsoluteEncoderPosition());
-    double speed = m_ArmPIDController.calculate((getAbsoluteEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, (setpoint+14+PositionConstants.kSketchyOffset)%1);
-    //speed = (speed>0) ? speed + feedforward : speed-feedforward;
-    setSpeed(speed);
-    //System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
+    double speed = m_ArmPIDController.calculate(
+      (getAbsoluteEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, 
+      (setpoint+14+PositionConstants.kSketchyOffset)%1);
+    setSpeed(MathUtil.clamp(speed, -MotorConstants.kArmMotorSetpointMaxSpeed, MotorConstants.kArmMotorSetpointMaxSpeed));
   }
 
   public boolean atSetpoint() {
@@ -60,10 +72,10 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    if (speed>MotorConstants.kSparkFlexArmMotorMaxSpeed)
-      speed = MotorConstants.kSparkFlexArmMotorMaxSpeed;
-    if (speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
-      speed = -MotorConstants.kSparkFlexArmMotorMaxSpeed;
+    if (speed>MotorConstants.kArmMotorMaxSpeed)
+      speed = MotorConstants.kArmMotorMaxSpeed;
+    if (speed<-MotorConstants.kArmMotorMaxSpeed)
+      speed = -MotorConstants.kArmMotorMaxSpeed;
     
     // prevent turnbuckle from being run over
     

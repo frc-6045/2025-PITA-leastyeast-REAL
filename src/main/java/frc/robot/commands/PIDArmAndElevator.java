@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Bindings;
+import frc.robot.Constants.PositionConstants;
+import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
@@ -50,6 +52,53 @@ public class PIDArmAndElevator extends Command {
         elevatorSetpoint = elevatorSetPoint;
         elevatorSetpoint2 = elevatorSetPoint2;
         addRequirements(m_ArmSubsystem, m_ElevatorSubsystem);
+    }
+
+    // I'M REALLY BORED DON'T JUDGE
+    public PIDArmAndElevator(ArmSubsystem arm, ElevatorSubsystem elev, Setpoints setpoint) {
+        m_ArmSubsystem = arm;
+        m_ElevatorSubsystem = elev;
+        addRequirements(m_ArmSubsystem, m_ElevatorSubsystem);
+        switch(setpoint) {
+            case INTAKE:
+                armSetpoint = PositionConstants.kHumanArmPosition;
+                elevatorSetpoint = PositionConstants.kHumanElevatorPosition;
+                armSetpoint2 = PositionConstants.kHumanGapArmPosition;
+                elevatorSetpoint2 = PositionConstants.kHumanGapArmPosition;
+                break;
+            case L1:
+                armSetpoint = armSetpoint2 = PositionConstants.kL1ArmPosition;
+                elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kL1ElevatorPosition;
+                break;
+            case L2:
+                armSetpoint = armSetpoint2 = PositionConstants.kL2ArmPosition;
+                elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kL2ElevatorPosition;
+                break;
+            case L3:
+                armSetpoint = PositionConstants.kL3ArmPosition;
+                elevatorSetpoint = PositionConstants.kL3ElevatorPosition;
+                armSetpoint2 = PositionConstants.kL3GapArmPosition;
+                elevatorSetpoint2 = PositionConstants.kL3GapElevatorPosition;
+                break;
+            case L4:
+                armSetpoint = PositionConstants.kL4ArmPosition;
+                elevatorSetpoint = PositionConstants.kL4ElevatorPosition;
+                armSetpoint2 = PositionConstants.kL4GapArmPosition;
+                elevatorSetpoint2 = PositionConstants.kL4GapElevatorPosition;
+                break;
+            case ALGAE_HIGH:
+                armSetpoint = armSetpoint2 = PositionConstants.kHighAlgaeArmPosition;
+                elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kHighAlgaeElevatorPosition;
+                break;
+            case ALGAE_LOW:
+                armSetpoint = armSetpoint2 = PositionConstants.kLowAlgaeArmPosition;
+                elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kLowAlgaeElevatorPosition;
+                break;
+            default: //home
+                armSetpoint = armSetpoint2 = PositionConstants.kHomeArmPosition;
+                elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kHomeElevatorPosition;
+                break;
+        }
     }
     
     @Override

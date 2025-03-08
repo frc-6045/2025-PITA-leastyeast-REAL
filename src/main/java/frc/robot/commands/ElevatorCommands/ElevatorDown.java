@@ -27,7 +27,7 @@ public class ElevatorDown extends Command {
     @Override
     public void execute() {
         if (timer.get() < time) {
-            m_ElevatorSubsystem.setSpeed(-MotorConstants.kSparkFlexElevatorMotorsSpeed);
+            m_ElevatorSubsystem.setSpeed(-MotorConstants.kElevatorMotorsSpeed);
             System.out.println("timer value: "+ timer.get() + " time: " + time);
         }
     }

@@ -29,6 +29,9 @@ public class IntakeConditional extends Command {
             m_IntakeSubsystem.setSpeed(direction ? 1 : -1, direction ? 1 : -1);
             //System.out.println("timer value: "+ timer.get() + " time: " + time);
         }
+        else {
+            m_IntakeSubsystem.stopIntake();
+        }
     }
 
     @Override
