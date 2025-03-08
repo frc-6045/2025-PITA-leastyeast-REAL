@@ -91,7 +91,8 @@ public class Bindings {
 
         /* Driver Controller non-drive bindings */
 
-        m_driverController.a().whileTrue(new LEDs(LEDPattern yellow, LEDPattern green));
+       // m_driverController.a().whileTrue(new LEDs(LEDPattern yellow, LEDPattern green));
+
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
 
