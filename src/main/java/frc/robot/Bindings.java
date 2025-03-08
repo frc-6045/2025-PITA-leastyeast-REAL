@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.PositionConstants;
@@ -16,6 +17,7 @@ import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
+import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -45,6 +47,13 @@ public class Bindings {
         //intake
         //m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
         //m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
+
+        m_operatorController.leftTrigger(0.2).onTrue(
+            new ParallelCommandGroup(
+                new PIDArmAndElevator(m_Arm, 0, m_Elevator, 0),
+                new IntakeConditional(m_Intake, () -> {return m_Arm.getAbsoluteEncoderPosition()>0.5;}, true)
+                )
+        );
 
         //setpoints
         m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elevator, PositionConstants.kHomeElevatorPosition));
