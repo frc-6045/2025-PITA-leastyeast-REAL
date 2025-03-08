@@ -13,7 +13,6 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class Autos {
     private final IntakeSubsystem m_IntakeSubsystem;

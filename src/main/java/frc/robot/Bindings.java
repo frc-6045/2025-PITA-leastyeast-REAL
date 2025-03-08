@@ -18,7 +18,6 @@ import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
 import frc.robot.commands.SwerveCommands.AlignToReefTagRelative;
-import frc.robot.subsystems.AlgaeRemovingSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
