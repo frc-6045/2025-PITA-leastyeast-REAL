@@ -38,7 +38,8 @@ public class Autos {
         NamedCommands.registerCommand("coralL4", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL4ArmPosition, m_ElevatorSubsystem, PositionConstants.kL4ElevatorPosition).asProxy());
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition).asProxy());
-        NamedCommands.registerCommand("alignToReef", new AlignToReefTagRelative(m_SwerveSubsystem));
+        NamedCommands.registerCommand("alignToReefLeft", new AlignToReefTagRelative(false, m_SwerveSubsystem));
+        NamedCommands.registerCommand("alignToReefRight", new AlignToReefTagRelative(true, m_SwerveSubsystem));
 
         // NamedCommands.registerCommand("scoreCoralL1",
         //     new SequentialCommandGroup(

@@ -87,7 +87,8 @@ public class Bindings {
         m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
-        m_driverController.x().onTrue(new AlignToReefTagRelative(m_driveSubsystem).withTimeout(3));
+        m_driverController.x().onTrue(new AlignToReefTagRelative(false, m_driveSubsystem).withTimeout(3));
+        m_driverController.b().onTrue(new AlignToReefTagRelative(true, m_driveSubsystem).withTimeout(3));
 
         /* God Controller non-drive bindings */
 

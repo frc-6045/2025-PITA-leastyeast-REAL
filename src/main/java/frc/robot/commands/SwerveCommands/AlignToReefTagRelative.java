@@ -17,12 +17,14 @@ public class AlignToReefTagRelative extends Command {
   private PIDController xController, yController, rotController;
   private Timer dontSeeTagTimer, stopTimer;
   private SwerveSubsystem swerveSubsystem;
+  private boolean isRightScore;
 
-  public AlignToReefTagRelative(SwerveSubsystem swerveSubsystem) {
+  public AlignToReefTagRelative(boolean isRightScore, SwerveSubsystem swerveSubsystem) {
     xController = new PIDController(Constants.PositionConstants.X_REEF_ALIGNMENT_P, 0, 0);  // Vertical movement
     yController = new PIDController(Constants.PositionConstants.Y_REEF_ALIGNMENT_P, 0, 0);  // Horitontal movement
     rotController = new PIDController(Constants.PositionConstants.ROT_REEF_ALIGNMENT_P, 0, 0);  // Rotation
   
+    this.isRightScore = isRightScore;
     this.swerveSubsystem = swerveSubsystem;
     
     addRequirements(swerveSubsystem);
@@ -41,7 +43,7 @@ public class AlignToReefTagRelative extends Command {
     xController.setSetpoint(Constants.PositionConstants.X_SETPOINT_REEF_ALIGNMENT);
     xController.setTolerance(Constants.PositionConstants.X_TOLERANCE_REEF_ALIGNMENT);
 
-    yController.setSetpoint(Constants.PositionConstants.Y_SETPOINT_REEF_ALIGNMENT);
+    yController.setSetpoint(isRightScore ? Constants.PositionConstants.Y_SETPOINT_REEF_ALIGNMENT : -Constants.PositionConstants.Y_SETPOINT_REEF_ALIGNMENT);
     yController.setTolerance(Constants.PositionConstants.Y_TOLERANCE_REEF_ALIGNMENT);
   }
 
