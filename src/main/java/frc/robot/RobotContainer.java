@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.AlgaeRemovingSubsystem;
 // subsystems
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -34,7 +33,6 @@ public class RobotContainer {
   private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
   private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  private final AlgaeRemovingSubsystem m_AlgaeSubsystem = new AlgaeRemovingSubsystem();
   private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
   private Autos m_Autos;
   
@@ -51,8 +49,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem, m_DriveSubsystem);
-    Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, m_AlgaeSubsystem, m_ClimbSubsystem);
+    m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
+    Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, m_ClimbSubsystem);
     Bindings.configureDrivetrain(m_DriveSubsystem, m_driverController);
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));

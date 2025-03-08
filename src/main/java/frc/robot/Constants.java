@@ -45,8 +45,8 @@ public final class Constants {
 
     //climb constants
     public static final int kClimbMotorCurrentLimit = 50;
-    public static final double kClimbMotorSpeed = 0.5;
-    public static final double kClimbMotorMaximumSpeed = 0.5;
+    public static final double kClimbMotorSpeed = 0.9;
+    public static final double kClimbMotorMaximumSpeed = 0.91;
   }
 
   public static class ControllerConstants {
@@ -78,52 +78,56 @@ public final class Constants {
     // kOffset is the encoder offset, so it is easy to refactor all setpoints when the encoder is moved.
     // kSketchyOffset makes PID go the right way. It essentially gives a convenient spot (that being a bit behind the intake setpoint) the value of 0.
     // It is likely possible to combine these offsets, but this works for now!
-    public static final double kOffset = -.17;
-    public static final double kSketchyOffset = -0.4342;
+    public static final double kOffset = 0;
+    public static final double kSketchyOffset = 0;
 
     // Human player/coral intake setpoint - A
-    public static final double kHumanArmPosition = 0.7170278 + kOffset;
-    public static final double kHumanElevatorPosition = -39.62 + kOffset;
+    public static final double kHumanArmPosition = 0.9561;
+    public static final double kHumanElevatorPosition = -40.229;
 
     // Human player with gap
-    public static final double kHumanGapArmPosition = 0.68967 + kOffset;
-    public static final double kHumanGapElevatorPosition = -29.3663 + kOffset;
+    public static final double kHumanGapArmPosition = 0.8896; //temp
+    public static final double kHumanGapElevatorPosition = 0;
 
     // Home setpoint - Y
-    public static final double kHomeArmPosition = 0.9063 + kOffset;
-    public static final double kHomeElevatorPosition = 0 + kOffset;
+    public static final double kHomeArmPosition = 0.8896;
+    public static final double kHomeElevatorPosition = 0;
 
     // L1 - B
-    public static final double kL1ArmPosition = 0.937577 + kOffset;
-    public static final double kL1ElevatorPosition = -2.29429 + kOffset;
+    public static final double kL1ArmPosition = 0.716;
+    public static final double kL1ElevatorPosition = 0;
 
     // L2
-    public static final double kL2ArmPosition = 0.8916632533 + kOffset;
-    public static final double kL2ElevatorPosition = -33.58844757 + kOffset;
+    public static final double kL2ArmPosition = 0.7473;
+    public static final double kL2ElevatorPosition = -20.9609;
 
     // L3 - left stick (top left paddle)
-    public static final double kL3ArmPosition = 0.22141972 + kOffset;
-    public static final double kL3ElevatorPosition = -1.62234926 + kOffset;
+    public static final double kL3ArmPosition = 0.4526;
+    public static final double kL3ElevatorPosition = 0;
 
     // L3 Gap
-    public static final double kL3GapArmPosition = 0.1960784345 + kOffset;
-    public static final double kL3GapElevatorPosition = -16.60658489 + kOffset;
+    public static final double kL3GapArmPosition = 0.8896; //temp
+    public static final double kL3GapElevatorPosition = -16.60658489;
 
     // L4 - right stick (top right paddle)
-    public static final double kL4ArmPosition = 0.18726785 + kOffset;
-    public static final double kL4ElevatorPosition = -78.241875 + kOffset;
+    public static final double kL4ArmPosition = 0.4526;
+    public static final double kL4ElevatorPosition = -75.17;
 
     // L4 Gap
-    public static final double kL4GapArmPosition = 0.203837424 + kOffset;
-    public static final double kL4GapElevatorPosition = -76.78836822 + kOffset;
+    public static final double kL4GapArmPosition = 0.8896; //temp
+    public static final double kL4GapElevatorPosition = -76.78836822;
 
     // algae high
-    public static final double kHighAlgaeArmPosition = 0.27118 + kOffset;
-    public static final double kHighAlgaeElevatorPosition = -20.3655 + kOffset;
+    public static final double kHighAlgaeArmPosition = 0.6273;
+    public static final double kHighAlgaeElevatorPosition = -36.172;
     
     // algae low
-    public static final double kLowAlgaeArmPosition = 0.212592096 + kOffset;
-    public static final double kLowAlgaeElevatorPosition = -0.3056640625 + kOffset;
+    public static final double kLowAlgaeArmPosition = 0.6486;
+    public static final double kLowAlgaeElevatorPosition = -2;
+    
+    // barge
+    public static final double kBargeArm = 0.331647;
+    public static final double kBargeElev = -77.2;
 
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;
@@ -135,7 +139,7 @@ public final class Constants {
 
     //nonospaces that make turnbuckle vewy vewy sad :(
     public static final double kArmLimit1=0.06;
-    public static final double kArmLimit2=0.44;
+    public static final double kArmLimit2=0.26;
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
   }
 

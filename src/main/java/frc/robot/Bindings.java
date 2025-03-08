@@ -16,7 +16,6 @@ import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
-import frc.robot.commands.IntakeCommands.AlgaeOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
 import frc.robot.commands.SwerveCommands.AlignToReefTagRelative;
 import frc.robot.subsystems.AlgaeRemovingSubsystem;
@@ -38,7 +37,6 @@ public class Bindings {
         ArmSubsystem m_Arm, 
         ElevatorSubsystem m_Elevator, 
         IntakeSubsystem m_Intake,
-        AlgaeRemovingSubsystem m_Algae,
         ClimbSubsystem m_ClimbSubsystem) {
 
 
@@ -47,8 +45,8 @@ public class Bindings {
         //arm
 
         //intake
-        m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
-        m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
+        //m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
+        //m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
 
         //setpoints
         m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elevator, PositionConstants.kHomeElevatorPosition));
@@ -75,7 +73,8 @@ public class Bindings {
         //misc
         m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
         m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
+        //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
+        m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kBargeArm, m_Elevator, PositionConstants.kBargeElev));
 
         /* Driver Controller non-drive bindings */
 
@@ -84,9 +83,6 @@ public class Bindings {
 
         m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_Arm, true));
         m_driverController.leftBumper().whileTrue(new ArmOpenLoop(m_Arm, false));
-
-        m_driverController.pov(90).whileTrue(new AlgaeOpenLoop(m_Algae, true));
-        m_driverController.pov(270).whileTrue(new AlgaeOpenLoop(m_Algae, false));
 
         m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
