@@ -31,8 +31,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public ElevatorSubsystem() {
-    m_ElevatorMotor1 = new SparkFlex(MotorConstants.kSparkFlexElevatorMotor1CANID, MotorType.kBrushless);
-    m_ElevatorMotor2 = new SparkFlex(MotorConstants.kSparkFlexElevatorMotor2CANID, MotorType.kBrushless);
+    m_ElevatorMotor1 = new SparkFlex(MotorConstants.kElevatorMotor1CANID, MotorType.kBrushless);
+    m_ElevatorMotor2 = new SparkFlex(MotorConstants.kElevatorMotor2CANID, MotorType.kBrushless);
     updateMotorSettings(m_ElevatorMotor1);
     updateMotorSettings(m_ElevatorMotor2);
     m_RelativeEncoder = m_ElevatorMotor1.getEncoder();
@@ -47,7 +47,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    public void updateMotorSettings(SparkFlex motor) {
     config
         .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(MotorConstants.kIntakeMotorsCurrentLimit);
+        .smartCurrentLimit(MotorConstants.kIntakeMotorCurrentLimit);
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -69,8 +69,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void setSpeed(double speed) {
     // positive speed goes up
-    speed = (speed > MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
-    speed = (speed < -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
+    speed = (speed > MotorConstants.kElevatorMotorsMaxSpeed) ? MotorConstants.kElevatorMotorsMaxSpeed : speed;
+    speed = (speed < -MotorConstants.kElevatorMotorsMaxSpeed) ? -MotorConstants.kElevatorMotorsMaxSpeed : speed;
 
     speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
     if (getRelativeEncoderPosition() > -3 && speed<0) {

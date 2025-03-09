@@ -18,7 +18,7 @@ public class IntakeOpenLoop extends Command {
     @Override
     public void execute() {
         double triggerAxis = controller.getLeftTriggerAxis()-controller.getRightTriggerAxis();
-        m_IntakeSubsystem.setSpeed(triggerAxis, controller.getRightX() > .10 ? 0.0: triggerAxis); //Grant's Ternary. Press right on stick and it won't run second rollers. Should be a button but I couldn't figure out how to return bool from a button if its pressed or not :)
+        m_IntakeSubsystem.setSpeed(triggerAxis); //Grant's Ternary IS GONE NOW :'(. Press right on stick and it won't run second rollers. Should be a button but I couldn't figure out how to return bool from a button if its pressed or not :)
     }
 
     @Override

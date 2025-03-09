@@ -24,7 +24,7 @@ public class ElevatorOpenLoop extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = MotorConstants.kSparkFlexElevatorMotorsSpeed;
+    double speed = MotorConstants.kElevatorMotorsSpeed;
     if (goUp) {
         m_elevatorSubsystem.setSpeed(speed);
     } else {
