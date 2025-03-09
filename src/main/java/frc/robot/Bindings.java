@@ -19,6 +19,7 @@ import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
+import frc.robot.commands.SwerveCommands.AlignToReefTagRelative;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -98,6 +99,8 @@ public class Bindings {
         m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
+        m_driverController.x().onTrue(new AlignToReefTagRelative(false, m_driveSubsystem).withTimeout(3));
+        m_driverController.b().onTrue(new AlignToReefTagRelative(true, m_driveSubsystem).withTimeout(3));
 
         /* God Controller non-drive bindings */
 
