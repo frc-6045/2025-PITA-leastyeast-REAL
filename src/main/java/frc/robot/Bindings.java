@@ -53,7 +53,7 @@ public class Bindings {
         m_operatorController.leftTrigger(0.2).onTrue(
             new ParallelCommandGroup(
                 new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
-                new IntakeConditional(m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)>0.5;}, true)
+                new IntakeConditional(m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1<0.5;}, false)
                 )
         );
 
@@ -78,7 +78,7 @@ public class Bindings {
         //m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
         m_operatorController.leftBumper().whileTrue(
             new IntakeConditional(
-                m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1>0.5;}, 
+                m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1<0.5;}, 
                 true
             )
         );

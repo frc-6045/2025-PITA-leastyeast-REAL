@@ -24,7 +24,7 @@ public final class Constants {
     // arm constants
     public static final int kArmMotorCurrentLimit = 40;
     public static final double kArmMotorSpeed = .2;
-    public static final double kArmMotorSetpointMaxSpeed = 0.3;
+    public static final double kArmMotorSetpointMaxSpeed = 0.55;
     public static final double kArmMotorBargeMaxSpeed = 0.4;
     public static final double kArmMotorMaxSpeed = 0.55;
 
@@ -110,7 +110,7 @@ public final class Constants {
     
     // barge
     public static final double kBargeArm = 0.331647 + kOffset;;
-    public static final double kBargeElev = 0; //-77.2
+    public static final double kBargeElev = -77.2; //-77.2
 
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;

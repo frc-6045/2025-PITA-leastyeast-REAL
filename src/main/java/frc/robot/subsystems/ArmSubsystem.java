@@ -111,7 +111,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ARM position (SKETCHY)", getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset);
+    SmartDashboard.putNumber("ARM position (SKETCHY)", (getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1);
     SmartDashboard.putNumber("raw ARM position", getAbsoluteEncoderPosition());
   }
 
