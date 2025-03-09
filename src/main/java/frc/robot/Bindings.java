@@ -3,7 +3,9 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -88,7 +90,7 @@ public class Bindings {
 
         /* Driver Controller non-drive bindings */
 
-        m_driverController.a().onTrue(new InstantCommand(() -> { m_LedSubsystem.setColor(0, 255, 0);}));
+        m_driverController.a().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
 
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
