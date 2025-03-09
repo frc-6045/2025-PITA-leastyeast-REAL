@@ -47,7 +47,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    public void updateMotorSettings(SparkFlex motor) {
     config
         .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(MotorConstants.kIntakeMotorsCurrentLimit);
+        .smartCurrentLimit(MotorConstants.kIntakeMotorCurrentLimit);
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);

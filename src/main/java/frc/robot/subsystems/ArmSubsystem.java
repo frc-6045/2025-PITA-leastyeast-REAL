@@ -42,7 +42,7 @@ public class ArmSubsystem extends SubsystemBase {
    public void updateMotorSettings(SparkFlex motor) {
     config
         .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(MotorConstants.kIntakeMotorsCurrentLimit);
+        .smartCurrentLimit(MotorConstants.kIntakeMotorCurrentLimit);
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
   }
@@ -63,7 +63,7 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ARM difference", setpoint-getAbsoluteEncoderPosition());
     double speed = m_ArmPIDController.calculate(
       (getAbsoluteEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, 
-      (setpoint+14+PositionConstants.kSketchyOffset)%1);
+      (setpoint+14)%1);
     setSpeed(MathUtil.clamp(speed, -MotorConstants.kArmMotorSetpointMaxSpeed, MotorConstants.kArmMotorSetpointMaxSpeed));
   }
 

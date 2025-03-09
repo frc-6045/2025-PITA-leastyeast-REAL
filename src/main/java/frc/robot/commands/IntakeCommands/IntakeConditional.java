@@ -26,7 +26,7 @@ public class IntakeConditional extends Command {
     @Override
     public void execute() {
         if (run.getAsBoolean()) {
-            m_IntakeSubsystem.setSpeed(direction ? 1 : -1, direction ? 1 : -1);
+            m_IntakeSubsystem.setSpeed(direction ? 1 : -1);
             //System.out.println("timer value: "+ timer.get() + " time: " + time);
         }
         else {

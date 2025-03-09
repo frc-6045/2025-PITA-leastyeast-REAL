@@ -18,16 +18,15 @@ public final class Constants {
     public static final int kArmMotorCANID = 9;
     public static final int kElevatorMotor1CANID = 10;
     public static final int kElevatorMotor2CANID = 11;
-    public static final int kIntakeMotor1CANID = 12;
-    public static final int kIntakeMotor2CANID = 13;
+    public static final int kIntakeMotorCANID = 12;
     public static final int kClimbMotorCANID = 15;
 
     // arm constants
     public static final int kArmMotorCurrentLimit = 40;
     public static final double kArmMotorSpeed = .2;
-    public static final double kArmMotorSetpointMaxSpeed = 0.55;
-    public static final double kArmMotorBargeMaxSpeed = 0.8;
-    public static final double kArmMotorMaxSpeed = 0.9;
+    public static final double kArmMotorSetpointMaxSpeed = 0.3;
+    public static final double kArmMotorBargeMaxSpeed = 0.4;
+    public static final double kArmMotorMaxSpeed = 0.55;
 
     // elevator constants
     public static final int kElevatorMotorsCurrentLimit = 40;
@@ -36,9 +35,9 @@ public final class Constants {
     public static final double kElevatorMotorsMaxSpeed = 0.7;
 
     // intake constants
-    public static final int kIntakeMotorsCurrentLimit = 40;
-    public static final double kIntakeMotorsSpeed = .9;
-    public static final double kIntakeMotorsMaxSpeed = .91;
+    public static final int kIntakeMotorCurrentLimit = 40;
+    public static final double kIntakeMotorSpeed = .9;
+    public static final double kIntakeMotorMaxSpeed = .91;
 
     //climb constants
     public static final int kClimbMotorCurrentLimit = 50;
@@ -62,8 +61,8 @@ public final class Constants {
     // kOffset is the encoder offset, so it is easy to refactor all setpoints when the encoder is moved.
     // kSketchyOffset makes PID go the right way. It essentially gives a convenient spot (that being a bit behind the intake setpoint) the value of 0.
     // It is likely possible to combine these offsets, but this works for now!
-    public static final double kOffset = 0;
-    public static final double kSketchyOffset = 0;
+    public static final double kOffset = 0; // likely will never be used
+    public static final double kSketchyOffset = 0.33;
 
     // Human player/coral intake setpoint - A
     public static final double kHumanArmPosition = 0.9561 + kOffset;
@@ -111,15 +110,15 @@ public final class Constants {
     
     // barge
     public static final double kBargeArm = 0.331647 + kOffset;;
-    public static final double kBargeElev = -77.2;
+    public static final double kBargeElev = 0; //-77.2
 
     // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
     public static final double kArmFlickDistance1=0.05;
     public static final double kArmFlickDistance2=-0.01;
 
     //nonospaces that make turnbuckle vewy vewy sad :(
-    public static final double kArmLimit1=0.06;
-    public static final double kArmLimit2=0.26;
+    public static final double kArmLimit1=0.884; //0.06
+    public static final double kArmLimit2=0.98; // 0.26
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
 
     //just having fun

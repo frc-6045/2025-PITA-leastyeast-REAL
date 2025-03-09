@@ -16,6 +16,7 @@ public class PIDArmAndElevator extends Command {
     private final double armSetpoint2;
     private final double elevatorSetpoint2;
     private boolean has2;
+    private int encoderAt0 = 0;
     /**
      * Constructor for 1 setpoint
      * @param armSubsystem
@@ -94,6 +95,10 @@ public class PIDArmAndElevator extends Command {
                 armSetpoint = armSetpoint2 = PositionConstants.kLowAlgaeArmPosition;
                 elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kLowAlgaeElevatorPosition;
                 break;
+            case BARGE:
+                armSetpoint = armSetpoint2 = PositionConstants.kBargeArm;
+                elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kBargeElev;
+                break;
             default: //home
                 armSetpoint = armSetpoint2 = PositionConstants.kHomeArmPosition;
                 elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kHomeElevatorPosition;
@@ -109,6 +114,9 @@ public class PIDArmAndElevator extends Command {
     
     @Override
     public void execute() {
+        if (m_ArmSubsystem.getAbsoluteEncoderPosition()==0) {
+            encoderAt0++;
+        }
         if (has2) {
             m_ArmSubsystem.goToSetpoint(armSetpoint2);
             m_ElevatorSubsystem.goToSetpoint(elevatorSetpoint2);
@@ -120,6 +128,10 @@ public class PIDArmAndElevator extends Command {
 
     @Override
     public boolean isFinished() {
+        if (encoderAt0>4) {
+            System.out.println("encoder not plugged in?");
+            return true;
+        }
         if (m_ArmSubsystem.atSetpoint() && m_ElevatorSubsystem.atSetpoint()) {
             System.out.println("hello pidarmandelev is done :3");
             return true;

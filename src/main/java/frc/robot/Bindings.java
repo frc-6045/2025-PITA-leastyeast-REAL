@@ -53,7 +53,7 @@ public class Bindings {
 
         m_operatorController.leftTrigger(0.2).onTrue(
             new ParallelCommandGroup(
-                new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE),
+                new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
                 new IntakeConditional(m_Intake, () -> {return m_Arm.getAbsoluteEncoderPosition()>0.5;}, true)
                 )
         );
@@ -77,9 +77,14 @@ public class Bindings {
         //misc
         //m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
         //m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        m_operatorController.leftBumper().whileTrue(new IntakeConditional(m_Intake, () -> {return m_Arm.getAbsoluteEncoderPosition()>0.5;}, true));
+        m_operatorController.leftBumper().whileTrue(
+            new IntakeConditional(
+                m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1>0.5;}, 
+                true
+            )
+        );
         //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
-        m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kBargeArm, m_Elev, PositionConstants.kBargeElev));
+        m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE));
 
 
         
