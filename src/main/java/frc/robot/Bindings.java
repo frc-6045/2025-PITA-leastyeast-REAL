@@ -53,7 +53,7 @@ public class Bindings {
         m_operatorController.leftTrigger(0.2).onTrue(
             new ParallelCommandGroup(
                 new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
-                new IntakeConditional(m_Intake, () -> {return m_Arm.getAbsoluteEncoderPosition()>0.5;}, true)
+                new IntakeConditional(m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)>0.5;}, true)
                 )
         );
 
