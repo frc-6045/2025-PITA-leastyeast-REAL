@@ -36,7 +36,7 @@ public class ArmOpenLoop extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = MotorConstants.kSparkFlexArmMotorSpeed;
+    double speed = MotorConstants.kArmMotorSpeed;
     //double triggerAxis = m_Controller.getLeftTriggerAxis()-m_Controller.getRightTriggerAxis();
     //speed*=triggerAxis;
     //System.out.println("open loop ARM: speed is " +speed + "\nencoder position is" + m_ArmMotor.getAbsoluteEncoderPosition());

@@ -4,24 +4,27 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.PositionConstants;
+import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
+import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
 import frc.robot.commands.SwerveCommands.AlignToReefTagRelative;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
@@ -34,9 +37,10 @@ public class Bindings {
         CommandXboxController m_godController,
         SwerveSubsystem m_driveSubsystem,
         ArmSubsystem m_Arm, 
-        ElevatorSubsystem m_Elevator, 
+        ElevatorSubsystem m_Elev, 
         IntakeSubsystem m_Intake,
-        ClimbSubsystem m_ClimbSubsystem) {
+        ClimbSubsystem m_ClimbSubsystem,
+        LedSubsystem m_LedSubsystem) {
 
 
         /* Operator Controller bindings */
@@ -47,35 +51,44 @@ public class Bindings {
         //m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
         //m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
 
-        //setpoints
-        m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elevator, PositionConstants.kHomeElevatorPosition));
-        m_operatorController.a().onTrue(new PIDArmAndElevator(
-            m_Arm, PositionConstants.kHumanArmPosition, PositionConstants.kHumanGapArmPosition,
-            m_Elevator, PositionConstants.kHumanElevatorPosition, PositionConstants.kHumanGapElevatorPosition));
+        m_operatorController.leftTrigger(0.2).onTrue(
+            new ParallelCommandGroup(
+                new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
+                new IntakeConditional(m_Intake, () -> {return m_Arm.getAbsoluteEncoderPosition()>0.5;}, true)
+                )
+        );
 
-        m_operatorController.pov(90).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL1ArmPosition, m_Elevator, PositionConstants.kL1ElevatorPosition));
-        m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL2ArmPosition, m_Elevator, PositionConstants.kL2ElevatorPosition));
-        m_operatorController.leftStick().onTrue(new PIDArmAndElevator(
-            m_Arm, PositionConstants.kL3ArmPosition, PositionConstants.kL3GapArmPosition, 
-            m_Elevator, PositionConstants.kL3ElevatorPosition, PositionConstants.kL3GapElevatorPosition));
-        m_operatorController.rightStick().onTrue(new PIDArmAndElevator(
-            m_Arm, PositionConstants.kL4ArmPosition, PositionConstants.kL4GapArmPosition, 
-            m_Elevator, PositionConstants.kL4ElevatorPosition, PositionConstants.kL4GapElevatorPosition));
+        //setpoints
+        m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
+        m_operatorController.a().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.INTAKE));
+
+        m_operatorController.pov(90).onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.L1));
+        m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.L2));
+        m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.L3));
+        m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.L4));
         
-        m_operatorController.x().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHighAlgaeArmPosition, m_Elevator, PositionConstants.kHighAlgaeElevatorPosition));
-        m_operatorController.b().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kLowAlgaeArmPosition, m_Elevator, PositionConstants.kLowAlgaeElevatorPosition));
+        m_operatorController.x().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_HIGH));
+        m_operatorController.b().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_LOW));
 
         //elev
-        m_operatorController.pov(0).whileTrue(new ElevatorOpenLoop(m_Elevator, true));
-        m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_Elevator, false));
+        m_operatorController.pov(0).whileTrue(new ElevatorOpenLoop(m_Elev, true));
+        m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_Elev, false));
 
         //misc
-        m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
+        //m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
+        //m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
+        m_operatorController.leftBumper().whileTrue(
+            new IntakeConditional(
+                m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1>0.5;}, 
+                true
+            )
+        );
         //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
-        m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kBargeArm, m_Elevator, PositionConstants.kBargeElev));
+        m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE));
 
         /* Driver Controller non-drive bindings */
+
+        m_driverController.a().whileTrue(new InstantCommand(() -> { m_LedSubsystem.setColor(23, 252, 3);}));
 
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
@@ -97,13 +110,13 @@ public class Bindings {
         m_godController.rightBumper().whileTrue(new ArmOpenLoop(m_Arm, true));
         m_godController.leftBumper().whileTrue(new ArmOpenLoop(m_Arm, false));
 
-        m_godController.b().onTrue(new InstantCommand(() -> {System.out.println("\narm encoder value: " + m_Arm.getAbsoluteEncoderPosition()); System.out.println("elev encoder value: " + m_Elevator.getRelativeEncoderPosition());}));
-        m_godController.x().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator));
+        m_godController.b().onTrue(new InstantCommand(() -> {System.out.println("\narm encoder value: " + m_Arm.getAbsoluteEncoderPosition()); System.out.println("elev encoder value: " + m_Elev.getRelativeEncoderPosition());}));
+        m_godController.x().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elev));
         
-        m_godController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elevator, PositionConstants.kHomeElevatorPosition));
-        m_godController.a().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHumanArmPosition, m_Elevator, PositionConstants.kHumanElevatorPosition));
-        m_godController.pov(270).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL3ArmPosition, m_Elevator, PositionConstants.kL3ElevatorPosition));
-        m_godController.pov(90).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL4ArmPosition, m_Elevator, PositionConstants.kL4ElevatorPosition));
+        m_godController.y().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHomeArmPosition, m_Elev, PositionConstants.kHomeElevatorPosition));
+        m_godController.a().onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kHumanArmPosition, m_Elev, PositionConstants.kHumanElevatorPosition));
+        m_godController.pov(270).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL3ArmPosition, m_Elev, PositionConstants.kL3ElevatorPosition));
+        m_godController.pov(90).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL4ArmPosition, m_Elev, PositionConstants.kL4ElevatorPosition));
 
         // m_DriveSubsystem.setDefaultCommand(
         // new RunCommand(
