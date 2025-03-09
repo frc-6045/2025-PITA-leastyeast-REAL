@@ -24,7 +24,7 @@ public final class Constants {
     // arm constants
     public static final int kArmMotorCurrentLimit = 40;
     public static final double kArmMotorSpeed = .2;
-    public static final double kArmMotorSetpointMaxSpeed = 0.3;
+    public static final double kArmMotorSetpointMaxSpeed = 0.55;
     public static final double kArmMotorBargeMaxSpeed = 0.4;
     public static final double kArmMotorMaxSpeed = 0.55;
 
