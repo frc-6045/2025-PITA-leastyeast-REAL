@@ -88,7 +88,7 @@ public class Bindings {
 
         /* Driver Controller non-drive bindings */
 
-        m_driverController.a().whileTrue(new InstantCommand(() -> { m_LedSubsystem.setColor(23, 252, 3);}));
+        m_driverController.a().onTrue(new InstantCommand(() -> { m_LedSubsystem.setColor(0, 255, 0);}));
 
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
