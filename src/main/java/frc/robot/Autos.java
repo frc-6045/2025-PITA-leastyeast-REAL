@@ -1,6 +1,9 @@
 package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,8 +41,9 @@ public class Autos {
         NamedCommands.registerCommand("algaeHigh", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.ALGAE_HIGH));
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.HOME).asProxy());
-        NamedCommands.registerCommand("alignToReefLeft", new AlignToReefTagRelative(false, m_SwerveSubsystem));
-        NamedCommands.registerCommand("alignToReefRight", new AlignToReefTagRelative(true, m_SwerveSubsystem));
+        NamedCommands.registerCommand("alignToReefLeft", m_SwerveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(AutoBuilder.buildAuto("HPSToGPole2Auto")));
+        NamedCommands.registerCommand("alignToReefRight", m_SwerveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(AutoBuilder.buildAuto("HPSToGPole2Auto")));
+        NamedCommands.registerCommand("alignPrint", Commands.print("The robot is aligning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
 
         // NamedCommands.registerCommand("scoreCoralL1",
         //     new SequentialCommandGroup(

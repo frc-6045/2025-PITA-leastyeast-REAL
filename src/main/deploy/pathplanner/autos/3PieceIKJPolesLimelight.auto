@@ -17,6 +17,18 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "alignToReefLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "alignPrint"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "WallStartToIPole2"
@@ -85,6 +97,18 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "alignToReefLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "alignPrint"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "HPSToKPole2"
@@ -143,6 +167,18 @@
           "type": "named",
           "data": {
             "name": "coralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "alignToReefRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "alignPrint"
           }
         },
         {
