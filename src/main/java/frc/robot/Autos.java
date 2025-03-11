@@ -1,3 +1,27 @@
+
+
+
+//       AUTOS DO NOT WORK
+
+
+
+// (because of Limelight things)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
