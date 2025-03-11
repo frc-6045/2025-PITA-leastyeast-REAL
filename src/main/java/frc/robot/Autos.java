@@ -5,22 +5,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.Constants.PositionConstants;
 import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
+import frc.robot.commands.SwerveCommands.AlignToReefTagRelative;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class Autos {
+    private final SwerveSubsystem m_SwerveSubsystem;
     private final IntakeSubsystem m_Intake;
     private final ElevatorSubsystem m_Elevator;
     private final ArmSubsystem m_Arm;
     private SendableChooser<Command> autoChooser;
 
     public Autos(SwerveSubsystem drive, IntakeSubsystem intake, ElevatorSubsystem elev, ArmSubsystem arm) {
+        m_SwerveSubsystem = drive;
         m_Intake = intake;
         m_Elevator = elev;
         m_Arm = arm;
@@ -36,6 +38,16 @@ public class Autos {
         NamedCommands.registerCommand("algaeHigh", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.ALGAE_HIGH));
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.HOME).asProxy());
+        NamedCommands.registerCommand("alignToReefLeft", new AlignToReefTagRelative(false, m_SwerveSubsystem));
+        NamedCommands.registerCommand("alignToReefRight", new AlignToReefTagRelative(true, m_SwerveSubsystem));
+
+        // NamedCommands.registerCommand("scoreCoralL1",
+        //     new SequentialCommandGroup(
+        //         new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition).asProxy(),
+        //         new AlignToReefTagRelative(m_SwerveSubsystem),
+        //         new IntakeClosedLoop(m_IntakeSubsystem, 1, false)
+        //     )
+        // );
 
         // Autos
         autoChooser = new SendableChooser<Command>();

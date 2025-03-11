@@ -3,7 +3,9 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -19,6 +21,7 @@ import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
+import frc.robot.commands.SwerveCommands.AlignToReefTagRelative;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -87,7 +90,7 @@ public class Bindings {
 
         /* Driver Controller non-drive bindings */
 
-        m_driverController.a().whileTrue(new InstantCommand(() -> { m_LedSubsystem.setColor(23, 252, 3);}));
+        m_driverController.a().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
 
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
@@ -98,6 +101,8 @@ public class Bindings {
         m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
+        m_driverController.x().onTrue(new AlignToReefTagRelative(false, m_driveSubsystem).withTimeout(3));
+        m_driverController.b().onTrue(new AlignToReefTagRelative(true, m_driveSubsystem).withTimeout(3));
 
         /* God Controller non-drive bindings */
 
