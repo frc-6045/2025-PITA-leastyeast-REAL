@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -10,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.PositionConstants;
@@ -90,7 +93,7 @@ public class Bindings {
 
         /* Driver Controller non-drive bindings */
 
-        m_driverController.a().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
+        m_driverController.y().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
 
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
@@ -129,6 +132,9 @@ public class Bindings {
         //         true),
         //     m_DriveSubsystem)
         // );
+
+        m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
+        m_driverController.a().onTrue(m_driveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(AutoBuilder.buildAuto("HPSToGPole2Auto")));
     }
 
     public static boolean isShift() {
@@ -204,7 +210,7 @@ public class Bindings {
 
         if (Robot.isSimulation())
         {
-        m_driverController.start().onTrue(Commands.runOnce(() -> m_DriveSubsystem.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
+        m_driverController.start().onTrue(Commands.runOnce(() -> m_DriveSubsystem.resetOdometry(new Pose2d(3, 3, new Rotation2d()))).alongWith(new PrintCommand("resest heading")));
         m_driverController.button(1).whileTrue(m_DriveSubsystem.sysIdDriveMotorCommand());
 
         }
@@ -220,7 +226,7 @@ public class Bindings {
         m_driverController.rightBumper().onTrue(Commands.none());
         } else
         {
-        m_driverController.a().onTrue((Commands.runOnce(m_DriveSubsystem::zeroGyro)));
+        // m_driverController.a().onTrue((Commands.runOnce(m_DriveSubsystem::zeroGyro)));
         //m_driverController.x().onTrue(Commands.runOnce(m_DriveSubsystem::addFakeVisionReading));
         //m_driverController.b().whileTrue(
         //    m_DriveSubsystem.driveToPose(
