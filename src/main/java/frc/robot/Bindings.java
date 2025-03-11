@@ -18,6 +18,7 @@ import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
+import frc.robot.commands.IntakeCommands.IntakeIntake;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -89,7 +90,7 @@ public class Bindings {
 
         m_driverController.a().whileTrue(new InstantCommand(() -> { m_LedSubsystem.setColor(23, 252, 3);}));
 
-        m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
+        m_driverController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return IntakeSubsystem.coralDetected();}));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
 
         m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_Arm, true));

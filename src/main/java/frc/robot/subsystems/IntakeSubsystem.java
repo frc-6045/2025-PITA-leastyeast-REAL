@@ -20,8 +20,8 @@ import frc.robot.Constants.MotorConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
     private final SparkFlex m_IntakeMotor1;
-    SparkFlexConfig config = new SparkFlexConfig();
-    AnalogPotentiometer m_DistanceSensor = new AnalogPotentiometer(3);
+    private SparkFlexConfig config = new SparkFlexConfig();
+    private static AnalogPotentiometer m_DistanceSensor = new AnalogPotentiometer(3);
 
     public IntakeSubsystem() {
         m_IntakeMotor1 = new SparkFlex(MotorConstants.kIntakeMotorCANID, MotorType.kBrushless);
@@ -35,7 +35,7 @@ public class IntakeSubsystem extends SubsystemBase {
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
-    public double getDistanceSensorOutput() {
+    public static double getDistanceSensorOutput() {
         return m_DistanceSensor.get();
     }
 
@@ -54,7 +54,7 @@ public class IntakeSubsystem extends SubsystemBase {
         m_IntakeMotor1.set(0);
     }
 
-    public boolean coralDetected() {
+    public static boolean coralDetected() {
         return getDistanceSensorOutput()<0.085;
     }
 
@@ -62,6 +62,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("INTAKE distance sensor", getDistanceSensorOutput());
         SmartDashboard.putNumber("INTAKE distance sensor inches", getDistanceInches());
+        SmartDashboard.putBoolean("INTAKE coral detected", coralDetected());
         // Shuffleboard.getTab("test")
         //     .add("distance", getDistanceSensorOutput())
         //     .withWidget(BuiltInWidgets.kNumberSlider)
