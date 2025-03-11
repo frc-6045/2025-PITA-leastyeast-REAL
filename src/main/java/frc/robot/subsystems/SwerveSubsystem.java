@@ -19,9 +19,11 @@ import com.pathplanner.lib.util.swerve.SwerveSetpoint;
 import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -29,11 +31,17 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.SwerveConstants;
 
 import java.io.File;
@@ -61,6 +69,8 @@ public class SwerveSubsystem extends SubsystemBase
    * Swerve drive object.
    */
   private final SwerveDrive swerveDrive;
+  private final Field2d m_field2d = new Field2d();
+  private ShuffleboardTab m_driveTrainTab = Shuffleboard.getTab("driveTrain");
 
   /**
    * April Tag Field Layout of the year.
@@ -101,6 +111,9 @@ public class SwerveSubsystem extends SubsystemBase
                                                 1); // Enable if you want to resynchronize your absolute encoders and motor encoders periodically when they are not moving.
     setupPathPlanner();
     RobotModeTriggers.autonomous().onTrue(Commands.runOnce(this::zeroGyro));
+
+    m_driveTrainTab.addDouble("pose x", ()-> getPose().getX());
+    m_driveTrainTab.addDouble("pose y", ()-> getPose().getY());
   }
 
   /**
@@ -116,11 +129,69 @@ public class SwerveSubsystem extends SubsystemBase
                                   SwerveConstants.MAX_SPEED,
                                   new Pose2d(new Translation2d(Meter.of(2), Meter.of(0)),
                                              Rotation2d.fromDegrees(0)));
+
+    swerveDrive.setGyroOffset(new Rotation3d(0, 0, -90));
+  
   }
 
   @Override
   public void periodic()
   {
+
+  
+  if(DriverStation.getAlliance().get() == Alliance.Blue) {
+  LimelightHelpers.SetRobotOrientation("limelight-sabre", swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+  LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-sabre");
+  if(mt2 != null) {
+  boolean doRejectUpdate = false;
+  // if our angular velocity is greater than 360 degrees per second, ignore vision updates
+  if(Math.abs(swerveDrive.getRobotVelocity().omegaRadiansPerSecond) > 360)
+  {
+    doRejectUpdate = true;
+  }
+  if(mt2.tagCount == 0)
+  {
+    doRejectUpdate = true;
+  }
+  if(!doRejectUpdate)
+  {
+    swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,999999999));
+    swerveDrive.addVisionMeasurement(
+        mt2.pose,
+        mt2.timestampSeconds);
+    System.out.println("yeah");
+  }
+  }
+} else {
+  LimelightHelpers.SetRobotOrientation("limelight-sabre", swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+  LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2("limelight-sabre");
+  if(mt2 != null) {
+  boolean doRejectUpdate = false;
+  // if our angular velocity is greater than 360 degrees per second, ignore vision updates
+  if(Math.abs(swerveDrive.getRobotVelocity().omegaRadiansPerSecond) > 360)
+  {
+    doRejectUpdate = true;
+  }
+  if(mt2.tagCount == 0)
+  {
+    doRejectUpdate = true;
+  }
+  if(!doRejectUpdate)
+  {
+    swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,999999999));
+    swerveDrive.addVisionMeasurement(
+        mt2.pose,
+        mt2.timestampSeconds);
+    System.out.println("yeah");
+  }
+  }
+
+  m_field2d.setRobotPose(swerveDrive.getPose());
+  SmartDashboard.putData(m_field2d);
+
+
+}
+
   }
 
   @Override
@@ -140,7 +211,7 @@ public class SwerveSubsystem extends SubsystemBase
     {
       config = RobotConfig.fromGUISettings();
 
-      final boolean enableFeedforward = true;
+      final boolean enableFeedforward = false;
       // Configure AutoBuilder last
       AutoBuilder.configure(
           this::getPose,
@@ -165,9 +236,9 @@ public class SwerveSubsystem extends SubsystemBase
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(5.0, 0.0, 0.0),
+              new PIDConstants(3.0, 0.0, 0.0),
               // Translation PID constants
-              new PIDConstants(5.0, 0.0, 0.0)
+              new PIDConstants(2.0, 0.0, 0.0)
               // Rotation PID constants
           ),
           config,
