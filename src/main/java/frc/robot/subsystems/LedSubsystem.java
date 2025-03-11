@@ -9,18 +9,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LedSubsystem extends SubsystemBase {
     private static final int kPort = 0;
-    private static final int kLength = 200;  
+    private static final int kLength = 120;  
 
     private AddressableLED m_LED;
     private AddressableLEDBuffer m_LEDBuffer;
     
     public LedSubsystem() {
+      System.out.println("led subsystem init");
       m_LED = new AddressableLED(kPort);
       m_LEDBuffer = new AddressableLEDBuffer(kLength);
-      m_LED.setLength(m_LEDBuffer.getLength());
+      m_LED.setLength(kLength);
+      //m_LED.setData(m_LEDBuffer);
       m_LED.start();
 
-      setDefaultCommand(runPattern(LEDPattern.solid(new Color(39, 2, 201))));
+      setDefaultCommand(runPattern(LEDPattern.solid(Color.kAquamarine)).withName("Blue"));
     }
     
     @Override
@@ -30,6 +32,7 @@ public class LedSubsystem extends SubsystemBase {
     }
 
     public Command runPattern(LEDPattern pattern) {
+      System.out.println("hi");
       return run(() -> pattern.applyTo(m_LEDBuffer));
     }
   }
