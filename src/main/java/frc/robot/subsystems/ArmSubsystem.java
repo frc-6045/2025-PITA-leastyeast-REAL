@@ -20,13 +20,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.PositionConstants;
+import frc.robot.util.Elastic;
+import frc.robot.util.Elastic.Notification;
 
 public class ArmSubsystem extends SubsystemBase {
   private final SparkFlex m_ArmMotor;
   private final AbsoluteEncoder m_AbsoluteEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
   //private final ArmFeedforward m_ArmFeedforward = new ArmFeedforward(0, 0, 0);
-  PIDController m_ArmPIDController = new PIDController(9, 0, 0);
+  PIDController m_ArmPIDController = new PIDController(3, 0, 0);
+  Elastic.Notification notification = new Elastic.Notification(Elastic.Notification.NotificationLevel.ERROR, "arm encoder not plugged in!??!?!!??!?", "blame build team");
+
 
   /** Creates a new ExampleSubsystem. */
   public ArmSubsystem() {
@@ -113,6 +117,11 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("ARM position (SKETCHY)", (getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1);
     SmartDashboard.putNumber("raw ARM position", getAbsoluteEncoderPosition());
+    // if (getAbsoluteEncoderPosition()==0) {
+    //   Elastic.sendNotification(notification);
+    //   System.out.println("blame build for not plugging in encoder");
+
+    // }
   }
 
   @Override
