@@ -42,6 +42,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.LimelightHelpers;
+import frc.robot.Constants.AutoScoreConstants;
 import frc.robot.Constants.SwerveConstants;
 
 import java.io.File;
@@ -797,4 +798,28 @@ public class SwerveSubsystem extends SubsystemBase
 
     return closestTagPose;
   }
+
+
+
+
+
+  public char getNearestPole(AutoScoreConstants.Side side) {
+      //  returns a b c d e f g h ...
+      Pose2d closestPose = getPose();
+      for(Pose2d pose : AutoScoreConstants.REEF_FACE_ARRAY) {
+        if
+      }
+      
+      
+  }
+
+  public Pose2d getAutoScorePose(Level, LeftOrRight, offset) {
+
+    //offset needs to be robot relative 
+
+
+  }
+
+
+
 }

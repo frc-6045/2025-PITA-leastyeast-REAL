@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
@@ -158,6 +160,32 @@ public final class Constants {
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(25);
   }
+
+
+  public static class AutoScoreConstants {
+    //starts on the nearest side and goes around in a circle going down and to the right
+    public static final Pose2d REEF_FACE_ONE = new Pose2d(3.818, 4.014, new Rotation2d());
+    public static final Pose2d REEF_FACE_TWO = new Pose2d(4.153, 3.416, new Rotation2d());
+    public static final Pose2d REEF_FACE_THREE = new Pose2d(4.842, 3.422, new Rotation2d());
+    public static final Pose2d REEF_FACE_FOUR = new Pose2d(5.177, 4.022, new Rotation2d());
+    public static final Pose2d REEF_FACE_FIVE = new Pose2d(4.840, 4.596, new Rotation2d());
+    public static final Pose2d REEF_FACE_SIX = new Pose2d(4.153, 4.014, new Rotation2d());
+
+    public static final Pose2d[] REEF_FACE_ARRAY = new Pose2d[] {
+      REEF_FACE_ONE, 
+      REEF_FACE_TWO, 
+      REEF_FACE_THREE, 
+      REEF_FACE_FOUR, 
+      REEF_FACE_FIVE, 
+      REEF_FACE_SIX};
+
+      public static enum Side {
+        LEFT,
+        RIGHT
+      }
+  }
+
+  
   
 }
 
