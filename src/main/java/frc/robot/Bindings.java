@@ -52,7 +52,7 @@ public class Bindings {
         //m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
         //m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
 
-        m_operatorController.leftTrigger(0.2).onTrue(
+        m_operatorController.rightBumper().onTrue(
             new ParallelCommandGroup(
                 new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
                 new IntakeConditional(m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1<0.5;}, false)
@@ -85,7 +85,7 @@ public class Bindings {
         //     )
         // );
         //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
-        m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE));
+        //m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE));
 
         /* Driver Controller non-drive bindings */
 

@@ -28,7 +28,7 @@ public class ArmSubsystem extends SubsystemBase {
   private final AbsoluteEncoder m_AbsoluteEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
   //private final ArmFeedforward m_ArmFeedforward = new ArmFeedforward(0, 0, 0);
-  PIDController m_ArmPIDController = new PIDController(3, 0, 0);
+  PIDController m_ArmPIDController = new PIDController(3.5, 0, 1);
   Elastic.Notification notification = new Elastic.Notification(Elastic.Notification.NotificationLevel.ERROR, "arm encoder not plugged in!??!?!!??!?", "blame build team");
 
 
