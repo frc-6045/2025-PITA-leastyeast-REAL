@@ -183,6 +183,22 @@ public final class Constants {
         LEFT,
         RIGHT
       }
+
+
+      public static final Pose2d PoleA = new Pose2d(3.153, 4.175, Rotation2d.fromDegrees(180));
+      public static final Pose2d PoleB = new Pose2d(3.189, 3.827, Rotation2d.fromDegrees(180));
+      public static final Pose2d PoleC = new Pose2d(3.704, 2.952, Rotation2d.fromDegrees(-120));
+      public static final Pose2d PoleD = new Pose2d(3.956, 2.820, Rotation2d.fromDegrees(-120));
+      public static final Pose2d PoleE = new Pose2d(4.975, 2.784, Rotation2d.fromDegrees(-61));
+      public static final Pose2d PoleF = new Pose2d(5.275, 2.940, Rotation2d.fromDegrees(-61));
+      public static final Pose2d PoleG = new Pose2d(5.790, 3.851, Rotation2d.fromDegrees(0));
+      public static final Pose2d PoleH = new Pose2d(5.802, 4.187, Rotation2d.fromDegrees(0));
+      public static final Pose2d PoleI = new Pose2d(5.335, 5.050, Rotation2d.fromDegrees(59));
+      public static final Pose2d PoleJ = new Pose2d(4.999, 5.242, Rotation2d.fromDegrees(59));
+      public static final Pose2d PoleK = new Pose2d(3.956, 5.206, Rotation2d.fromDegrees(123));
+      public static final Pose2d PoleL = new Pose2d(3.680, 5.074, Rotation2d.fromDegrees(123));
+
+      
   }
 
   
