@@ -10,8 +10,9 @@
     "JPole",
     "KPole",
     "LPole",
-    "Test Paths",
-    "Other"
+    "AutoScorePaths",
+    "Other",
+    "Test Paths"
   ],
   "autoFolders": [
     "2PieceGHPoles",

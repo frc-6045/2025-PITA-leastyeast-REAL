@@ -134,7 +134,8 @@ public class Bindings {
         // );
 
         m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
-        m_driverController.a().onTrue(m_driveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(AutoBuilder.buildAuto("HPSToGPole2Auto")));
+        // m_driverController.a().onTrue(m_driveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(AutoBuilder.buildAuto("HPSToGPole2Auto")));
+        m_driverController.a().onTrue(m_driveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(m_driveSubsystem.driveToPose(new Pose2d(5.814, 3.779, Rotation2d.fromDegrees(0)))));
     }
 
     public static boolean isShift() {
