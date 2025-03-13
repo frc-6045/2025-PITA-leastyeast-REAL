@@ -848,7 +848,7 @@
       return driveToPose(initalPoseToPlanTo);
     }
 
-    public Command driveToSecondAutoScorePose(AutoScoreConstants.Side side) {
+    public Command driveToSecondAutoScorePose(AutoScoreConstants.Side side, Translation2d coralOffset) {
       Pose2d nearestPole = getNearestPole(side);
       return driveToPoseSlowMode(nearestPole);
     }

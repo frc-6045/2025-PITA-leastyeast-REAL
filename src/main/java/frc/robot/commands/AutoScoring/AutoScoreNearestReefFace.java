@@ -32,7 +32,7 @@ public class AutoScoreNearestReefFace extends InstantCommand {
   ElevatorSubsystem m_ElevatorSubsystem; 
   IntakeSubsystem m_IntakeSubsystem; 
   PositionConstants.Setpoints setPoint; 
-  Translation2d offset;
+  Supplier<Translation2d> offset;
   Supplier<Side> side;
 
 
@@ -41,7 +41,7 @@ public class AutoScoreNearestReefFace extends InstantCommand {
   IntakeSubsystem m_IntakeSubsystem, 
   PositionConstants.Setpoints setPoint, 
   Supplier<Side> side, 
-  Translation2d offset) {
+  Supplier<Translation2d> offset) {
     this.m_DriveSubsystem = m_DriveSubsystem;
     this.m_ArmSubsystem = m_ArmSubsystem;
     this.m_ElevatorSubsystem = m_ElevatorSubsystem;
@@ -72,7 +72,7 @@ public class AutoScoreNearestReefFace extends InstantCommand {
     }
     commandToRun = m_DriveSubsystem.driveToFirstAutoScorePose(side.get()).andThen( 
     new ParallelDeadlineGroup(
-      m_DriveSubsystem.driveToSecondAutoScorePose(side.get()), 
+      m_DriveSubsystem.driveToSecondAutoScorePose(side.get(), offset.get()), 
       MoveArmAndElevator),
     new IntakeClosedLoop(m_IntakeSubsystem, 0.8, true)
     );

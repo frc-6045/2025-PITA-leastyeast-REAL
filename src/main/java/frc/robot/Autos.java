@@ -40,6 +40,8 @@ import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.AutoScoring.AutoScoreNearestReefFace;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
+import frc.robot.commands.IntakeCommands.IntakeIntake;
+import frc.robot.commands.IntakeCommands.IntakeIntakeClosedLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -60,8 +62,9 @@ public class Autos {
 
         // Named Commands
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-        NamedCommands.registerCommand("coralSpit", new IntakeClosedLoop(m_Intake, 1, false));
-        NamedCommands.registerCommand("coralIntake", new IntakeClosedLoop(m_Intake, 0.5, true));
+        NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(m_Intake, 1, false));
+        NamedCommands.registerCommand("coralSpinOther", new IntakeClosedLoop(m_Intake, 0.5, true));
+        NamedCommands.registerCommand("coralIntake", new IntakeIntakeClosedLoop(m_Intake, ()->{return m_Intake.coralDetected();}));
         NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L1).asProxy());
         NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L2).asProxy());
         NamedCommands.registerCommand("coralL3", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L3).asProxy());
@@ -74,7 +77,7 @@ public class Autos {
                 m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
                 Setpoints.L3,
                 ()->{return Side.LEFT;},
-                new Translation2d()
+                ()->{return m_Intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL3Right", 
@@ -82,7 +85,7 @@ public class Autos {
                 m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
                 Setpoints.L3,
                 ()->{return Side.RIGHT;},
-                new Translation2d()
+                ()->{return m_Intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL4Left", 
@@ -90,7 +93,7 @@ public class Autos {
                 m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
                 Setpoints.L4,
                 ()->{return Side.LEFT;},
-                new Translation2d()
+                ()->{return m_Intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL4Right", 
@@ -98,7 +101,7 @@ public class Autos {
                 m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
                 Setpoints.L4,
                 ()->{return Side.RIGHT;},
-                new Translation2d()
+                ()->{return m_Intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignPrint", Commands.print("The robot is aligning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"));

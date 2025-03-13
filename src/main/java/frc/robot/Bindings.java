@@ -140,7 +140,7 @@ public class Bindings {
                 m_driveSubsystem, m_Arm, m_Elev, m_Intake,
                 Setpoints.L4,
                 ()->{return reefScoreLeftOrRight;},
-                new Translation2d()
+                ()->{return m_Intake.getAlignOffset();}
             )
         );
 
@@ -149,7 +149,7 @@ public class Bindings {
                 m_driveSubsystem, m_Arm, m_Elev, m_Intake,
                 Setpoints.L3,
                 ()->{return reefScoreLeftOrRight;},
-                new Translation2d()
+                ()->{return m_Intake.getAlignOffset();}
             )
         );
     }

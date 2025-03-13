@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -56,6 +57,20 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public static boolean coralDetected() {
         return getDistanceSensorOutput()<0.085;
+    }
+
+    public static int getCoralPosition() {
+        return 0;
+    }
+
+    public static Translation2d getAlignOffset() {
+        switch (getCoralPosition()) {
+            case 0:
+                return new Translation2d();
+            case 1:
+                return new Translation2d();
+        }
+        return new Translation2d();
     }
 
     @Override
