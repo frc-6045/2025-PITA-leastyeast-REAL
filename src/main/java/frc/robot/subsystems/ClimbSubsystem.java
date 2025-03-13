@@ -80,8 +80,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Climb position", getRelativeEncoderPosition()+PositionConstants.kSketchyOffset); //does not work
-    SmartDashboard.putNumber("raw Climb position", getRelativeEncoderPosition()); //does not work
+    SmartDashboard.putNumber("Climb position", getRelativeEncoderPosition()); //does not work
   }
 
   @Override

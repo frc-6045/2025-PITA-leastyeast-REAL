@@ -8,7 +8,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
@@ -28,8 +28,8 @@ import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.AutoScoring.AutoScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
+import frc.robot.commands.IntakeCommands.IntakeIntake;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
-import frc.robot.commands.SwerveCommands.AlignToReefTagRelative;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -55,10 +55,17 @@ public class Bindings {
 
 
         /* Operator Controller bindings */
+
+        //arm
+
+        //intake
+        //m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
+        //m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
+
         m_operatorController.leftTrigger(0.2).onTrue(
             new ParallelCommandGroup(
                 new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
-                new IntakeConditional(m_Intake, () -> {return m_Arm.getAbsoluteEncoderPosition()>0.5;}, true)
+                new IntakeConditional(m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1<0.5;}, false)
                 )
         );
 
@@ -79,22 +86,22 @@ public class Bindings {
         m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_Elev, false));
 
         //misc
-        //m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        //m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        m_operatorController.leftBumper().whileTrue(
-            new IntakeConditional(
-                m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1>0.5;}, 
-                true
-            )
-        );
+        m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
+        m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
+        // m_operatorController.leftBumper().whileTrue(
+        //     new IntakeConditional(
+        //         m_Intake, () -> {return (m_Arm.getAbsoluteEncoderPosition()+PositionConstants.kSketchyOffset)%1<0.5;}, 
+        //         true
+        //     )
+        // );
         //m_operatorController.rightBumper().onTrue(new StopPIDArmAndElevator(m_Arm, m_Elevator)); // stop PID arm and elevator
-        m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE));
+        //m_operatorController.rightBumper().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE));
 
         /* Driver Controller non-drive bindings */
 
         //m_driverController.y().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
 
-        m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
+        m_driverController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return IntakeSubsystem.coralDetected();}));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
 
         m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_Arm, true));

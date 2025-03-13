@@ -18,6 +18,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Bindings;
 import frc.robot.Constants.MotorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -73,18 +74,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     speed = (speed < -MotorConstants.kElevatorMotorsMaxSpeed) ? -MotorConstants.kElevatorMotorsMaxSpeed : speed;
 
     speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
-    if (getRelativeEncoderPosition() > -3 && speed<0) {
-      speed*=0.35;
-      //SmartDashboard.putBoolean("close to switch", true);
-    } else {
-      //SmartDashboard.putBoolean("close to switch", false);
-    }
-    if (getRelativeEncoderPosition()<-77 && speed>0) {
+    if (getRelativeEncoderPosition() > -5 && speed<0) { //limit going down
+      if (Bindings.isShift()) {
+        speed*=0.75; // override but also slowing a liil
+      } else {
+        speed*=0.25;
+      }
+    } else if (getRelativeEncoderPosition()<-78.2 && speed>0){
+      speed = 0; // hard limit
+    } else if (getRelativeEncoderPosition()<-76.5 && speed>0) {
       speed*=0.2;
-      //SmartDashboard.putBoolean("close to switch", true);
-    }
-      else {
-      //SmartDashboard.putBoolean("close to switch", false);
     }
     m_ElevatorMotor1.set(-speed);
     m_ElevatorMotor2.set(speed);

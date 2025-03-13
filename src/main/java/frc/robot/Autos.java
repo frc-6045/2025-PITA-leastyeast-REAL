@@ -32,6 +32,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Constants.PositionConstants;
 import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
@@ -78,7 +80,7 @@ public class Autos {
 
         // Autos
         autoChooser = new SendableChooser<Command>();
-        //autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
+        autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
         autoChooser.addOption("1PieceIPole", AutoBuilder.buildAuto("1PieceIPole"));
         autoChooser.addOption("2PieceIKPoles", AutoBuilder.buildAuto("2PieceIKPoles"));
         autoChooser.addOption("3PieceIKJPoles", AutoBuilder.buildAuto("3PieceIKJPoles"));
