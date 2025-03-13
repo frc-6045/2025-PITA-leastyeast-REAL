@@ -58,13 +58,13 @@ public class AutoScoreNearestReefFace extends InstantCommand {
 
     Command MoveArmAndElevator;
     if(setPoint.equals(PositionConstants.Setpoints.L1)) {
-      MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L1);
+      MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L1).asProxy();
     } else if(setPoint.equals(PositionConstants.Setpoints.L2)) {
-      MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L2);
+      MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L2).asProxy();
     } else if(setPoint.equals(PositionConstants.Setpoints.L3)) {
-      MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L3);
+      MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L3).asProxy();
     } else if(setPoint.equals(PositionConstants.Setpoints.L4)) {
-      MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L4);
+      MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L4).asProxy();
     } else {
       MoveArmAndElevator = new PrintCommand("your auto score command is broken cause this is an invalid setpoint");
     }
