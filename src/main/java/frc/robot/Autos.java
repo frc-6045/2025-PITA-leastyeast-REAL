@@ -28,14 +28,17 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.PositionConstants;
+import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
+import frc.robot.commands.AutoScoring.AutoScoreNearestReefFace;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -66,8 +69,38 @@ public class Autos {
         NamedCommands.registerCommand("algaeHigh", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.ALGAE_HIGH));
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.HOME).asProxy());
-        NamedCommands.registerCommand("alignToReefLeft", m_SwerveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(AutoBuilder.buildAuto("HPSToGPole2Auto")));
-        NamedCommands.registerCommand("alignToReefRight", m_SwerveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(AutoBuilder.buildAuto("HPSToGPole2Auto")));
+        NamedCommands.registerCommand("alignToReefScoreL3Left", 
+            new AutoScoreNearestReefFace(
+                m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
+                Setpoints.L3,
+                ()->{return Side.LEFT;},
+                new Translation2d()
+            )
+        );
+        NamedCommands.registerCommand("alignToReefScoreL3Right", 
+            new AutoScoreNearestReefFace(
+                m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
+                Setpoints.L3,
+                ()->{return Side.RIGHT;},
+                new Translation2d()
+            )
+        );
+        NamedCommands.registerCommand("alignToReefScoreL4Left", 
+            new AutoScoreNearestReefFace(
+                m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
+                Setpoints.L4,
+                ()->{return Side.LEFT;},
+                new Translation2d()
+            )
+        );
+        NamedCommands.registerCommand("alignToReefScoreL4Right", 
+            new AutoScoreNearestReefFace(
+                m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
+                Setpoints.L4,
+                ()->{return Side.RIGHT;},
+                new Translation2d()
+            )
+        );
         NamedCommands.registerCommand("alignPrint", Commands.print("The robot is aligning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
 
         // NamedCommands.registerCommand("scoreCoralL1",
