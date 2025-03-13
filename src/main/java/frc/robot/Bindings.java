@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -18,11 +19,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.AutoScoreConstants;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.PositionConstants;
+import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
+import frc.robot.commands.AutoScoring.AutoScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
@@ -37,6 +40,7 @@ import swervelib.SwerveInputStream;
 
 public class Bindings {
     public static boolean shift = false;
+    public static Side reefScoreLeftOrRight = null;
 
     public static void InitBindings(
         CommandXboxController m_operatorController, 
@@ -51,13 +55,6 @@ public class Bindings {
 
 
         /* Operator Controller bindings */
-
-        //arm
-
-        //intake
-        //m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
-        //m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
-
         m_operatorController.leftTrigger(0.2).onTrue(
             new ParallelCommandGroup(
                 new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
@@ -95,7 +92,7 @@ public class Bindings {
 
         /* Driver Controller non-drive bindings */
 
-        m_driverController.y().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
+        //m_driverController.y().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
 
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
@@ -105,9 +102,6 @@ public class Bindings {
 
         m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
-
-        m_driverController.x().onTrue(new AlignToReefTagRelative(false, m_driveSubsystem).withTimeout(3));
-        m_driverController.b().onTrue(new AlignToReefTagRelative(true, m_driveSubsystem).withTimeout(3));
 
         /* God Controller non-drive bindings */
 
@@ -125,23 +119,40 @@ public class Bindings {
         m_godController.pov(270).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL3ArmPosition, m_Elev, PositionConstants.kL3ElevatorPosition));
         m_godController.pov(90).onTrue(new PIDArmAndElevator(m_Arm, PositionConstants.kL4ArmPosition, m_Elev, PositionConstants.kL4ElevatorPosition));
 
-        // m_DriveSubsystem.setDefaultCommand(
-        // new RunCommand(
-        //     () -> m_DriveSubsystem.drive( 
-        //         MathUtil.applyDeadband(-m_driverController.getLeftY(), 0.30)+MathUtil.applyDeadband(-m_godController.getLeftY(), 0.30), 
-        //         MathUtil.applyDeadband(-m_driverController.getLeftX(), 0.30)+MathUtil.applyDeadband(-m_godController.getLeftX(), 0.30),
-        //         MathUtil.applyDeadband(-m_driverController.getRightX(), 0.30)+MathUtil.applyDeadband(-m_godController.getRightX(), 0.30),
-        //         true),
-        //     m_DriveSubsystem)
-        // );
+        
 
         m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
-        // m_driverController.a().onTrue(m_driveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(AutoBuilder.buildAuto("HPSToGPole2Auto")));
-        m_driverController.a().onTrue(m_driveSubsystem.driveToPose(new Pose2d(6.761, 3.779, Rotation2d.fromDegrees(0))).andThen(m_driveSubsystem.driveToPoseSlowMode(new Pose2d(5.814, 3.779, Rotation2d.fromDegrees(0)))));
+
+        m_driverController.leftStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.LEFT;}));
+        m_driverController.leftStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
+        m_driverController.rightStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.RIGHT;}));
+        m_driverController.rightStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
+
+        m_driverController.y().onTrue(
+            new AutoScoreNearestReefFace(
+                m_driveSubsystem, m_Arm, m_Elev, m_Intake,
+                Setpoints.L4,
+                ()->{return reefScoreLeftOrRight;},
+                new Translation2d()
+            )
+        );
+
+        m_driverController.b().onTrue(
+            new AutoScoreNearestReefFace(
+                m_driveSubsystem, m_Arm, m_Elev, m_Intake,
+                Setpoints.L3,
+                ()->{return reefScoreLeftOrRight;},
+                new Translation2d()
+            )
+        );
     }
 
     public static boolean isShift() {
         return shift;
+    }
+
+    public static Side getReefScoreLeftOrRight() {
+        return reefScoreLeftOrRight;
     }
 
     public static void configureDrivetrain(SwerveSubsystem m_DriveSubsystem, CommandXboxController m_driverController) {
@@ -229,7 +240,7 @@ public class Bindings {
         m_driverController.rightBumper().onTrue(Commands.none());
         } else
         {
-        // m_driverController.a().onTrue((Commands.runOnce(m_DriveSubsystem::zeroGyro)));
+        m_driverController.a().onTrue((Commands.runOnce(m_DriveSubsystem::zeroGyro)));
         //m_driverController.x().onTrue(Commands.runOnce(m_DriveSubsystem::addFakeVisionReading));
         //m_driverController.b().whileTrue(
         //    m_DriveSubsystem.driveToPose(

@@ -75,30 +75,30 @@ public class RobotContainer {
 
 
 
-  new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getAButton()).onTrue(
-      new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L1, Side.LEFT, new Translation2d())
-    );
-    new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getBButton()).onTrue(
-      new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L2, Side.LEFT, new Translation2d())
-    );
-    new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getXButton()).onTrue(
-      new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L3, Side.LEFT, new Translation2d())
-    );
-    new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getYButton()).onTrue(
-      new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L4, Side.LEFT, new Translation2d())
-    );
-    new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getAButton()).onTrue(
-      new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L1, Side.RIGHT, new Translation2d())
-    );
-    new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getBButton()).onTrue(
-      new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L2, Side.RIGHT, new Translation2d())
-    );
-    new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getXButton()).onTrue(
-      new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L3, Side.RIGHT, new Translation2d())
-    );
-    new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getYButton()).onTrue(
-      new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L4, Side.RIGHT, new Translation2d())
-    );
+  // new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getAButton()).onTrue(
+  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L1, Side.LEFT, new Translation2d())
+  //   );
+  //   new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getBButton()).onTrue(
+  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L2, Side.LEFT, new Translation2d())
+  //   );
+  //   new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getXButton()).onTrue(
+  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L3, Side.LEFT, new Translation2d())
+  //   );
+  //   new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getYButton()).onTrue(
+  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L4, Side.LEFT, new Translation2d())
+  //   );
+  //   new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getAButton()).onTrue(
+  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L1, Side.RIGHT, new Translation2d())
+  //   );
+  //   new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getBButton()).onTrue(
+  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L2, Side.RIGHT, new Translation2d())
+  //   );
+  //   new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getXButton()).onTrue(
+  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L3, Side.RIGHT, new Translation2d())
+  //   );
+  //   new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getYButton()).onTrue(
+  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L4, Side.RIGHT, new Translation2d())
+  //   );
   }
   
   

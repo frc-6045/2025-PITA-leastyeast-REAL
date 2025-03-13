@@ -4,6 +4,8 @@
 
 package frc.robot.commands.AutoScoring;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -30,15 +32,15 @@ public class AutoScoreNearestReefFace extends InstantCommand {
   ElevatorSubsystem m_ElevatorSubsystem; 
   IntakeSubsystem m_IntakeSubsystem; 
   PositionConstants.Setpoints setPoint; 
-  AutoScoreConstants.Side side; 
   Translation2d offset;
+  Supplier<Side> side;
 
 
   public AutoScoreNearestReefFace(SwerveSubsystem m_DriveSubsystem, 
   ArmSubsystem m_ArmSubsystem, ElevatorSubsystem m_ElevatorSubsystem, 
   IntakeSubsystem m_IntakeSubsystem, 
   PositionConstants.Setpoints setPoint, 
-  AutoScoreConstants.Side side, 
+  Supplier<Side> side, 
   Translation2d offset) {
     this.m_DriveSubsystem = m_DriveSubsystem;
     this.m_ArmSubsystem = m_ArmSubsystem;
@@ -68,9 +70,9 @@ public class AutoScoreNearestReefFace extends InstantCommand {
     } else {
       MoveArmAndElevator = new PrintCommand("your auto score command is broken cause this is an invalid setpoint");
     }
-    commandToRun = m_DriveSubsystem.driveToFirstAutoScorePose(side).andThen( 
+    commandToRun = m_DriveSubsystem.driveToFirstAutoScorePose(side.get()).andThen( 
     new ParallelDeadlineGroup(
-      m_DriveSubsystem.driveToSecondAutoScorePose(side), 
+      m_DriveSubsystem.driveToSecondAutoScorePose(side.get()), 
       MoveArmAndElevator),
     new IntakeClosedLoop(m_IntakeSubsystem, 0.8, true)
     );
