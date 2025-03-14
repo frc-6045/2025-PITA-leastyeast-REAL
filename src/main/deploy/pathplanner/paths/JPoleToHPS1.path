@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -117.68704545111027
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": "JPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -118.7173602239471
+    "rotation": 59.99999999999999
   },
   "useDefaultConstraints": false
 }

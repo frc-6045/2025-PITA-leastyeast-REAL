@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -37.248655028534564
+    "rotation": 140.0
   },
   "reversed": false,
   "folder": "KPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -59.82530909163119
+    "rotation": 119.99999999999999
   },
   "useDefaultConstraints": false
 }
