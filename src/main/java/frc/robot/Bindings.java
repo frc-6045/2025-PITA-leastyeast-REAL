@@ -169,7 +169,7 @@ public class Bindings {
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(m_DriveSubsystem.getSwerveDrive(),
                                                                 () -> m_driverController.getLeftY() * -1,
                                                                 () -> m_driverController.getLeftX() * -1)
-                                                            .withControllerRotationAxis(()->{return -m_driverController.getRightX();})
+                                                            .withControllerRotationAxis(()->{return m_driverController.getRightX();})
                                                             .deadband(ControllerConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);

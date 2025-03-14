@@ -841,11 +841,12 @@
 
     //needed because otherwise command will precalcualte all the nearest pole values rather than on the fly, specifically the getNearestPole
     public Command driveToFirstAutoScorePose(AutoScoreConstants.Side side){
-      Translation2d shiftBackward = new Translation2d(-1, 0);
+      Translation2d shiftBackward = new Translation2d(1, 0);
       Pose2d nearestPole = getNearestPole(side);
       Pose2d initalPoseToPlanTo = shiftPoseRobotRelative(nearestPole, shiftBackward);
       System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + nearestPole.getRotation().getRadians());
-      return driveToPose(initalPoseToPlanTo);
+      // TODO: change dis back to not slow becauz i testing
+      return driveToPoseSlowMode(initalPoseToPlanTo);
     }
 
     public Command driveToSecondAutoScorePose(AutoScoreConstants.Side side, Translation2d coralOffset) {
