@@ -821,10 +821,23 @@
       return driveToPose(initalPoseToPlanTo);
     }
 
+    public Command driveToFirstAutoScorePose(Pose2d pole){
+      Translation2d shiftBackward = new Translation2d(-1, 0);
+      Pose2d initalPoseToPlanTo = shiftPoseRobotRelative(pole, shiftBackward);
+      System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + pole.getRotation().getRadians());
+      return driveToPose(initalPoseToPlanTo);
+    }
+
     public Command driveToSecondAutoScorePose(AutoScoreConstants.Side side, Translation2d coralOffset) {
       Pose2d nearestPole = getNearestPole(side);
       // offset depending on coral location in intake
       nearestPole = shiftPoseRobotRelative(nearestPole, coralOffset);
       return driveToPoseSlowMode(nearestPole);
+    }
+
+    public Command driveToSecondAutoScorePose(Pose2d pole, Translation2d coralOffset) {
+      // offset depending on coral location in intake
+      pole = shiftPoseRobotRelative(pole, coralOffset);
+      return driveToPoseSlowMode(pole);
     }
   }

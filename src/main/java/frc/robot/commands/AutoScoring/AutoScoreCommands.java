@@ -6,6 +6,7 @@ package frc.robot.commands.AutoScoring;
 
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -69,5 +70,15 @@ public class AutoScoreCommands {
       System.out.println("hey you did not pick a side :(");
     }
     return Commands.print("huh what happened");
+  }
+
+  public Command scoreSpecificReefPole(Setpoints setPoint, Pose2d pole, Supplier<Translation2d> offset) {
+    return m_DriveSubsystem.driveToFirstAutoScorePose(pole).andThen( 
+      new ParallelDeadlineGroup(
+        m_DriveSubsystem.driveToSecondAutoScorePose(pole, offset.get()), 
+        new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setPoint)),
+      new IntakeClosedLoop(m_IntakeSubsystem, 0.8, true)
+      );
+    //return Commands.print("hi");
   }
 }
