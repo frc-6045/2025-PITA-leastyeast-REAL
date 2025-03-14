@@ -13,7 +13,7 @@ import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
-import frc.robot.commands.AutoScoring.AutoScoreNearestReefFace;
+import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeIntake;
@@ -98,7 +98,7 @@ public class Bindings {
         
         // reef score
         m_driverController.y().onTrue(
-            new AutoScoreNearestReefFace(
+            new TeleopScoreNearestReefFace(
                 m_driveSubsystem, m_Arm, m_Elev, m_Intake,
                 Setpoints.L4,
                 ()->{return reefScoreLeftOrRight;},
@@ -107,7 +107,7 @@ public class Bindings {
         );
 
         m_driverController.b().onTrue(
-            new AutoScoreNearestReefFace(
+            new TeleopScoreNearestReefFace(
                 m_driveSubsystem, m_Arm, m_Elev, m_Intake,
                 Setpoints.L3,
                 ()->{return reefScoreLeftOrRight;},

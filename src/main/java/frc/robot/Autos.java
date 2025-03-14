@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
-import frc.robot.commands.AutoScoring.AutoScoreNearestReefFace;
+import frc.robot.commands.AutoScoring.AutoScoreCommands;
+import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
 import frc.robot.commands.IntakeCommands.IntakeIntakeClosedLoop;
 import frc.robot.subsystems.ArmSubsystem;
@@ -29,6 +30,8 @@ public class Autos {
         m_Intake = intake;
         m_Elevator = elev;
         m_Arm = arm;
+        AutoScoreCommands m_AutoScoreCommands = 
+            new AutoScoreCommands(m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake);
 
 
         // Named Commands //
@@ -45,15 +48,13 @@ public class Autos {
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(arm, elev, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(arm, elev, Setpoints.HOME).asProxy());
         NamedCommands.registerCommand("alignToReefScoreL3Left", 
-            new AutoScoreNearestReefFace(
-                drive, arm, elev, intake,
+            m_AutoScoreCommands.scoreNearestReefFace(
                 Setpoints.L3,
                 ()->{return Side.LEFT;},
-                ()->{return intake.getAlignOffset();}
-            )
+                ()->{return intake.getAlignOffset();})
         );
         NamedCommands.registerCommand("alignToReefScoreL3Right", 
-            new AutoScoreNearestReefFace(
+            new TeleopScoreNearestReefFace(
                 drive, arm, elev, intake,
                 Setpoints.L3,
                 ()->{return Side.RIGHT;},
@@ -61,7 +62,7 @@ public class Autos {
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL4Left", 
-            new AutoScoreNearestReefFace(
+            new TeleopScoreNearestReefFace(
                 drive, arm, elev, intake,
                 Setpoints.L4,
                 ()->{return Side.LEFT;},
@@ -69,7 +70,7 @@ public class Autos {
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL4Right", 
-            new AutoScoreNearestReefFace(
+            new TeleopScoreNearestReefFace(
                 drive, arm, elev, intake,
                 Setpoints.L4,
                 ()->{return Side.RIGHT;},
