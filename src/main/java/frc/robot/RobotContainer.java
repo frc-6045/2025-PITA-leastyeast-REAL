@@ -11,25 +11,12 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.HoldArm;
-import frc.robot.commands.AutoScoring.AutoScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.HoldElevator;
-import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
-import frc.robot.Constants.AutoScoreConstants;
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.Constants.PositionConstants;
-import frc.robot.Constants.AutoScoreConstants.Side;
-import frc.robot.Constants.PositionConstants.Setpoints;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.io.File;
 

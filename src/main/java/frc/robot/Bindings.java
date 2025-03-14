@@ -101,7 +101,7 @@ public class Bindings {
 
         //m_driverController.y().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
 
-        m_driverController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return IntakeSubsystem.coralDetected();}));
+        m_driverController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return m_Intake.coralDetected();}));
         m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
 
         m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_Arm, true));
