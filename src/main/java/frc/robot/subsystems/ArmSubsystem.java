@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.util.Elastic;
-import frc.robot.util.Elastic.Notification;
 
 public class ArmSubsystem extends SubsystemBase {
   private final SparkFlex m_ArmMotor;

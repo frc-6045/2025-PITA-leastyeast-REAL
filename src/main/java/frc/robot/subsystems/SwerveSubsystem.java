@@ -43,14 +43,11 @@
   import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
   import frc.robot.LimelightHelpers;
   import frc.robot.Constants.AutoScoreConstants;
-  import frc.robot.Constants.PositionConstants;
   import frc.robot.Constants.SwerveConstants;
 
   import java.io.File;
   import java.io.IOException;
   import java.util.Arrays;
-  import java.util.List;
-  import java.util.concurrent.TransferQueue;
   import java.util.concurrent.atomic.AtomicReference;
   import java.util.function.DoubleSupplier;
   import java.util.function.Supplier;
@@ -777,30 +774,6 @@
       return swerveDrive;
     }
 
-    public Pose2d closestAprilTag(Pose2d robotPose) {
-      // Use the robot pose and return the closest AprilTag on a REEF
-      List<Integer> tagIDs = List.of(17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11);
-
-      double minDistance = Double.MAX_VALUE;
-      Pose2d closestTagPose = new Pose2d();
-
-      for (int tagID : tagIDs) {
-        var tagPoseOptional = aprilTagFieldLayout.getTagPose(tagID);
-        var tagPose = tagPoseOptional.get();
-        Pose2d tagPose2d = new Pose2d(tagPose.getX(), tagPose.getY(), new Rotation2d(tagPose.getRotation().getZ()));
-        double distance = robotPose.getTranslation().getDistance(tagPose2d.getTranslation());
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestTagPose = tagPose2d;
-        }
-      }
-
-      return closestTagPose;
-    }
-
-
-
 
     public Pose2d shiftPoseRobotRelative(Pose2d currentPose, Translation2d shift) {
       // Apply the translation in robot-relative terms, considering the current orientation
@@ -850,6 +823,8 @@
 
     public Command driveToSecondAutoScorePose(AutoScoreConstants.Side side, Translation2d coralOffset) {
       Pose2d nearestPole = getNearestPole(side);
+      // offset depending on coral location in intake
+      nearestPole = shiftPoseRobotRelative(nearestPole, coralOffset);
       return driveToPoseSlowMode(nearestPole);
     }
   }

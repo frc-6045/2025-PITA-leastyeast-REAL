@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
@@ -176,6 +177,19 @@ public final class Constants {
       public static final Pose2d PoleJ = new Pose2d(4.999, 5.242, Rotation2d.fromDegrees(59));
       public static final Pose2d PoleK = new Pose2d(3.956, 5.206, Rotation2d.fromDegrees(123));
       public static final Pose2d PoleL = new Pose2d(3.680, 5.074, Rotation2d.fromDegrees(123));
+
+      // distance sensor values
+      public static final double coralLocation0 = 0.11; // no coral
+      public static final double coralLocation1 = 0.080;
+      public static final double coralLocation2 = 0.062;
+      public static final double coralLocation3 = 0.046;
+      public static final double coralLocation4 = 0.033;
+
+      // offsets
+      public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
+      public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
+      public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
+      public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
 
       
   }
