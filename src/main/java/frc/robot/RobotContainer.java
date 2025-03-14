@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import java.io.File;
 
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -46,15 +45,13 @@ public class RobotContainer {
       new CommandXboxController(ControllerConstants.kOperatorControllerPort);
   private final CommandXboxController m_driverController = 
       new CommandXboxController(ControllerConstants.kDriverControllerPort);
-  private final CommandXboxController m_godController =
-      new CommandXboxController(ControllerConstants.kGodControllerPort);
-  private final XboxController m_autScoringTestController =
-      new XboxController(3);   
+  private final CommandXboxController m_testVisionController =
+      new CommandXboxController(2);   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
-    Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, m_ClimbSubsystem, m_LedSubsystem);
+    Bindings.InitBindings(m_operatorController, m_driverController, m_testVisionController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, m_ClimbSubsystem, m_LedSubsystem);
     Bindings.configureDrivetrain(m_DriveSubsystem, m_driverController);
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));

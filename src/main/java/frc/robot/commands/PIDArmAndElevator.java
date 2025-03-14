@@ -108,7 +108,7 @@ public class PIDArmAndElevator extends Command {
     
     @Override
     public void initialize() {
-        if (Bindings.isShift()) has2=true;
+        if (Bindings.getOperatorShiftPressed()) has2=true;
         else has2=false;
     }
     

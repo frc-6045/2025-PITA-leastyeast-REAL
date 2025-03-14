@@ -75,7 +75,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
     if (getRelativeEncoderPosition() > -5 && speed<0) { //limit going down
-      if (Bindings.isShift()) {
+      if (Bindings.getOperatorShiftPressed()) {
         speed*=0.75; // override but also slowing a liil
       } else {
         speed*=0.25;
