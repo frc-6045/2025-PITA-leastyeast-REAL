@@ -1,9 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -12,9 +7,8 @@ import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
 public final class Constants {
-  /**  MotorSpeed is the open loop speed.
-   *  MotorMaxSpeed is a hard limit on speed.
-   */
+  //  MotorSpeed is the open loop speed.
+  //  MotorMaxSpeed is a hard limit on speed.
   public static class MotorConstants {
 
     // CAN IDs
@@ -67,6 +61,8 @@ public final class Constants {
     public static final double kOffset = 0; // likely will never be used
     public static final double kSketchyOffset = 0.33;
 
+//SETPOINTS
+
     // Human player/coral intake setpoint - A
     public static final double kHumanArmPosition = 0.9561 + kOffset;
     public static final double kHumanElevatorPosition = -40.229;
@@ -113,14 +109,13 @@ public final class Constants {
     
     // barge
     public static final double kBargeArm = 0.331647 + kOffset;
-    public static final double kBargeElev = -77.2; //-77.2
+    public static final double kBargeElev = -77.2;
 
     //nonospaces that make turnbuckle vewy vewy sad :(
     public static final double kArmLimit1=0.884; //0.06
     public static final double kArmLimit2=0.999; // 0.26
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
 
-    //just having fun
     public static enum Setpoints {
       INTAKE,
       HOME,
@@ -135,22 +130,19 @@ public final class Constants {
   }
 
   public static class SwerveConstants {
-    public static final double ROBOT_MASS = (149) * 0.453592; // 32lbs * kg per pound
+    public static final double ROBOT_MASS = (149) * 0.453592; // lbs * kg per pound
     public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(25);
   }
 
-
-  public static class AutoScoreConstants {
-    //starts on the nearest side and goes around in a circle going down and to the right
-    public static final Pose2d REEF_FACE_ONE = new Pose2d(3.818, 4.014, new Rotation2d());
-    public static final Pose2d REEF_FACE_TWO = new Pose2d(4.153, 3.416, new Rotation2d());
-    public static final Pose2d REEF_FACE_THREE = new Pose2d(4.842, 3.422, new Rotation2d());
-    public static final Pose2d REEF_FACE_FOUR = new Pose2d(5.177, 4.022, new Rotation2d());
-    public static final Pose2d REEF_FACE_FIVE = new Pose2d(4.840, 4.596, new Rotation2d());
-    public static final Pose2d REEF_FACE_SIX = new Pose2d(4.153, 4.014, new Rotation2d());
-
+  public static class AutoScoreConstants {                                                      //sides:
+    public static final Pose2d REEF_FACE_ONE = new Pose2d(3.818, 4.014, new Rotation2d());  //AB 
+    public static final Pose2d REEF_FACE_TWO = new Pose2d(4.153, 3.416, new Rotation2d());  //CD
+    public static final Pose2d REEF_FACE_THREE = new Pose2d(4.842, 3.422, new Rotation2d());//EF
+    public static final Pose2d REEF_FACE_FOUR = new Pose2d(5.177, 4.022, new Rotation2d()); //GH
+    public static final Pose2d REEF_FACE_FIVE = new Pose2d(4.840, 4.596, new Rotation2d()); //IJ
+    public static final Pose2d REEF_FACE_SIX = new Pose2d(4.153, 4.014, new Rotation2d());  //KL
     public static final Pose2d[] REEF_FACE_ARRAY = new Pose2d[] {
       REEF_FACE_ONE, 
       REEF_FACE_TWO, 
@@ -158,13 +150,10 @@ public final class Constants {
       REEF_FACE_FOUR, 
       REEF_FACE_FIVE, 
       REEF_FACE_SIX};
-
       public static enum Side {
         LEFT,
         RIGHT
       }
-
-
       public static final Pose2d PoleA = new Pose2d(3.153, 4.175, Rotation2d.fromDegrees(180));
       public static final Pose2d PoleB = new Pose2d(3.189, 3.827, Rotation2d.fromDegrees(180));
       public static final Pose2d PoleC = new Pose2d(3.704, 2.952, Rotation2d.fromDegrees(-120));
@@ -177,25 +166,18 @@ public final class Constants {
       public static final Pose2d PoleJ = new Pose2d(4.999, 5.242, Rotation2d.fromDegrees(59));
       public static final Pose2d PoleK = new Pose2d(3.956, 5.206, Rotation2d.fromDegrees(123));
       public static final Pose2d PoleL = new Pose2d(3.680, 5.074, Rotation2d.fromDegrees(123));
-
       // distance sensor values
       public static final double coralLocation0 = 0.11; // no coral
       public static final double coralLocation1 = 0.080;
       public static final double coralLocation2 = 0.062;
       public static final double coralLocation3 = 0.046;
       public static final double coralLocation4 = 0.033;
-
       // offsets
       public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
       public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
       public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
       public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
-
-      
   }
-
-  
-  
 }
 
 // maek controler wurk plez

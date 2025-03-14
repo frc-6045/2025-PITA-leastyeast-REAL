@@ -1,10 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
-
-// subsystems
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -17,9 +11,7 @@ import frc.robot.Constants.ControllerConstants;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-
 import java.io.File;
-
 import edu.wpi.first.wpilibj.Filesystem;
 
 /**
@@ -29,7 +21,6 @@ import edu.wpi.first.wpilibj.Filesystem;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
   private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
   private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
@@ -57,8 +48,6 @@ public class RobotContainer {
     m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
     DriverStation.silenceJoystickConnectionWarning(true);
 
-
-
   // new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getAButton()).onTrue(
   //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L1, Side.LEFT, new Translation2d())
   //   );
@@ -85,7 +74,6 @@ public class RobotContainer {
   //   );
   }
   
-  
   /** 
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -95,7 +83,6 @@ public class RobotContainer {
     return m_Autos.getAutonomousCommand();
   }
 
-
   // public Command ConstructAutoScoreCommand(PositionConstants.Setpoints setPoint, AutoScoreConstants.Side side, Translation2d offset) {
   //     //calculate first pose to quickly travel too
   //     //note that the offset is currently not utilized but can be done by using the shift robot relative command
@@ -104,7 +91,6 @@ public class RobotContainer {
   //     Pose2d initalPoseToPlanTo = m_DriveSubsystem.shiftPoseRobotRelative(nearestPole, shiftBackward);
   //     System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + nearestPole.getRotation().getRadians());
   //     Command planToPathFast = m_DriveSubsystem.driveToPose(initalPoseToPlanTo);
-      
   //     Command MoveArmAndElevator;
   //     if(setPoint.equals(PositionConstants.Setpoints.L1)) {
   //       MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L1);
