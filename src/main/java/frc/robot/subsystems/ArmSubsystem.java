@@ -51,22 +51,20 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void goToSetpoint(double setpoint, double speedLimit) {
-    SmartDashboard.putNumber("ARM setpoint", setpoint+PositionConstants.kSketchyOffset);
-    SmartDashboard.putNumber("ARM difference", setpoint-getAbsoluteEncoderPosition());
+    SmartDashboard.putNumber("ARM setpoint (sketchy btw)", getSketchyOffsettedPosition());
+    SmartDashboard.putNumber("ARM difference", setpoint-getSketchyOffsettedPosition());
     double speed = m_ArmPIDController.calculate(
-      (getAbsoluteEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, 
-      (setpoint+14+PositionConstants.kSketchyOffset)%1);
-    //speed = (speed>0) ? speed + feedforward : speed-feedforward;
+      getSketchyOffsettedPosition(), 
+      (setpoint+14)%1); // just make sure value is between 0 and 1
     setSpeed(MathUtil.clamp(speed, -speedLimit, speedLimit));
-    //System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
   }
 
   public void goToSetpoint(double setpoint) {
-    SmartDashboard.putNumber("ARM setpoint", setpoint+PositionConstants.kSketchyOffset);
-    SmartDashboard.putNumber("ARM difference", setpoint-getAbsoluteEncoderPosition());
+    SmartDashboard.putNumber("ARM setpoint (sketchy btw)", getSketchyOffsettedPosition());
+    SmartDashboard.putNumber("ARM difference", setpoint-getSketchyOffsettedPosition());
     double speed = m_ArmPIDController.calculate(
-      (getAbsoluteEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, 
-      (setpoint+14)%1);
+      getSketchyOffsettedPosition(), 
+      (setpoint+14)%1); // just make sure value is between 0 and 1
     setSpeed(MathUtil.clamp(speed, -MotorConstants.kArmMotorSetpointMaxSpeed, MotorConstants.kArmMotorSetpointMaxSpeed));
   }
 
@@ -110,6 +108,10 @@ public class ArmSubsystem extends SubsystemBase {
 
   public double getAbsoluteEncoderPosition() {
     return m_AbsoluteEncoder.getPosition();
+  }
+
+  public double getSketchyOffsettedPosition() {
+    return (m_AbsoluteEncoder.getPosition()+PositionConstants.kSketchyOffset+14)%1;
   }
 
   @Override

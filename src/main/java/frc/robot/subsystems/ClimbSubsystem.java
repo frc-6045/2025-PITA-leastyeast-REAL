@@ -15,22 +15,18 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
-import frc.robot.Constants.PositionConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
   private final SparkFlex m_ClimbMotor;
   private final RelativeEncoder m_RelativeEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
-  PIDController m_ClimbPIDController = new PIDController(9, 0, 0);
 
   public ClimbSubsystem() {
     m_ClimbMotor = new SparkFlex(MotorConstants.kClimbMotorCANID, MotorType.kBrushless);
     m_RelativeEncoder = m_ClimbMotor.getEncoder();
-    m_ClimbPIDController.setTolerance(0.01);
 
     updateMotorSettings(m_ClimbMotor);
     m_ClimbMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -42,18 +38,6 @@ public class ClimbSubsystem extends SubsystemBase {
         .smartCurrentLimit(MotorConstants.kIntakeMotorCurrentLimit);
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-  }
-
-  public void goToSetpoint(double setpoint) {
-    SmartDashboard.putNumber("Climb setpoint", setpoint+PositionConstants.kSketchyOffset);
-    SmartDashboard.putNumber("Climb difference", setpoint-getRelativeEncoderPosition());
-    double speed = m_ClimbPIDController.calculate((getRelativeEncoderPosition()+14+PositionConstants.kSketchyOffset)%1, (setpoint+14+PositionConstants.kSketchyOffset)%1);
-    setSpeed(speed);
-    //System.out.println("PIDClimb output (speed): " + speed + "\nset point: " + m_ClimbPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
-  }
-
-  public boolean atSetpoint() {
-    return m_ClimbPIDController.atSetpoint();
   }
 
   public void setSpeed(double speed) {
