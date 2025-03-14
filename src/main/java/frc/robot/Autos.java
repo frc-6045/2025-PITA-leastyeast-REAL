@@ -1,7 +1,6 @@
 package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,52 +30,53 @@ public class Autos {
         m_Elevator = elev;
         m_Arm = arm;
 
-        // Named Commands
+
+        // Named Commands //
+
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-        NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(m_Intake, 1, false));
-        NamedCommands.registerCommand("coralSpinOther", new IntakeClosedLoop(m_Intake, 0.5, true));
-        NamedCommands.registerCommand("coralIntake", new IntakeIntakeClosedLoop(m_Intake, ()->{return m_Intake.coralDetected();}));
-        NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L1).asProxy());
-        NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L2).asProxy());
-        NamedCommands.registerCommand("coralL3", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L3).asProxy());
-        NamedCommands.registerCommand("coralL4", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.L4).asProxy());
-        NamedCommands.registerCommand("algaeHigh", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.ALGAE_HIGH));
-        NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.INTAKE).asProxy());
-        NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(m_Arm, m_Elevator, Setpoints.HOME).asProxy());
+        NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(intake, 1, false)); //score for L3, L4
+        NamedCommands.registerCommand("coralSpinOther", new IntakeClosedLoop(intake, 0.5, true)); //score for L2, L1
+        NamedCommands.registerCommand("coralIntake", new IntakeIntakeClosedLoop(intake, ()->{return intake.coralDetected();}));
+        NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(arm, elev, Setpoints.L1).asProxy());
+        NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(arm, elev, Setpoints.L2).asProxy());
+        NamedCommands.registerCommand("coralL3", new PIDArmAndElevator(arm, elev, Setpoints.L3).asProxy());
+        NamedCommands.registerCommand("coralL4", new PIDArmAndElevator(arm, elev, Setpoints.L4).asProxy());
+        NamedCommands.registerCommand("algaeHigh", new PIDArmAndElevator(arm, elev, Setpoints.ALGAE_HIGH));
+        NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(arm, elev, Setpoints.INTAKE).asProxy());
+        NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(arm, elev, Setpoints.HOME).asProxy());
         NamedCommands.registerCommand("alignToReefScoreL3Left", 
             new AutoScoreNearestReefFace(
-                m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
+                drive, arm, elev, intake,
                 Setpoints.L3,
                 ()->{return Side.LEFT;},
-                ()->{return m_Intake.getAlignOffset();}
+                ()->{return intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL3Right", 
             new AutoScoreNearestReefFace(
-                m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
+                drive, arm, elev, intake,
                 Setpoints.L3,
                 ()->{return Side.RIGHT;},
-                ()->{return m_Intake.getAlignOffset();}
+                ()->{return intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL4Left", 
             new AutoScoreNearestReefFace(
-                m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
+                drive, arm, elev, intake,
                 Setpoints.L4,
                 ()->{return Side.LEFT;},
-                ()->{return m_Intake.getAlignOffset();}
+                ()->{return intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL4Right", 
             new AutoScoreNearestReefFace(
-                m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake,
+                drive, arm, elev, intake,
                 Setpoints.L4,
                 ()->{return Side.RIGHT;},
-                ()->{return m_Intake.getAlignOffset();}
+                ()->{return intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignPrint", Commands.print("The robot is aligning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
-
         // NamedCommands.registerCommand("scoreCoralL1",
         //     new SequentialCommandGroup(
         //         new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition).asProxy(),
@@ -85,16 +85,11 @@ public class Autos {
         //     )
         // );
 
-        // Autos
+
+        // Autos //
+
         autoChooser = new SendableChooser<Command>();
         autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
-        /*autoChooser.addOption("1PieceIPole", AutoBuilder.buildAuto("1PieceIPole"));
-        autoChooser.addOption("2PieceIKPoles", AutoBuilder.buildAuto("2PieceIKPoles"));
-        autoChooser.addOption("3PieceIKJPoles", AutoBuilder.buildAuto("3PieceIKJPoles"));
-        autoChooser.addOption("1PieceHPole", AutoBuilder.buildAuto("1PieceHPole"));
-        autoChooser.addOption("2PieceHGPoles", AutoBuilder.buildAuto("2PieceHGPoles"));
-        autoChooser.addOption("1PieceL1Center", AutoBuilder.buildAuto("1PieceL1Center"));
-        autoChooser.addOption("Test Auto", AutoBuilder.buildAuto("New Auto"));  */
         autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
         SmartDashboard.putData("autos", autoChooser);
     }
