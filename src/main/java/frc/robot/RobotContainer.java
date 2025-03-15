@@ -47,31 +47,6 @@ public class RobotContainer {
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
     DriverStation.silenceJoystickConnectionWarning(true);
-
-  // new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getAButton()).onTrue(
-  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L1, Side.LEFT, new Translation2d())
-  //   );
-  //   new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getBButton()).onTrue(
-  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L2, Side.LEFT, new Translation2d())
-  //   );
-  //   new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getXButton()).onTrue(
-  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L3, Side.LEFT, new Translation2d())
-  //   );
-  //   new Trigger(() -> m_autScoringTestController.getLeftStickButton() && m_autScoringTestController.getYButton()).onTrue(
-  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L4, Side.LEFT, new Translation2d())
-  //   );
-  //   new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getAButton()).onTrue(
-  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L1, Side.RIGHT, new Translation2d())
-  //   );
-  //   new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getBButton()).onTrue(
-  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L2, Side.RIGHT, new Translation2d())
-  //   );
-  //   new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getXButton()).onTrue(
-  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L3, Side.RIGHT, new Translation2d())
-  //   );
-  //   new Trigger(() -> m_autScoringTestController.getRightStickButton() && m_autScoringTestController.getYButton()).onTrue(
-  //     new AutoScoreNearestReefFace(m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, Setpoints.L4, Side.RIGHT, new Translation2d())
-  //   );
   }
   
   /** 
@@ -82,31 +57,4 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return m_Autos.getAutonomousCommand();
   }
-
-  // public Command ConstructAutoScoreCommand(PositionConstants.Setpoints setPoint, AutoScoreConstants.Side side, Translation2d offset) {
-  //     //calculate first pose to quickly travel too
-  //     //note that the offset is currently not utilized but can be done by using the shift robot relative command
-  //     Translation2d shiftBackward = new Translation2d(-1, 0);
-  //     Pose2d nearestPole = m_DriveSubsystem.getNearestPole(side);
-  //     Pose2d initalPoseToPlanTo = m_DriveSubsystem.shiftPoseRobotRelative(nearestPole, shiftBackward);
-  //     System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + nearestPole.getRotation().getRadians());
-  //     Command planToPathFast = m_DriveSubsystem.driveToPose(initalPoseToPlanTo);
-  //     Command MoveArmAndElevator;
-  //     if(setPoint.equals(PositionConstants.Setpoints.L1)) {
-  //       MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L1);
-  //     } else if(setPoint.equals(PositionConstants.Setpoints.L2)) {
-  //       MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L2);
-  //     } else if(setPoint.equals(PositionConstants.Setpoints.L3)) {
-  //       MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L3);
-  //     } else if(setPoint.equals(PositionConstants.Setpoints.L4)) {
-  //       MoveArmAndElevator = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.L4);
-  //     } else {
-  //       return new PrintCommand("you messed up the construct auto command");
-  //     }
-  //     Command planToPathSlow = m_DriveSubsystem.driveToPoseSlowMode(nearestPole);
-  //     Command CoralSpit = new ParallelDeadlineGroup(new WaitCommand(0.5), new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
-  //     // Command toHome = new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, Setpoints.HOME);
-  //     System.out.println("Initial Target Pose: " + nearestPole.getX() + ", " + nearestPole.getY() + ", " + nearestPole.getRotation().getRadians());
-  //     return planToPathFast.andThen(new ParallelDeadlineGroup(planToPathSlow, MoveArmAndElevator)).andThen(CoralSpit);
-  // }
 }
