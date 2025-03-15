@@ -92,6 +92,7 @@ public class Autos {
         autoChooser = new SendableChooser<Command>();
         autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
         autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
+        autoChooser.addOption("Coral2AlgaeGHGHKJPoles", AutoBuilder.buildAuto("3Coral2AlgaeGHGHKJPoles"));
         SmartDashboard.putData("autos", autoChooser);
     }
 
