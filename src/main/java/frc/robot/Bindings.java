@@ -13,6 +13,7 @@ import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
+import frc.robot.commands.AutoScoring.AutoScoreCommands;
 import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
@@ -27,7 +28,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
 public class Bindings {
-    public static boolean shift = false;
+    public static boolean operatorShift = false;
     public static Side reefScoreLeftOrRight = null;
 
     public static void InitBindings(
@@ -41,11 +42,18 @@ public class Bindings {
         ClimbSubsystem m_ClimbSubsystem,
         LedSubsystem m_LedSubsystem) {
 
+        AutoScoreCommands m_AutoScoreCommands = 
+            new AutoScoreCommands(m_driveSubsystem, m_Arm, m_Elev, m_Intake);
+
 
         /* Operator Controller bindings */
 
+        //intake
+        m_driverController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return m_Intake.coralDetected();}));
+        m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
+
         // barge toss
-        m_operatorController.leftTrigger(0.2).onTrue(
+        m_operatorController.rightBumper().onTrue(
             new ParallelCommandGroup(
                 new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
                 new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.5;}, false)
@@ -69,8 +77,8 @@ public class Bindings {
         m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_Elev, false));
 
         //shift (elevator bottom switch override)
-        m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {shift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
-        m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {shift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", shift);}));
+        m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {operatorShift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
+        m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {operatorShift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
 
 
 
@@ -116,10 +124,26 @@ public class Bindings {
         );
 
         m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
+        m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
+        m_testController.b().onTrue(
+            m_AutoScoreCommands.scoreNearestReefFace(
+                Setpoints.L3,
+                ()->{return Side.LEFT;},
+                ()->{return m_Intake.getAlignOffset();}
+            )
+        );
+        m_testController.x().onTrue(
+            new TeleopScoreNearestReefFace(
+                m_driveSubsystem, m_Arm, m_Elev, m_Intake,
+                Setpoints.L3,
+                ()->{return Side.LEFT;},
+                ()->{return m_Intake.getAlignOffset();}
+            )
+        );
     }
 
     public static boolean getOperatorShiftPressed() {
-        return shift;
+        return operatorShift;
     }
 
     public static Side getReefScoreLeftOrRight() {

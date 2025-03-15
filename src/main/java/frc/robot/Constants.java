@@ -64,8 +64,8 @@ public final class Constants {
 //SETPOINTS
 
     // Human player/coral intake setpoint - A
-    public static final double kHumanArmPosition = 0.9561 + kOffset;
-    public static final double kHumanElevatorPosition = -40.229;
+    public static final double kHumanArmPosition = 0.9495 + kOffset; //.9561
+    public static final double kHumanElevatorPosition = -35.892; //-40.229
 
     // Human player with gap
     public static final double kHumanGapArmPosition = 0.8896; //temp
@@ -92,20 +92,20 @@ public final class Constants {
     public static final double kL3GapElevatorPosition = -16.60658489;
 
     // L4 - right stick (top right paddle)
-    public static final double kL4ArmPosition = 0.4526 + kOffset;;
-    public static final double kL4ElevatorPosition = -75.17;
+    public static final double kL4ArmPosition = 0.714 + kOffset; //0.4526
+    public static final double kL4ElevatorPosition = -70.22; //-75.17
 
     // L4 Gap
     public static final double kL4GapArmPosition = 0.8896 + kOffset; //temp
     public static final double kL4GapElevatorPosition = -76.78836822;
 
     // algae high
-    public static final double kHighAlgaeArmPosition = 0.6273 + kOffset;
-    public static final double kHighAlgaeElevatorPosition = -36.172;
+    public static final double kHighAlgaeArmPosition = 0.6402 + kOffset; //.6273
+    public static final double kHighAlgaeElevatorPosition = -43.43777; //-36.172
     
     // algae low
-    public static final double kLowAlgaeArmPosition = 0.6486 + kOffset;
-    public static final double kLowAlgaeElevatorPosition = -2;
+    public static final double kLowAlgaeArmPosition = 0.6528 + kOffset; //0.6486
+    public static final double kLowAlgaeElevatorPosition = -7.16; //-2
     
     // barge
     public static final double kBargeArm = 0.331647 + kOffset;

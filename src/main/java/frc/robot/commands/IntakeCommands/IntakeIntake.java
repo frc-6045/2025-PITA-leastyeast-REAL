@@ -13,6 +13,7 @@ public class IntakeIntake extends Command {
     private final CommandXboxController controller;
     private final BooleanSupplier coralDetected;
     private final Timer timer = new Timer();
+    boolean coralExist = false;
     
     public IntakeIntake(IntakeSubsystem intakeSubsystem, CommandXboxController xboxController, BooleanSupplier coralDetected) {
         m_IntakeSubsystem = intakeSubsystem;
@@ -24,13 +25,14 @@ public class IntakeIntake extends Command {
     @Override
     public void initialize() {
         timer.reset();
+        coralExist = coralDetected.getAsBoolean();
     }
 
     @Override
     public void execute() {
         double triggerAxis = -controller.getLeftTriggerAxis();
         m_IntakeSubsystem.setSpeed(triggerAxis);
-        if (coralDetected.getAsBoolean() && timer.get() == 0) {
+        if (coralDetected.getAsBoolean() && timer.get() == 0 && !coralExist) {
             timer.start();
             System.out.println("timer started");
         }

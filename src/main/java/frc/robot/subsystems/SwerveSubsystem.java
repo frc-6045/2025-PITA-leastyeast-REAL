@@ -783,6 +783,7 @@
   }
 
     public Pose2d getNearestPole(AutoScoreConstants.Side side) {
+        System.out.println("getting nearest pole");
         Pose2d currentPose = getPose();
         Pose2d closestPose = AutoScoreConstants.REEF_FACE_ARRAY[0];
         double closestDistance = 999999;
