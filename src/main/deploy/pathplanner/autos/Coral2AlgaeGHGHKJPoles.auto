@@ -5,19 +5,25 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "startToGHSide"
+                  "pathName": "StartToHPole1"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "coralL1"
+                  "name": "coralL4"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StartToHPole2"
                 }
               }
             ]
@@ -26,13 +32,13 @@
         {
           "type": "named",
           "data": {
-            "name": "coralSpinOther"
+            "name": "coralSpinNormal"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GHSideBack"
+            "pathName": "HPoleBack"
           }
         },
         {
@@ -50,7 +56,7 @@
         {
           "type": "named",
           "data": {
-            "name": "spinOther"
+            "name": "coralSpinOther"
           }
         },
         {
