@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
@@ -13,6 +14,7 @@ import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.AutoScoring.AutoScoreCommands;
 import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
+import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeIntakeClosedLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -45,9 +47,12 @@ public class Autos {
         NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(arm, elev, Setpoints.L2).asProxy());
         NamedCommands.registerCommand("coralL3", new PIDArmAndElevator(arm, elev, Setpoints.L3).asProxy());
         NamedCommands.registerCommand("coralL4", new PIDArmAndElevator(arm, elev, Setpoints.L4).asProxy());
-        NamedCommands.registerCommand("algaeHigh", new PIDArmAndElevator(arm, elev, Setpoints.ALGAE_HIGH));
-        NamedCommands.registerCommand("algaeLow", new PIDArmAndElevator(arm, elev, Setpoints.ALGAE_LOW));
-        NamedCommands.registerCommand("barge", new PIDArmAndElevator(arm, elev, Setpoints.BARGE));
+        NamedCommands.registerCommand("algaeHigh", new PIDArmAndElevator(arm, elev, Setpoints.ALGAE_HIGH).asProxy());
+        NamedCommands.registerCommand("algaeLow", new PIDArmAndElevator(arm, elev, Setpoints.ALGAE_LOW).asProxy());
+        NamedCommands.registerCommand("barge", new ParallelCommandGroup(
+                new PIDArmAndElevator(arm, elev, Setpoints.BARGE).asProxy(),
+                new IntakeConditional(intake, () -> {return arm.getSketchyOffsettedPosition()<0.5;}, false)
+                ));
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(arm, elev, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(arm, elev, Setpoints.HOME).asProxy());
         NamedCommands.registerCommand("alignToReefScoreL3Left", 
@@ -92,6 +97,7 @@ public class Autos {
 
         autoChooser = new SendableChooser<Command>();
         autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
+        autoChooser.addOption("test", AutoBuilder.buildAuto("New New Auto"));
         autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
         autoChooser.addOption("(Left)Coral2AlgaeHGHKJPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHKJPoles"));
         autoChooser.addOption("(Right)Coral2AlgaeHGHEFPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHEFPoles"));

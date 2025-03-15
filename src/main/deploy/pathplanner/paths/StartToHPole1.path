@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.42706130231653
+    "rotation": 1.909152432996381
   },
   "reversed": false,
   "folder": "HPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -1.8279682443050094
   },
   "useDefaultConstraints": false
 }

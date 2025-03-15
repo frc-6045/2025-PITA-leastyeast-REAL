@@ -9,15 +9,22 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "parallel",
                 "data": {
-                  "pathName": "StartToHPole1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "coralL4"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "StartToHPole1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "coralL4"
+                      }
+                    }
+                  ]
                 }
               },
               {
@@ -32,7 +39,7 @@
         {
           "type": "named",
           "data": {
-            "name": "coralSpinNormal"
+            "name": "coralSpinOther"
           }
         },
         {
@@ -60,28 +67,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "GHSideToBarge"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "barge"
-                }
-              }
-            ]
+            "pathName": "GHSideToBarge"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "coralSpinNormal"
+            "name": "barge"
           }
         },
         {
@@ -110,28 +104,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "KJSideToBarge"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "barge"
-                }
-              }
-            ]
+            "pathName": "KJSideToBarge"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "coralSpinNormal"
+            "name": "barge"
           }
         },
         {

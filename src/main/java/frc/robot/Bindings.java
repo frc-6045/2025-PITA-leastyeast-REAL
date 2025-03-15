@@ -50,7 +50,7 @@ public class Bindings {
         /* Operator Controller bindings */
 
         //intake
-        m_operatorController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_operatorController, () -> {return m_Intake.coralDetected();}, MotorConstants.kOperatorIntakeMotorSpeed));
+        m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
         m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
 
         // barge toss
@@ -105,24 +105,26 @@ public class Bindings {
         m_driverController.rightStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.RIGHT;}));
         m_driverController.rightStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
         
-        // reef score
-        m_driverController.y().onTrue(
-            new TeleopScoreNearestReefFace(
-                m_driveSubsystem, m_Arm, m_Elev, m_Intake,
-                Setpoints.L4,
-                ()->{return reefScoreLeftOrRight;},
-                ()->{return m_Intake.getAlignOffset();}
-            )
-        );
+        m_driverController.x().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.LOLLIPOP));
 
-        m_driverController.b().onTrue(
-            new TeleopScoreNearestReefFace(
-                m_driveSubsystem, m_Arm, m_Elev, m_Intake,
-                Setpoints.L3,
-                ()->{return reefScoreLeftOrRight;},
-                ()->{return m_Intake.getAlignOffset();}
-            )
-        );
+        // // reef score
+        // m_driverController.y().onTrue(
+        //     new TeleopScoreNearestReefFace(
+        //         m_driveSubsystem, m_Arm, m_Elev, m_Intake,
+        //         Setpoints.L4,
+        //         ()->{return reefScoreLeftOrRight;},
+        //         ()->{return m_Intake.getAlignOffset();}
+        //     )
+        // );
+
+        // m_driverController.b().onTrue(
+        //     new TeleopScoreNearestReefFace(
+        //         m_driveSubsystem, m_Arm, m_Elev, m_Intake,
+        //         Setpoints.L3,
+        //         ()->{return reefScoreLeftOrRight;},
+        //         ()->{return m_Intake.getAlignOffset();}
+        //     )
+        // );
 
         m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
         m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));

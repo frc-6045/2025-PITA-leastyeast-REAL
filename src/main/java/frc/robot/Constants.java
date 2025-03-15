@@ -112,6 +112,10 @@ public final class Constants {
     public static final double kBargeArm = 0.331647 + kOffset;
     public static final double kBargeElev = -77.2;
 
+    // lollipop
+    public static final double kLollipopArm = .75626;
+    public static final double kLollipopElev = 0;
+
     //nonospaces that make turnbuckle vewy vewy sad :(
     public static final double kArmLimit1=0.884; //0.06
     public static final double kArmLimit2=0.999; // 0.26
@@ -126,7 +130,8 @@ public final class Constants {
       L4,
       ALGAE_HIGH,
       ALGAE_LOW,
-      BARGE
+      BARGE,
+      LOLLIPOP
     }
   }
 

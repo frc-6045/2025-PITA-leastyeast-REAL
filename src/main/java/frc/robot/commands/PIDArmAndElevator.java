@@ -99,6 +99,10 @@ public class PIDArmAndElevator extends Command {
                 armSetpoint = armSetpoint2 = PositionConstants.kBargeArm;
                 elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kBargeElev;
                 break;
+            case LOLLIPOP:
+                armSetpoint = armSetpoint2 = PositionConstants.kLollipopArm;
+                elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kLollipopElev;
+                break;
             default: //home
                 armSetpoint = armSetpoint2 = PositionConstants.kHomeArmPosition;
                 elevatorSetpoint = elevatorSetpoint2 = PositionConstants.kHomeElevatorPosition;

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.526331967213115,
-        "y": 4.102920081967213
+        "x": 5.63422131147541,
+        "y": 4.138883196721311
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.775717796475053,
-        "y": 4.120433167455936
+        "x": 5.8836071407373485,
+        "y": 4.156396282210034
       },
       "isLocked": false,
       "linkedName": null
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.02633136029132
+    "rotation": 1.459940734764901
   },
   "reversed": false,
   "folder": "HPole",
