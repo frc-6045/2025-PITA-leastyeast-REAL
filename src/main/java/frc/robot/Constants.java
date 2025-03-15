@@ -45,7 +45,7 @@ public final class Constants {
   public static class ControllerConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
-    public static final int kGodControllerPort = 2;
+    public static final int kTestControllerPort = 2;
 
     // Joystick Deadband
     public static final double DEADBAND        = 0.1;
