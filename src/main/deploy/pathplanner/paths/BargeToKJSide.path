@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.68,
-        "y": 5.074
+        "x": 7.6178125,
+        "y": 6.128225549768518
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.929967350444857,
-        "y": 5.069959738674468
+        "x": 6.9930989583333325,
+        "y": 5.892618634259259
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.029815573770492,
-        "y": 1.2258709016393436
+        "x": 5.150694806134259,
+        "y": 5.160466941550926
       },
       "prevControl": {
-        "x": 5.77982539590245,
-        "y": 1.223654830903834
+        "x": 5.838182508680555,
+        "y": 5.395258608217592
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.05460409907711
+    "rotation": -119.20129106403625
   },
   "reversed": false,
-  "folder": "Test Paths",
+  "folder": "KJSide",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 123.34070734647699
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
