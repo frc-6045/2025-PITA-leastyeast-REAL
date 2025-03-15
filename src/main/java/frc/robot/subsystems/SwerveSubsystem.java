@@ -831,8 +831,12 @@
     public Command driveToSecondAutoScorePose(AutoScoreConstants.Side side, Translation2d coralOffset) {
       Pose2d nearestPole = getNearestPole(side);
       // offset depending on coral location in intake
-      nearestPole = shiftPoseRobotRelative(nearestPole, coralOffset);
-      return driveToPoseSlowMode(nearestPole);
+      Pose2d nearestPoleOffsetted = shiftPoseRobotRelative(nearestPole, coralOffset);
+      System.out.println(
+        "nearest pole: " + nearestPole.getX() + ", " + nearestPole.getY() + 
+        "\noffset: " + coralOffset.getX() + ", " + coralOffset.getY() +
+        "finalpose: " + nearestPoleOffsetted.getX() + ", " + nearestPoleOffsetted.getY());
+      return driveToPoseSlowMode(nearestPoleOffsetted);
     }
 
     public Command driveToSecondAutoScorePose(Pose2d pole, Translation2d coralOffset) {

@@ -25,6 +25,9 @@ public class IntakeSubsystem extends SubsystemBase {
         m_IntakeMotor1 = new SparkFlex(MotorConstants.kIntakeMotorCANID, MotorType.kBrushless);
 
         updateMotorSettings(m_IntakeMotor1);
+        SmartDashboard.putNumber("offset2", 0);
+        SmartDashboard.putNumber("offset3", 0);
+        SmartDashboard.putNumber("offset4", 0);
     }
     public void updateMotorSettings(SparkFlex motor) {
         config
@@ -77,15 +80,19 @@ public class IntakeSubsystem extends SubsystemBase {
     public Translation2d getAlignOffset() {
         switch (getCoralPosition()) {
             case 0:
+                System.out.println("there's no coral :(");
                 return new Translation2d();
             case 1:
                 return AutoScoreConstants.autoScoreCoralOffset1;
             case 2:
-                return AutoScoreConstants.autoScoreCoralOffset2;
+                return new Translation2d(0, SmartDashboard.getNumber("offset2", 0));
+                //return AutoScoreConstants.autoScoreCoralOffset2;
             case 3:
-                return AutoScoreConstants.autoScoreCoralOffset3;
+                return new Translation2d(0, SmartDashboard.getNumber("offset3", 0));
+                //return AutoScoreConstants.autoScoreCoralOffset3;
             case 4:
-                return AutoScoreConstants.autoScoreCoralOffset4;
+                return new Translation2d(0, SmartDashboard.getNumber("offset4", 0));
+                //return AutoScoreConstants.autoScoreCoralOffset4;
         }
         System.out.println("this will likely and hopefully never be printed");
         return new Translation2d();
