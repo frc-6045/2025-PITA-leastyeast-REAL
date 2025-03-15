@@ -5,32 +5,19 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "parallel",
+                "type": "path",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "StartToHPole1"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "coralL4"
-                      }
-                    }
-                  ]
+                  "pathName": "StartToHPole"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "StartToHPole2"
+                  "name": "coralL4"
                 }
               }
             ]
