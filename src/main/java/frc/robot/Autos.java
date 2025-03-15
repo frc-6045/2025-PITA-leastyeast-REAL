@@ -53,27 +53,25 @@ public class Autos {
             m_AutoScoreCommands.scoreNearestReefFace(
                 Setpoints.L3,
                 ()->{return Side.LEFT;},
-                ()->{return intake.getAlignOffset();})
+                ()->{return intake.getAlignOffset();}
+            )
         );
         NamedCommands.registerCommand("alignToReefScoreL3Right", 
-            new TeleopScoreNearestReefFace(
-                drive, arm, elev, intake,
+            m_AutoScoreCommands.scoreNearestReefFace(
                 Setpoints.L3,
                 ()->{return Side.RIGHT;},
                 ()->{return intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL4Left", 
-            new TeleopScoreNearestReefFace(
-                drive, arm, elev, intake,
+            m_AutoScoreCommands.scoreNearestReefFace(
                 Setpoints.L4,
                 ()->{return Side.LEFT;},
                 ()->{return intake.getAlignOffset();}
             )
         );
         NamedCommands.registerCommand("alignToReefScoreL4Right", 
-            new TeleopScoreNearestReefFace(
-                drive, arm, elev, intake,
+            m_AutoScoreCommands.scoreNearestReefFace(
                 Setpoints.L4,
                 ()->{return Side.RIGHT;},
                 ()->{return intake.getAlignOffset();}
