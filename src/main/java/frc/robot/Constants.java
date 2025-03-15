@@ -33,6 +33,7 @@ public final class Constants {
 
     // intake constants
     public static final int kIntakeMotorCurrentLimit = 40;
+    public static final double kOperatorIntakeMotorSpeed = 0.4;
     public static final double kIntakeMotorSpeed = .99999;
     public static final double kIntakeMotorMaxSpeed = 1;
 

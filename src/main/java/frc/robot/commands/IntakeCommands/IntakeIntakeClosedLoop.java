@@ -13,10 +13,12 @@ public class IntakeIntakeClosedLoop extends Command {
     private final BooleanSupplier coralDetected;
     private final Timer timer = new Timer();
     private final Timer coralTimer = new Timer();
+    private final double speed;
     
-    public IntakeIntakeClosedLoop(IntakeSubsystem intakeSubsystem, BooleanSupplier coralDetected) {
+    public IntakeIntakeClosedLoop(IntakeSubsystem intakeSubsystem, BooleanSupplier coralDetected, double speed) {
         m_IntakeSubsystem = intakeSubsystem;
         this.coralDetected = coralDetected;
+        this.speed = speed;
         addRequirements(m_IntakeSubsystem);
     }
 
@@ -30,7 +32,7 @@ public class IntakeIntakeClosedLoop extends Command {
     @Override
     public void execute() {
         double triggerAxis = -MotorConstants.kIntakeMotorMaxSpeed;
-        m_IntakeSubsystem.setSpeed(triggerAxis);
+        m_IntakeSubsystem.setSpeed(triggerAxis*speed);
         if (coralDetected.getAsBoolean() && coralTimer.get() == 0) {
             coralTimer.start();
             System.out.println("coraltimer started");

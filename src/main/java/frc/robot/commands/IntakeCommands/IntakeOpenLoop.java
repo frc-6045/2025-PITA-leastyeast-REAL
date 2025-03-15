@@ -8,17 +8,19 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class IntakeOpenLoop extends Command {
     private final IntakeSubsystem m_IntakeSubsystem;
     private final CommandXboxController controller;
+    private final double speed;
     
-    public IntakeOpenLoop(IntakeSubsystem intakeSubsystem, CommandXboxController xboxController) {
+    public IntakeOpenLoop(IntakeSubsystem intakeSubsystem, CommandXboxController xboxController, double speed) {
         m_IntakeSubsystem = intakeSubsystem;
         controller = xboxController;
+        this.speed = speed;
         addRequirements(m_IntakeSubsystem);
     }
 
     @Override
     public void execute() {
         double triggerAxis = -controller.getLeftTriggerAxis()+controller.getRightTriggerAxis();
-        m_IntakeSubsystem.setSpeed(triggerAxis); //Grant's Ternary IS GONE NOW :'(. Press right on stick and it won't run second rollers. Should be a button but I couldn't figure out how to return bool from a button if its pressed or not :)
+        m_IntakeSubsystem.setSpeed(triggerAxis*speed); //Grant's Ternary IS GONE NOW :'(. Press right on stick and it won't run second rollers. Should be a button but I couldn't figure out how to return bool from a button if its pressed or not :)
     }
 
     @Override
