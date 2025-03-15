@@ -7,6 +7,7 @@ package frc.robot;
 // subsystems
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.DashboardStuff;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LedSubsystem;
@@ -36,6 +37,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
   private final LedSubsystem m_LedSubsystem = new LedSubsystem();
+  private final DashboardStuff m_DashboardStuff = new DashboardStuff();
   private Autos m_Autos;
   
   public final SwerveSubsystem m_DriveSubsystem = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
