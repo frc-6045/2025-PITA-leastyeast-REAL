@@ -65,7 +65,7 @@ public final class Constants {
 
     // Human player/coral intake setpoint - A
     public static final double kHumanArmPosition = 0.9495 + kOffset; //.9561
-    public static final double kHumanElevatorPosition = -35.892; //-40.229
+    public static final double kHumanElevatorPosition = -39.892; //-40.229
 
     // Human player with gap
     public static final double kHumanGapArmPosition = 0.8896; //temp
@@ -92,8 +92,8 @@ public final class Constants {
     public static final double kL3GapElevatorPosition = -16.60658489;
 
     // L4 - right stick (top right paddle)
-    public static final double kL4ArmPosition = 0.714 + kOffset; //0.4526
-    public static final double kL4ElevatorPosition = -70.22; //-75.17
+    public static final double kL4ArmPosition = 0.46265+ kOffset; //0.4526
+    public static final double kL4ElevatorPosition = -72.4326; //-75.17
 
     // L4 Gap
     public static final double kL4GapArmPosition = 0.8896 + kOffset; //temp

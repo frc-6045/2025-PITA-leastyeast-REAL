@@ -39,6 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     m_RelativeEncoder = m_ElevatorMotor1.getEncoder();
     topLimitSwitch = new DigitalInput(2);
     bottomLimitSwitch = new DigitalInput(1);
+    zeroEncoder();
 
     m_ElevatorPIDController = new PIDController(0.04, 0, 0.001);
     m_ElevatorPIDController.setTolerance(1.434);
@@ -73,7 +74,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     speed = (speed > MotorConstants.kElevatorMotorsMaxSpeed) ? MotorConstants.kElevatorMotorsMaxSpeed : speed;
     speed = (speed < -MotorConstants.kElevatorMotorsMaxSpeed) ? -MotorConstants.kElevatorMotorsMaxSpeed : speed;
 
-    speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
+    //speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
+    speed = (bottomLimitSwitch.get() && speed < 0) ? 0 : speed;
     if (getRelativeEncoderPosition() > -5 && speed<0) { //limit going down
       if (Bindings.getOperatorShiftPressed()) {
         speed*=0.75; // override but also slowing a liil
@@ -120,7 +122,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("ELEVATOR position", getRelativeEncoderPosition());
-    if (getBottomLimitSwitchState()) {zeroEncoder();}
+    //if (getBottomLimitSwitchState()) {zeroEncoder();}
 
     SmartDashboard.putBoolean("Upper Limit Switch", getTopLimitSwitchState());
     SmartDashboard.putBoolean("Lower Limit Switch", getBottomLimitSwitchState());
