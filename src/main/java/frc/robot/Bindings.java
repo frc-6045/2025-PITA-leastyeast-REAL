@@ -49,8 +49,8 @@ public class Bindings {
         /* Operator Controller bindings */
 
         //intake
-        m_driverController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return m_Intake.coralDetected();}));
-        m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController));
+        m_operatorController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_operatorController, () -> {return m_Intake.coralDetected();}));
+        m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController));
 
         // barge toss
         m_operatorController.rightBumper().onTrue(
@@ -77,9 +77,9 @@ public class Bindings {
         m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_Elev, false));
 
         //shift (elevator bottom switch override)
-        m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {operatorShift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
-        m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {operatorShift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
-
+        //m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {operatorShift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
+        //m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {operatorShift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
+        m_operatorController.leftBumper().onTrue(new InstantCommand(()->{m_Elev.zeroEncoder();}));
 
 
         /* Driver Controller bindings */
