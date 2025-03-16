@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.492477936921295,
-        "y": 4.121199363425926
+        "x": 6.701784012539157,
+        "y": 4.533274135328968
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 5.073924180327869
       },
       "prevControl": {
-        "x": 6.759686432718579,
-        "y": 4.76937050555935
+        "x": 6.669295641344672,
+        "y": 4.497779651253618
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 6.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -48,7 +48,7 @@
   "folder": "GHSide",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.5140018567544
+    "rotation": 0.11144196761019647
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

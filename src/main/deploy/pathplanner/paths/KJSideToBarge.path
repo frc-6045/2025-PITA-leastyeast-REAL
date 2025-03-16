@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.520525256621887,
-        "y": 6.285015285841681
+        "x": 5.2070052083333325,
+        "y": 5.86006691261574
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 6.1648053278688515
       },
       "prevControl": {
-        "x": 7.138985922558061,
-        "y": 6.039031050774134
+        "x": 7.4310040509259245,
+        "y": 6.076631944444444
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 6.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -48,7 +48,7 @@
   "folder": "KJSide",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -120.76211513052753
+    "rotation": 59.639883941526655
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
