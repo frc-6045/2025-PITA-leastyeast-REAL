@@ -133,6 +133,23 @@ public final class Constants {
       BARGE,
       LOLLIPOP
     }
+
+    // LimeLight Constants ARE BACK
+    public static final double X_REEF_ALIGNMENT_P = 1.0;
+    public static final double Y_REEF_ALIGNMENT_P = 1.0;
+    public static final double ROT_REEF_ALIGNMENT_P = 0.06;
+
+    public static final double ROT_SETPOINT_REEF_ALIGNMENT = 0;  // Rotation
+    public static final double ROT_TOLERANCE_REEF_ALIGNMENT = 0.5;
+
+    public static final double X_SETPOINT_REEF_ALIGNMENT = 0.0;  // Vertical pose
+    public static final double X_TOLERANCE_REEF_ALIGNMENT = 0.005;
+
+    public static final double Y_SETPOINT_REEF_ALIGNMENT = 0.19;  // Horizontal pose
+    public static final double Y_TOLERANCE_REEF_ALIGNMENT = 0.005;
+    
+    public static final double DONT_SEE_TAG_WAIT_TIME = 1;
+    public static final double POSE_VALIDATION_TIME = 0.3;
   }
 
   public static class SwerveConstants {
