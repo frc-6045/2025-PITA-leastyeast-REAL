@@ -41,14 +41,15 @@
   import edu.wpi.first.wpilibj2.command.SubsystemBase;
   import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
   import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
-  import frc.robot.LimelightHelpers;
-  import frc.robot.Constants.AutoScoreConstants;
+import frc.robot.Constants.AutoScoreConstants;
   import frc.robot.Constants.SwerveConstants;
+import frc.robot.util.LimelightHelpers;
 
-  import java.io.File;
+import java.io.File;
   import java.io.IOException;
   import java.util.Arrays;
-  import java.util.concurrent.atomic.AtomicReference;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
   import java.util.function.DoubleSupplier;
   import java.util.function.Supplier;
   import org.json.simple.parser.ParseException;
@@ -774,13 +775,42 @@
       return swerveDrive;
     }
 
+    public Pose2d getAprilTagPose2d(int id) {
+      var tagPose = aprilTagFieldLayout.getTagPose(id).get();
+      return new Pose2d(tagPose.getX(), tagPose.getY(), new Rotation2d(tagPose.getRotation().getZ()));
+    }
+
+    public Pose2d closestAprilTag(Pose2d robotPose) {
+      // Use the robot pose and return the closest AprilTag on a REEF
+      List<Integer> tagIDs = List.of(17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11);
+  
+      double minDistance = Double.MAX_VALUE;
+      Pose2d closestTagPose = new Pose2d();
+  
+      for (int tagID : tagIDs) {
+        var tagPoseOptional = aprilTagFieldLayout.getTagPose(tagID);
+        var tagPose = tagPoseOptional.get();
+        Pose2d tagPose2d = new Pose2d(tagPose.getX(), tagPose.getY(), new Rotation2d(tagPose.getRotation().getZ()));
+        double distance = robotPose.getTranslation().getDistance(tagPose2d.getTranslation());
+  
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestTagPose = tagPose2d;
+        }
+      }
+  
+      return closestTagPose;
+    }
+
+
+
 
     public Pose2d shiftPoseRobotRelative(Pose2d currentPose, Translation2d shift) {
       // Apply the translation in robot-relative terms, considering the current orientation
       Translation2d newTranslation = currentPose.getTranslation().plus(shift.rotateBy(currentPose.getRotation().plus(Rotation2d.fromDegrees(180))));
       // Return the new pose with the updated translation but maintaining the same rotation
       return new Pose2d(newTranslation, currentPose.getRotation());
-  }
+    }
 
     public Pose2d getNearestPole(AutoScoreConstants.Side side) {
         System.out.println("getting nearest pole");

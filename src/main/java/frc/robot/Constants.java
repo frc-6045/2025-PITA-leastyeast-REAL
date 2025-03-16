@@ -1,4 +1,6 @@
 package frc.robot;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -159,7 +161,11 @@ public final class Constants {
     public static final double MAX_SPEED = Units.feetToMeters(25);
   }
 
-  public static class AutoScoreConstants {                                                      //sides:
+  public static class AutoScoreConstants {
+    //public static final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
+
+    //public static final Pos aprilTagBlue1 = aprilTagFieldLayout.getTagPose(17);
+
     public static final Pose2d REEF_FACE_ONE = new Pose2d(3.818, 4.014, new Rotation2d());  //AB 
     public static final Pose2d REEF_FACE_TWO = new Pose2d(4.153, 3.416, new Rotation2d());  //CD
     public static final Pose2d REEF_FACE_THREE = new Pose2d(4.842, 3.422, new Rotation2d());//EF
@@ -173,33 +179,33 @@ public final class Constants {
       REEF_FACE_FOUR, 
       REEF_FACE_FIVE, 
       REEF_FACE_SIX};
-      public static enum Side {
-        LEFT,
-        RIGHT
-      }
-      public static final Pose2d PoleA = new Pose2d(3.153, 4.175, Rotation2d.fromDegrees(180));
-      public static final Pose2d PoleB = new Pose2d(3.189, 3.827, Rotation2d.fromDegrees(180));
-      public static final Pose2d PoleC = new Pose2d(3.704, 2.952, Rotation2d.fromDegrees(-120));
-      public static final Pose2d PoleD = new Pose2d(3.956, 2.820, Rotation2d.fromDegrees(-120));
-      public static final Pose2d PoleE = new Pose2d(4.975, 2.784, Rotation2d.fromDegrees(-61));
-      public static final Pose2d PoleF = new Pose2d(5.275, 2.940, Rotation2d.fromDegrees(-61));
-      public static final Pose2d PoleG = new Pose2d(5.790, 3.851, Rotation2d.fromDegrees(0));
-      public static final Pose2d PoleH = new Pose2d(5.802, 4.187, Rotation2d.fromDegrees(0));
-      public static final Pose2d PoleI = new Pose2d(5.335, 5.050, Rotation2d.fromDegrees(59));
-      public static final Pose2d PoleJ = new Pose2d(4.999, 5.242, Rotation2d.fromDegrees(59));
-      public static final Pose2d PoleK = new Pose2d(3.956, 5.206, Rotation2d.fromDegrees(123));
-      public static final Pose2d PoleL = new Pose2d(3.680, 5.074, Rotation2d.fromDegrees(123));
-      // distance sensor values
-      public static final double coralLocation0 = 0.11; // no coral
-      public static final double coralLocation1 = 0.080;
-      public static final double coralLocation2 = 0.062;
-      public static final double coralLocation3 = 0.046;
-      public static final double coralLocation4 = 0.033;
-      // offsets
-      public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
-      public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
-      public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
-      public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
+    public static enum Side {
+      LEFT,
+      RIGHT
+    }
+    public static final Pose2d PoleA = new Pose2d(3.153, 4.175, Rotation2d.fromDegrees(180));
+    public static final Pose2d PoleB = new Pose2d(3.189, 3.827, Rotation2d.fromDegrees(180));
+    public static final Pose2d PoleC = new Pose2d(3.704, 2.952, Rotation2d.fromDegrees(-120));
+    public static final Pose2d PoleD = new Pose2d(3.956, 2.820, Rotation2d.fromDegrees(-120));
+    public static final Pose2d PoleE = new Pose2d(4.975, 2.784, Rotation2d.fromDegrees(-61));
+    public static final Pose2d PoleF = new Pose2d(5.275, 2.940, Rotation2d.fromDegrees(-61));
+    public static final Pose2d PoleG = new Pose2d(5.790, 3.851, Rotation2d.fromDegrees(0));
+    public static final Pose2d PoleH = new Pose2d(5.802, 4.187, Rotation2d.fromDegrees(0));
+    public static final Pose2d PoleI = new Pose2d(5.335, 5.050, Rotation2d.fromDegrees(59));
+    public static final Pose2d PoleJ = new Pose2d(4.999, 5.242, Rotation2d.fromDegrees(59));
+    public static final Pose2d PoleK = new Pose2d(3.956, 5.206, Rotation2d.fromDegrees(123));
+    public static final Pose2d PoleL = new Pose2d(3.680, 5.074, Rotation2d.fromDegrees(123));
+    // distance sensor values
+    public static final double coralLocation0 = 0.11; // no coral
+    public static final double coralLocation1 = 0.080;
+    public static final double coralLocation2 = 0.062;
+    public static final double coralLocation3 = 0.046;
+    public static final double coralLocation4 = 0.033;
+    // offsets
+    public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
   }
 }
 
