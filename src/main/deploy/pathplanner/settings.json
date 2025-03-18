@@ -5,24 +5,24 @@
   "pathFolders": [
     "AutoScorePaths",
     "Dominic's Folder",
+    "EFSide",
     "GHSide",
     "GPole",
     "HPole",
     "IPole",
     "JPole",
-    "KJSide",
+    "IJSide",
     "KPole",
     "LPole",
-    "Test Paths",
-    "EFSide"
+    "Test Paths"
   ],
   "autoFolders": [
     "2PieceGHPoles",
     "3PieceIKJPoles",
     "4PieceIJKLPoles",
     "AutoScoreShortPaths",
-    "Dominic's Folder",
-    "Coral2AlgaeGHGHKJPoles"
+    "Coral2AlgaeGHGHIJPoles",
+    "Dominic's Folder"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

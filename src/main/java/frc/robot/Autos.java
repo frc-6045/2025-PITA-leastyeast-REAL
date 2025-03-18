@@ -42,7 +42,8 @@ public class Autos {
         NamedCommands.registerCommand("test", Commands.print("I EXIST"));
         NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(intake, 1, false)); //score for L3, L4, algae out
         NamedCommands.registerCommand("coralSpinOther", new IntakeClosedLoop(intake, 0.5, true)); //score for L2, L1
-        NamedCommands.registerCommand("algaeIn", new IntakeClosedLoop(intake, 2, true)); //algae in
+        NamedCommands.registerCommand("algaeInOne", new IntakeClosedLoop(intake, 1, true)); //algae in
+        NamedCommands.registerCommand("algaeInTwo", new IntakeClosedLoop(intake, 2.1, true)); //algae in
         NamedCommands.registerCommand("coralIntake", new IntakeIntakeClosedLoop(intake, ()->{return intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
         NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(arm, elev, Setpoints.L1).asProxy());
         NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(arm, elev, Setpoints.L2).asProxy());
@@ -100,7 +101,7 @@ public class Autos {
         autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
         autoChooser.addOption("test", AutoBuilder.buildAuto("New New Auto"));
         autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
-        autoChooser.addOption("(Left)Coral2AlgaeHGHIJPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHIJPoles"));
+        autoChooser.addOption("(Left)Coral2AlgaeHGHKJPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHKJPoles"));
         autoChooser.addOption("do not run-(Right)Coral2AlgaeHGHEFPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHEFPoles"));
         SmartDashboard.putData("autos", autoChooser);
     }

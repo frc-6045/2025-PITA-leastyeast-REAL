@@ -54,7 +54,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeIn"
+                  "name": "algaeInOne"
                 }
               }
             ]
@@ -91,7 +91,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeIn"
+                  "name": "algaeInTwo"
                 }
               }
             ]
@@ -132,6 +132,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Coral2AlgaeGHGHKJPoles",
+  "folder": "Coral2AlgaeGHGHIJPoles",
   "choreoAuto": false
 }
