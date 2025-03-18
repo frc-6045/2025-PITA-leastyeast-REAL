@@ -81,7 +81,8 @@ public class AutoScoreCommands {
   }
 
 
-  public Command scoreNearestReefFaceOther(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset, Supplier<Pose2d> closestTag) {
+  public Supplier<Command> scoreNearestReefFaceOther(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset, Supplier<Pose2d> closestTag) {
+    return () -> {
     Pose2d firstPoseDriveTo, secondPoseDriveTo;
     Pose2d closestAprilTagPose = closestTag.get();
 
@@ -105,6 +106,7 @@ public class AutoScoreCommands {
         new ParallelDeadlineGroup(
           m_DriveSubsystem.driveToPoseSlowMode(secondPoseDriveTo),
           new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint)));
+    };
   }
 
 

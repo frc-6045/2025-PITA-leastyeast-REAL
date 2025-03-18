@@ -134,7 +134,7 @@ public class Bindings {
                 ()->{return Side.LEFT;},
                 ()->{return m_Intake.getAlignOffset();},
                 ()->{return m_AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}
-            )
+            ).get()
         );
         m_testController.x().onTrue(
             new TeleopScoreNearestReefFace(
