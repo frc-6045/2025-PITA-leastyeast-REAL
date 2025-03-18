@@ -131,7 +131,8 @@ public class AutoScoreCommands {
 
   public Pose2d closestAprilTag(Pose2d robotPose) {
     // Use the robot pose and return the closest AprilTag on a REEF
-    List<Integer> tagIDs = List.of(17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11);
+    //List<Integer> tagIDs = List.of(17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11);
+    List<Integer> tagIDs = List.of(17, 18, 19, 20, 21, 22);
 
     double minDistance = Double.MAX_VALUE;
     Pose2d closestTagPose = new Pose2d();
