@@ -81,9 +81,9 @@ public class AutoScoreCommands {
   }
 
 
-  public Command scoreNearestReefFaceOther(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset) {
+  public Command scoreNearestReefFaceOther(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset, Supplier<Pose2d> closestTag) {
     Pose2d firstPoseDriveTo, secondPoseDriveTo;
-    Pose2d closestAprilTagPose = closestAprilTag(m_DriveSubsystem.getPose());
+    Pose2d closestAprilTagPose = closestTag.get();
 
     // straight behind the april tag by quite a bit
     firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(-1,0));
@@ -136,12 +136,13 @@ public class AutoScoreCommands {
 
     double minDistance = Double.MAX_VALUE;
     Pose2d closestTagPose = new Pose2d();
+    Translation2d poseTranslation = robotPose.getTranslation();
 
     for (int tagID : tagIDs) {
       var tagPoseOptional = aprilTagFieldLayout.getTagPose(tagID);
       var tagPose = tagPoseOptional.get();
       Pose2d tagPose2d = new Pose2d(tagPose.getX(), tagPose.getY(), new Rotation2d(tagPose.getRotation().getZ()));
-      double distance = robotPose.getTranslation().getDistance(tagPose2d.getTranslation());
+      double distance = poseTranslation.getDistance(tagPose2d.getTranslation());
 
       if (distance < minDistance) {
         minDistance = distance;

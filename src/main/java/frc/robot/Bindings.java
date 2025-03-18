@@ -132,7 +132,8 @@ public class Bindings {
             m_AutoScoreCommands.scoreNearestReefFaceOther(
                 Setpoints.L3,
                 ()->{return Side.LEFT;},
-                ()->{return m_Intake.getAlignOffset();}
+                ()->{return m_Intake.getAlignOffset();},
+                ()->{return m_AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}
             )
         );
         m_testController.x().onTrue(
