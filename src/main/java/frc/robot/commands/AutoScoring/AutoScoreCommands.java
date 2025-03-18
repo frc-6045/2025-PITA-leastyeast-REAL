@@ -127,7 +127,7 @@ public class AutoScoreCommands {
   }
 
 
-  public Pose2d applyOffsetToPose(Pose2d pose, Translation2d offset) {
+  public static Pose2d applyOffsetToPose(Pose2d pose, Translation2d offset) {
     Translation2d rotatedOffset = offset.rotateBy(pose.getRotation());
     return new Pose2d(pose.getTranslation().plus(rotatedOffset), pose.getRotation());
   }

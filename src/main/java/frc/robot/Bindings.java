@@ -14,6 +14,7 @@ import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
+import frc.robot.commands.AutoScoring.AutoAlign;
 import frc.robot.commands.AutoScoring.AutoScoreCommands;
 import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
@@ -139,11 +140,14 @@ public class Bindings {
             ).get()
         );
         m_testController.x().onTrue(
-            new TeleopScoreNearestReefFace(
-                m_driveSubsystem, m_Arm, m_Elev, m_Intake,
+            new AutoAlign(
                 Setpoints.L3,
                 ()->{return Side.LEFT;},
-                ()->{return m_Intake.getAlignOffset();}
+                ()->{return m_Intake.getAlignOffset();},
+                ()->{return m_AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());},
+                m_driveSubsystem,
+                m_Arm,
+                m_Elev
             )
         );
     }
