@@ -12,6 +12,7 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -34,7 +35,9 @@ public class AutoScoreCommands {
   private final SwerveSubsystem m_DriveSubsystem;
   private final ArmSubsystem m_ArmSubsystem; 
   private final ElevatorSubsystem m_ElevatorSubsystem; 
-  private final IntakeSubsystem m_IntakeSubsystem; 
+  private final IntakeSubsystem m_IntakeSubsystem;
+
+  private final Timer timer = new Timer();
   
   private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
@@ -47,6 +50,9 @@ public class AutoScoreCommands {
     this.m_ArmSubsystem = m_ArmSubsystem;
     this.m_ElevatorSubsystem = m_ElevatorSubsystem;
     this.m_IntakeSubsystem = m_IntakeSubsystem;
+
+    timer.stop();
+    timer.reset();
   }
 
 
@@ -132,6 +138,7 @@ public class AutoScoreCommands {
     }
 
   public Pose2d closestAprilTag(Pose2d robotPose) {
+    timer.start();
     // Use the robot pose and return the closest AprilTag on a REEF
     //List<Integer> tagIDs = List.of(17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11);
     List<Integer> tagIDs = List.of(17, 18, 19, 20, 21, 22);
@@ -151,6 +158,9 @@ public class AutoScoreCommands {
         closestTagPose = tagPose2d;
       }
     }
+    timer.stop();
+    System.out.println("timer: " + timer.get());
+    timer.reset();
 
     return closestTagPose;
   }

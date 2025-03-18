@@ -126,7 +126,9 @@ public class Bindings {
         //     )
         // );
 
-        m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
+        //m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
+        m_testController.a().onTrue(new InstantCommand(()->{
+            m_AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}));
         m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
         m_testController.b().onTrue(
             m_AutoScoreCommands.scoreNearestReefFaceOther(
