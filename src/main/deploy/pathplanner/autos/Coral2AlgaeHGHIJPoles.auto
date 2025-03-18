@@ -79,7 +79,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BargeToKJSide"
+                  "pathName": "BargeToIJSide"
                 }
               },
               {
@@ -100,7 +100,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "KJSideToBarge"
+            "pathName": "IJSideToBarge"
           }
         },
         {

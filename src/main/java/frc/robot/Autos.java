@@ -100,7 +100,7 @@ public class Autos {
         autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
         autoChooser.addOption("test", AutoBuilder.buildAuto("New New Auto"));
         autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
-        autoChooser.addOption("(Left)Coral2AlgaeHGHKJPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHKJPoles"));
+        autoChooser.addOption("(Left)Coral2AlgaeHGHIJPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHIJPoles"));
         autoChooser.addOption("do not run-(Right)Coral2AlgaeHGHEFPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHEFPoles"));
         SmartDashboard.putData("autos", autoChooser);
     }
