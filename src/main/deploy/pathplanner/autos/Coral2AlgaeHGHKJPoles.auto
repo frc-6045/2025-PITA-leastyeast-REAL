@@ -36,21 +36,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "algaeLow"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "ToGHSide"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralSpinOther"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "ToGHSide"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeLow"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeIn"
+                }
+              }
+            ]
           }
         },
         {
@@ -80,14 +87,14 @@
                 "data": {
                   "name": "algaeHigh"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeIn"
+                }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralSpinOther"
           }
         },
         {
