@@ -35,14 +35,12 @@ public class IntakeIntakeClosedLoop extends Command {
         m_IntakeSubsystem.setSpeed(triggerAxis*speed);
         if (coralDetected.getAsBoolean() && coralTimer.get() == 0) {
             coralTimer.start();
-            System.out.println("coraltimer started");
         }
     }
 
     @Override
     public boolean isFinished() {
         if (coralTimer.get() > 0.13 || timer.get() > 2) {
-            System.out.println("intakeintake end :3");
             coralTimer.stop();
             coralTimer.reset();
             timer.stop();

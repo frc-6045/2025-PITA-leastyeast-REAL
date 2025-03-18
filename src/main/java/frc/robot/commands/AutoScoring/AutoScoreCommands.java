@@ -82,26 +82,23 @@ public class AutoScoreCommands {
 
 
   public Command scoreNearestReefFaceOther(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset) {
-    Pose2d firstPoseDriveTo;
-    Pose2d secondPoseDriveTo;
+    Pose2d firstPoseDriveTo, secondPoseDriveTo;
     Pose2d closestAprilTagPose = closestAprilTag(m_DriveSubsystem.getPose());
 
     // straight behind the april tag by quite a bit
     firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(-1,0));
 
     // left or right side of reef
-    if (side.get().equals(Side.RIGHT)) {
-      secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(0.6,-0.2));
-    } else if (side.get().equals(Side.LEFT)) {
-      secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(0.6,0.2));
-    } else {
-      System.out.println("idk whether to go right or left so i fo left!!!!");
-      secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(0.6,0.2));
-    }
+    double sideOffset = (side.get() == Side.RIGHT) ? -0.2 : 0.2;
+    secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(0.6, sideOffset));
 
     // intake offset
     secondPoseDriveTo = applyOffsetToPose(secondPoseDriveTo, offset.get());
-    
+
+    System.out.println("align to nearest reef face, side is " + side.get() +
+      "\napriltag pose is " + closestAprilTagPose.getX() + " " + closestAprilTagPose.getY() + " " + closestAprilTagPose.getRotation() +
+      "\ncoral offset is " + offset.get().getX() + " " + offset.get().getY());
+
     return
       new SequentialCommandGroup(
         m_DriveSubsystem.driveToPose(firstPoseDriveTo),

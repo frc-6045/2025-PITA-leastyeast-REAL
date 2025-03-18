@@ -80,7 +80,7 @@ public class Bindings {
         //shift (elevator bottom switch override)
         //m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {operatorShift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
         //m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {operatorShift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
-        m_operatorController.leftBumper().onTrue(new InstantCommand(()->{m_Elev.zeroEncoder();}));
+        m_operatorController.leftBumper().onTrue(new InstantCommand(()->{if (m_Elev.getBottomLimitSwitchState()) m_Elev.zeroEncoder();}));
 
 
         /* Driver Controller bindings */
@@ -129,7 +129,7 @@ public class Bindings {
         m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
         m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
         m_testController.b().onTrue(
-            m_AutoScoreCommands.scoreNearestReefFace(
+            m_AutoScoreCommands.scoreNearestReefFaceOther(
                 Setpoints.L3,
                 ()->{return Side.LEFT;},
                 ()->{return m_Intake.getAlignOffset();}

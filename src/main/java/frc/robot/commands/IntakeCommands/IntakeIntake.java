@@ -36,14 +36,12 @@ public class IntakeIntake extends Command {
         m_IntakeSubsystem.setSpeed(triggerAxis*speed);
         if (coralDetected.getAsBoolean() && timer.get() == 0 && !coralExist) {
             timer.start();
-            System.out.println("timer started");
         }
     }
 
     @Override
     public boolean isFinished() {
         if (timer.get() > 0.13) {
-            System.out.println("intake end :3");
             timer.stop();
             timer.reset();
             return true;

@@ -57,12 +57,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void goToSetpoint(double setpoint) {
     //double feedforward = 0.01;
-        //if (m_ArmMotor.getAbsoluteEncoderPosition()-setPoint<0.01 && m_ArmMotor.getAbsoluteEncoderPosition()-setPoint>-0.01) m_ArmMotor.stopArmMotor();;;
-        double speed = -m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
-        //speed = (speed>0) ? speed + feedforward : speed-feedforward;
-        setSpeed(speed);
-        SmartDashboard.putNumber("ELEVATOR setpoint", setpoint);
-        //System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());
+    double speed = -m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
+    //speed = (speed>0) ? speed + feedforward : speed-feedforward;
+    setSpeed(speed);
+    SmartDashboard.putNumber("ELEVATOR setpoint", setpoint);
   }
 
   public boolean atSetpoint() {
@@ -74,8 +72,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     speed = (speed > MotorConstants.kElevatorMotorsMaxSpeed) ? MotorConstants.kElevatorMotorsMaxSpeed : speed;
     speed = (speed < -MotorConstants.kElevatorMotorsMaxSpeed) ? -MotorConstants.kElevatorMotorsMaxSpeed : speed;
 
+    //TODO: when top limit switch doesn't run against the chain anymore, have it work again in code
     //speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
     speed = (bottomLimitSwitch.get() && speed < 0) ? 0 : speed;
+
     if (getRelativeEncoderPosition() > -5 && speed<0) { //limit going down
       if (Bindings.getOperatorShiftPressed()) {
         speed*=0.75; // override but also slowing a liil

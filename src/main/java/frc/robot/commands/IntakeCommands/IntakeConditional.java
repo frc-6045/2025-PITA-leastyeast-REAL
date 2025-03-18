@@ -30,19 +30,16 @@ public class IntakeConditional extends Command {
     public void execute() {
         if (run.getAsBoolean()) {
             m_IntakeSubsystem.setSpeed(direction ? 1 : -1);
-            System.out.println("run!!!!");
             //System.out.println("timer value: "+ timer.get() + " time: " + time);
         }
         else {
             m_IntakeSubsystem.stopIntake();
-            System.out.println("no run!!!!");
         }
     }
 
     @Override
     public boolean isFinished() {
         if (timer.get() > 2) {
-            System.out.println("KDJHFOISEDHTIEKSJNFKUDFJSMHGBKJSR");
             return true;
         }
         return false;
@@ -51,7 +48,6 @@ public class IntakeConditional extends Command {
     @Override
     public void end(boolean interrupted) {
         m_IntakeSubsystem.stopIntake();  
-        System.out.println("IntakeConditional end");
     }
 
 }
