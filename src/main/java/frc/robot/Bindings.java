@@ -14,6 +14,7 @@ import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
+import frc.robot.commands.AutoScoring.AlignToReefTagRelative;
 import frc.robot.commands.AutoScoring.AutoScoreCommands;
 import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
@@ -105,7 +106,8 @@ public class Bindings {
         m_driverController.rightStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.RIGHT;}));
         m_driverController.rightStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
         
-        m_driverController.x().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.LOLLIPOP));
+        m_driverController.x().onTrue(new AlignToReefTagRelative(Side.LEFT, m_driveSubsystem).withTimeout(3));
+		m_driverController.b().onTrue(new AlignToReefTagRelative(Side.RIGHT, m_driveSubsystem).withTimeout(3));
 
         // // reef score
         // m_driverController.y().onTrue(

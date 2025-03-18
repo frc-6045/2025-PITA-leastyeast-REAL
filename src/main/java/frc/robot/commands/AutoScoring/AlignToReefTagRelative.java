@@ -10,21 +10,23 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.util.LimelightHelpers;
 
 public class AlignToReefTagRelative extends Command {
   private PIDController xController, yController, rotController;
+  private Side side;
   private Timer dontSeeTagTimer, stopTimer;
   private SwerveSubsystem swerveSubsystem;
-  private boolean isRightScore;
+  private double tagID = -1;
 
-  public AlignToReefTagRelative(boolean isRightScore, SwerveSubsystem swerveSubsystem) {
-    xController = new PIDController(Constants.PositionConstants.X_REEF_ALIGNMENT_P, 0, 0);  // Vertical movement
-    yController = new PIDController(Constants.PositionConstants.Y_REEF_ALIGNMENT_P, 0, 0);  // Horitontal movement
+  public AlignToReefTagRelative(Side side, SwerveSubsystem swerveSubsystem) {
+    xController = new PIDController(Constants.PositionConstants.X_REEF_ALIGNMENT_P, 0.0, 0);  // Vertical movement
+    yController = new PIDController(Constants.PositionConstants.Y_REEF_ALIGNMENT_P, 0.0, 0);  // Horitontal movement
     rotController = new PIDController(Constants.PositionConstants.ROT_REEF_ALIGNMENT_P, 0, 0);  // Rotation
 
-    this.isRightScore = isRightScore;
+    this.side = side;
     this.swerveSubsystem = swerveSubsystem;
 
     addRequirements(swerveSubsystem);
@@ -43,23 +45,27 @@ public class AlignToReefTagRelative extends Command {
     xController.setSetpoint(Constants.PositionConstants.X_SETPOINT_REEF_ALIGNMENT);
     xController.setTolerance(Constants.PositionConstants.X_TOLERANCE_REEF_ALIGNMENT);
 
-    yController.setSetpoint(isRightScore ? Constants.PositionConstants.Y_SETPOINT_REEF_ALIGNMENT : -Constants.PositionConstants.Y_SETPOINT_REEF_ALIGNMENT);
+    yController.setSetpoint(side == Side.RIGHT ? Constants.PositionConstants.Y_SETPOINT_REEF_ALIGNMENT : -Constants.PositionConstants.Y_SETPOINT_REEF_ALIGNMENT);
     yController.setTolerance(Constants.PositionConstants.Y_TOLERANCE_REEF_ALIGNMENT);
+
+    tagID = LimelightHelpers.getFiducialID(Constants.LIMELIGHT);
   }
 
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Limelight Target Count", LimelightHelpers.getTargetCount("limelight-sabre"));
-
-    if (LimelightHelpers.getTV("limelight-sabre")) {
+    if (LimelightHelpers.getTV(Constants.LIMELIGHT) && LimelightHelpers.getFiducialID(Constants.LIMELIGHT) == tagID) {
       this.dontSeeTagTimer.reset();
 
-      double[] postions = LimelightHelpers.getBotPose_TargetSpace("limelight-sabre");
-      double xSpeed = -xController.calculate(postions[2]);
+      double[] postions = LimelightHelpers.getBotPose_TargetSpace(Constants.LIMELIGHT);
+
+      double xSpeed = xController.calculate(postions[2]);
       double ySpeed = -yController.calculate(postions[0]);
       double rotValue = -rotController.calculate(postions[4]);
 
-      swerveSubsystem.drive(new Translation2d(yController.getError() < Constants.PositionConstants.Y_TOLERANCE_REEF_ALIGNMENT ? xSpeed : 0, ySpeed), rotValue, false);
+      SmartDashboard.putNumber("x", postions[2]);
+      SmartDashboard.putNumber("xspee", xSpeed);
+
+      swerveSubsystem.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
 
       if (!rotController.atSetpoint() ||
           !yController.atSetpoint() ||
@@ -69,6 +75,8 @@ public class AlignToReefTagRelative extends Command {
     } else {
       swerveSubsystem.drive(new Translation2d(), 0, false);
     }
+
+    SmartDashboard.putNumber("poseValidTimer", stopTimer.get());
   }
 
   @Override
