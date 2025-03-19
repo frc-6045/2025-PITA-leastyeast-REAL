@@ -289,6 +289,7 @@ import java.util.concurrent.atomic.AtomicReference;
      */
     public Command driveToPose(Pose2d pose)
     {
+      System.out.println("drive to pose " + pose);
       // Create the constraints to use while pathfinding
       PathConstraints constraints = new PathConstraints(
           swerveDrive.getMaximumChassisVelocity(), 4.0,
@@ -310,6 +311,7 @@ import java.util.concurrent.atomic.AtomicReference;
      */
     public Command driveToPoseSlowMode(Pose2d pose)
     {
+      System.out.println("drive to pose slow mode " + pose);
       // Create the constraints to use while pathfinding
       PathConstraints constraints = new PathConstraints(
           swerveDrive.getMaximumChassisVelocity() / 5, 0.5,
@@ -813,7 +815,7 @@ import java.util.concurrent.atomic.AtomicReference;
     }
 
     public Pose2d getNearestPole(AutoScoreConstants.Side side) {
-        System.out.println("getting nearest pole");
+        //System.out.println("getting nearest pole");
         Pose2d currentPose = getPose();
         Pose2d closestPose = AutoScoreConstants.REEF_FACE_ARRAY[0];
         double closestDistance = 999999;
@@ -848,14 +850,14 @@ import java.util.concurrent.atomic.AtomicReference;
       Translation2d shiftBackward = new Translation2d(-1, 0);
       Pose2d nearestPole = getNearestPole(side);
       Pose2d initalPoseToPlanTo = shiftPoseRobotRelative(nearestPole, shiftBackward);
-      System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + nearestPole.getRotation().getRadians());
+      //System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + nearestPole.getRotation().getRadians());
       return driveToPose(initalPoseToPlanTo);
     }
 
     public Command driveToFirstAutoScorePose(Pose2d pole){
       Translation2d shiftBackward = new Translation2d(-1, 0);
       Pose2d initalPoseToPlanTo = shiftPoseRobotRelative(pole, shiftBackward);
-      System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + pole.getRotation().getRadians());
+      //System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + pole.getRotation().getRadians());
       return driveToPose(initalPoseToPlanTo);
     }
 
@@ -863,10 +865,10 @@ import java.util.concurrent.atomic.AtomicReference;
       Pose2d nearestPole = getNearestPole(side);
       // offset depending on coral location in intake
       Pose2d nearestPoleOffsetted = shiftPoseRobotRelative(nearestPole, coralOffset);
-      System.out.println(
-        "nearest pole: " + nearestPole.getX() + ", " + nearestPole.getY() + 
-        "\noffset: " + coralOffset.getX() + ", " + coralOffset.getY() +
-        "finalpose: " + nearestPoleOffsetted.getX() + ", " + nearestPoleOffsetted.getY());
+      // System.out.println(
+      //   "nearest pole: " + nearestPole.getX() + ", " + nearestPole.getY() + 
+      //   "\noffset: " + coralOffset.getX() + ", " + coralOffset.getY() +
+      //   "finalpose: " + nearestPoleOffsetted.getX() + ", " + nearestPoleOffsetted.getY());
       return driveToPoseSlowMode(nearestPoleOffsetted);
     }
 

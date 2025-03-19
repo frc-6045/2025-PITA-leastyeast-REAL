@@ -56,34 +56,34 @@ public class Autos {
                 ));
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(arm, elev, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(arm, elev, Setpoints.HOME).asProxy());
-        NamedCommands.registerCommand("alignToReefScoreL3Left", 
-            m_AutoScoreCommands.scoreNearestReefFace(
-                Setpoints.L3,
-                ()->{return Side.LEFT;},
-                ()->{return intake.getAlignOffset();}
-            )
-        );
-        NamedCommands.registerCommand("alignToReefScoreL3Right", 
-            m_AutoScoreCommands.scoreNearestReefFace(
-                Setpoints.L3,
-                ()->{return Side.RIGHT;},
-                ()->{return intake.getAlignOffset();}
-            )
-        );
-        NamedCommands.registerCommand("alignToReefScoreL4Left", 
-            m_AutoScoreCommands.scoreNearestReefFace(
-                Setpoints.L4,
-                ()->{return Side.LEFT;},
-                ()->{return intake.getAlignOffset();}
-            )
-        );
-        NamedCommands.registerCommand("alignToReefScoreL4Right", 
-            m_AutoScoreCommands.scoreNearestReefFace(
-                Setpoints.L4,
-                ()->{return Side.RIGHT;},
-                ()->{return intake.getAlignOffset();}
-            )
-        );
+        // NamedCommands.registerCommand("alignToReefScoreL3Left", 
+        //     m_AutoScoreCommands.scoreNearestReefFace(
+        //         Setpoints.L3,
+        //         ()->{return Side.LEFT;},
+        //         ()->{return intake.getAlignOffset();}
+        //     )
+        // );
+        // NamedCommands.registerCommand("alignToReefScoreL3Right", 
+        //     m_AutoScoreCommands.scoreNearestReefFace(
+        //         Setpoints.L3,
+        //         ()->{return Side.RIGHT;},
+        //         ()->{return intake.getAlignOffset();}
+        //     )
+        // );
+        // NamedCommands.registerCommand("alignToReefScoreL4Left", 
+        //     m_AutoScoreCommands.scoreNearestReefFace(
+        //         Setpoints.L4,
+        //         ()->{return Side.LEFT;},
+        //         ()->{return intake.getAlignOffset();}
+        //     )
+        // );
+        // NamedCommands.registerCommand("alignToReefScoreL4Right", 
+        //     m_AutoScoreCommands.scoreNearestReefFace(
+        //         Setpoints.L4,
+        //         ()->{return Side.RIGHT;},
+        //         ()->{return intake.getAlignOffset();}
+        //     )
+        // );
         NamedCommands.registerCommand("alignPrint", Commands.print("The robot is aligning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
         // NamedCommands.registerCommand("scoreCoralL1",
         //     new SequentialCommandGroup(

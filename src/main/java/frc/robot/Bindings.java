@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -127,29 +129,40 @@ public class Bindings {
         //     )
         // );
 
-        //m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
-        m_testController.a().onTrue(new InstantCommand(()->{
-            m_AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}));
+
         m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
-        m_testController.b().onTrue(
-            m_AutoScoreCommands.scoreNearestReefFaceOther(
-                Setpoints.L3,
-                ()->{return Side.LEFT;},
-                ()->{return m_Intake.getAlignOffset();},
-                ()->{return m_AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}
-            ).get()
+        // m_testController.b().onTrue(
+        //     m_AutoScoreCommands.scoreNearestReefFaceOther(
+        //         Setpoints.L3,
+        //         ()->{return Side.LEFT;},
+        //         ()->{return m_Intake.getAlignOffset();},
+        //         ()->{return AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}
+        //     ).get()
+        // );
+        m_testController.leftBumper().onTrue(
+            new InstantCommand(()->{
+                m_AutoScoreCommands.scheduleScoreNearestReefFace(
+                    Setpoints.L3,
+                    ()->{return Side.LEFT;},
+                    ()->{return m_Intake.getAlignOffset();},
+                    ()->{return AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}
+                );
+            })
         );
-        m_testController.x().onTrue(
-            new AutoAlign(
-                Setpoints.L3,
-                ()->{return Side.LEFT;},
-                ()->{return m_Intake.getAlignOffset();},
-                ()->{return m_AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());},
-                m_driveSubsystem,
-                m_Arm,
-                m_Elev
-            )
+        m_testController.rightBumper().onTrue(
+            m_driveSubsystem.driveToPose(new Pose2d(6.32,4.02, new Rotation2d(0)))
         );
+
+        // m_testController.x().onTrue(
+        //     new AutoAlign(
+        //         Setpoints.L3,
+        //         ()->{return Side.LEFT;},
+        //         ()->{return m_Intake.getAlignOffset();},
+        //         m_driveSubsystem,
+        //         m_Arm,
+        //         m_Elev
+        //     )
+        // );
     }
 
     public static boolean getOperatorShiftPressed() {

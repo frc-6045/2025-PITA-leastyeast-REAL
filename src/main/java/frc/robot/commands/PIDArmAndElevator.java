@@ -147,6 +147,7 @@ public class PIDArmAndElevator extends Command {
     public void end(boolean Interrupted) {
         //m_ArmSubsystem.stopArmMotor();
         m_ElevatorSubsystem.stopElevatorMotors();
+        if (Interrupted) System.out.println("pidarmandelev interupt :(");
     }
 
 }
