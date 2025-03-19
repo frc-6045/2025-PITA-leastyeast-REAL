@@ -48,7 +48,7 @@ public class IntakeSubsystem extends SubsystemBase {
         speed = MathUtil.clamp(speed, -MotorConstants.kIntakeMotorMaxSpeed, MotorConstants.kIntakeMotorMaxSpeed);
         m_IntakeMotor1.set(speed);
 
-        SmartDashboard.putNumber("INTAKE speed", -speed);
+        SmartDashboard.putNumber("INTAKE speed", speed);
     }
 
     public void stopIntake() {
