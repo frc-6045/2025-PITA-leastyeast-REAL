@@ -58,7 +58,7 @@ public class AlignToReefTagRelative extends Command {
 
       double[] postions = LimelightHelpers.getBotPose_TargetSpace(Constants.LIMELIGHT);
 
-      double xSpeed = xController.calculate(postions[2]);
+      double xSpeed = -xController.calculate(postions[2]);
       double ySpeed = -yController.calculate(postions[0]);
       double rotValue = -rotController.calculate(postions[4]);
 
