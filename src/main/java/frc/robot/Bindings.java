@@ -86,6 +86,8 @@ public class Bindings {
         m_operatorController.leftBumper().onTrue(new InstantCommand(()->{if (m_Elev.getBottomLimitSwitchState()) m_Elev.zeroEncoder();}));
 
 
+
+
         /* Driver Controller bindings */
 
         //m_driverController.y().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
@@ -103,14 +105,12 @@ public class Bindings {
         m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
 
         //reef score left or right
-        m_driverController.leftStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.LEFT;}));
-        m_driverController.leftStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
-        m_driverController.rightStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.RIGHT;}));
-        m_driverController.rightStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
-        
-        m_driverController.x().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.LOLLIPOP));
+        m_driverController.leftStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.LEFT;}))
+                                      .onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
+        m_driverController.rightStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.RIGHT;}))
+                                       .onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
 
-        // // reef score
+                // // reef score
         // m_driverController.y().onTrue(
         //     new TeleopScoreNearestReefFace(
         //         m_driveSubsystem, m_Arm, m_Elev, m_Intake,
@@ -128,17 +128,17 @@ public class Bindings {
         //         ()->{return m_Intake.getAlignOffset();}
         //     )
         // );
+        
+        m_driverController.x().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.LOLLIPOP));
 
+
+
+
+
+        /* test controller align stuff */
 
         m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
-        // m_testController.b().onTrue(
-        //     m_AutoScoreCommands.scoreNearestReefFaceOther(
-        //         Setpoints.L3,
-        //         ()->{return Side.LEFT;},
-        //         ()->{return m_Intake.getAlignOffset();},
-        //         ()->{return AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}
-        //     ).get()
-        // );
+        
         m_testController.leftBumper().onTrue(
             new InstantCommand(()->{
                 m_AutoScoreCommands.scheduleScoreNearestReefFace(
@@ -163,6 +163,14 @@ public class Bindings {
         //         m_Elev
         //     )
         // );
+
+        m_testController.b().onTrue(
+            m_AutoScoreCommands.generateScoreNearestReefFace(
+                Setpoints.L3,
+                ()->{return Side.LEFT;},
+                ()->{return m_Intake.getAlignOffset();}
+            )
+        );
     }
 
     public static boolean getOperatorShiftPressed() {

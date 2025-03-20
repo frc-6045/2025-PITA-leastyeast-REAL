@@ -9,6 +9,9 @@ import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
 public final class Constants {
+
+  public static final boolean atRealField = false;
+
   //  MotorSpeed is the open loop speed.
   //  MotorMaxSpeed is a hard limit on speed.
   public static class MotorConstants {
@@ -58,36 +61,35 @@ public final class Constants {
   }
 
   public static class PositionConstants {
-    // kOffset is the encoder offset, so it is easy to refactor all setpoints when the encoder is moved.
     // kSketchyOffset makes PID go the right way. It essentially gives a convenient spot (that being a bit behind the intake setpoint) the value of 0.
-    // It is likely possible to combine these offsets, but this works for now!
-    public static final double kOffset = 0; // likely will never be used
     public static final double kSketchyOffset = 0.33;
 
-//SETPOINTS
+    //SETPOINTS
+
+    // ternary format is atRealField ? real field value : our field value
 
     // Human player/coral intake setpoint - A
-    public static final double kHumanArmPosition = 0.9495 + kOffset; //.9561
-    public static final double kHumanElevatorPosition = -39.892; //-40.229
+    public static final double kHumanArmPosition = atRealField ? 0.9495 : 0.9495; //.9561
+    public static final double kHumanElevatorPosition = atRealField ? -39.892 : -39.892; //-40.229
 
     // Human player with gap
     public static final double kHumanGapArmPosition = 0.8896; //temp
     public static final double kHumanGapElevatorPosition = 0;
 
     // Home setpoint - Y
-    public static final double kHomeArmPosition = 0.8896 + kOffset;
+    public static final double kHomeArmPosition = 0.8896;
     public static final double kHomeElevatorPosition = 0;
 
     // L1 - B
-    public static final double kL1ArmPosition = 0.716 + kOffset;
+    public static final double kL1ArmPosition = 0.716;
     public static final double kL1ElevatorPosition = 0;
 
     // L2
-    public static final double kL2ArmPosition = 0.7473 + kOffset;
+    public static final double kL2ArmPosition = 0.7473;
     public static final double kL2ElevatorPosition = -20.9609;
 
     // L3 - left stick (top left paddle)
-    public static final double kL3ArmPosition = 0.4526 + kOffset;
+    public static final double kL3ArmPosition = 0.4526;
     public static final double kL3ElevatorPosition = 0;
 
     // L3 Gap
@@ -95,23 +97,23 @@ public final class Constants {
     public static final double kL3GapElevatorPosition = -16.60658489;
 
     // L4 - right stick (top right paddle)
-    public static final double kL4ArmPosition = 0.46265+ kOffset; //0.4526
+    public static final double kL4ArmPosition = 0.46265; //0.4526
     public static final double kL4ElevatorPosition = -72.4326; //-75.17
 
     // L4 Gap
-    public static final double kL4GapArmPosition = 0.8896 + kOffset; //temp
+    public static final double kL4GapArmPosition = 0.8896; //temp
     public static final double kL4GapElevatorPosition = -76.78836822;
 
     // algae high
-    public static final double kHighAlgaeArmPosition = 0.6402 + kOffset; //.6273
+    public static final double kHighAlgaeArmPosition = 0.6402; //.6273
     public static final double kHighAlgaeElevatorPosition = -43.43777; //-36.172
     
     // algae low
-    public static final double kLowAlgaeArmPosition = 0.6528 + kOffset; //0.6486
+    public static final double kLowAlgaeArmPosition = 0.6528; //0.6486
     public static final double kLowAlgaeElevatorPosition = -7.16; //-2
     
     // barge
-    public static final double kBargeArm = 0.331647 + kOffset;
+    public static final double kBargeArm = 0.331647;
     public static final double kBargeElev = -77.2;
 
     // lollipop
@@ -162,9 +164,37 @@ public final class Constants {
   }
 
   public static class AutoScoreConstants {
-    //public static final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
-    //public static final Pos aprilTagBlue1 = aprilTagFieldLayout.getTagPose(17);
+    // distance sensor values
+    public static final double coralLocation0 = 0.11; // no coral
+    public static final double coralLocation1 = 0.080;
+    public static final double coralLocation2 = 0.062;
+    public static final double coralLocation3 = 0.046;
+    public static final double coralLocation4 = 0.033;
+
+    // first pose offset
+    public static final Translation2d firstScoreLocationOffset = new Translation2d(1,0);
+
+    // second pose offset
+    public static final double secondScoreLocationXOffset = 0.5;
+    public static final double secondScoreLocationLeftYOffset = 0.2;
+    public static final double secondScoreLocationRightYOffset = -0.2;
+
+    // coral location offsets
+    public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
+
+
+
+
+
+
+
+
+
+    // isaac's stuff that we probably won't really use anymore
 
     public static final Pose2d REEF_FACE_ONE = new Pose2d(3.818, 4.014, new Rotation2d());  //AB 
     public static final Pose2d REEF_FACE_TWO = new Pose2d(4.153, 3.416, new Rotation2d());  //CD
@@ -195,17 +225,7 @@ public final class Constants {
     public static final Pose2d PoleJ = new Pose2d(4.999, 5.242, Rotation2d.fromDegrees(59));
     public static final Pose2d PoleK = new Pose2d(3.956, 5.206, Rotation2d.fromDegrees(123));
     public static final Pose2d PoleL = new Pose2d(3.680, 5.074, Rotation2d.fromDegrees(123));
-    // distance sensor values
-    public static final double coralLocation0 = 0.11; // no coral
-    public static final double coralLocation1 = 0.080;
-    public static final double coralLocation2 = 0.062;
-    public static final double coralLocation3 = 0.046;
-    public static final double coralLocation4 = 0.033;
-    // offsets
-    public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
-    public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
-    public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
-    public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
+    
   }
 }
 

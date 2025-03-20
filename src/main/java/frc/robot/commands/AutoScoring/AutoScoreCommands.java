@@ -6,6 +6,7 @@ package frc.robot.commands.AutoScoring;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.AutoScoreConstants;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
@@ -69,11 +71,11 @@ public class AutoScoreCommands {
     Pose2d closestAprilTagPose = closestTag.get();
 
     // straight behind the april tag by quite a bit
-    firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(1,0));
+    firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, AutoScoreConstants.firstScoreLocationOffset);
 
     // left or right side of reef
-    double sideOffset = (side.get() == Side.RIGHT) ? -0.2 : 0.2;
-    secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(0.6, sideOffset));
+    double sideOffset = (side.get() == Side.RIGHT) ? AutoScoreConstants.secondScoreLocationRightYOffset : AutoScoreConstants.secondScoreLocationLeftYOffset;
+    secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(AutoScoreConstants.secondScoreLocationXOffset, sideOffset));
 
     // intake offset
     secondPoseDriveTo = applyOffsetToPose(secondPoseDriveTo, offset.get());
@@ -84,12 +86,41 @@ public class AutoScoreCommands {
       "\nsecondpose is " + secondPoseDriveTo.getX() + " " + secondPoseDriveTo.getY());
 
     return
-      new SequentialCommandGroup(
-        m_DriveSubsystem.driveToPose(firstPoseDriveTo),
-        new ParallelCommandGroup(
-          m_DriveSubsystem.driveToPoseSlowMode(secondPoseDriveTo),
-          new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint).asProxy()));
+        m_DriveSubsystem.driveToPose(firstPoseDriveTo).andThen(
+          new ParallelCommandGroup(
+            m_DriveSubsystem.driveToPoseSlowMode(secondPoseDriveTo),
+            new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint).asProxy()),
+          new IntakeClosedLoop(m_IntakeSubsystem, 0.8, true));
     };
+  }
+
+  public Command generateScoreNearestReefFace(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset) {
+    return Commands.defer(() -> {
+      Pose2d firstPoseDriveTo, secondPoseDriveTo;
+      Pose2d closestAprilTagPose = closestAprilTag(m_DriveSubsystem.getPose());
+
+      // straight behind the april tag by quite a bit
+      firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, AutoScoreConstants.firstScoreLocationOffset);
+
+      // left or right side of reef
+      double sideOffset = (side.get() == Side.RIGHT) ? AutoScoreConstants.secondScoreLocationRightYOffset : AutoScoreConstants.secondScoreLocationLeftYOffset;
+      secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(AutoScoreConstants.secondScoreLocationXOffset, sideOffset));
+
+      // intake offset
+      secondPoseDriveTo = applyOffsetToPose(secondPoseDriveTo, offset.get());
+
+      System.out.println("align to nearest reef face, side is " + side.get() +
+        "\napriltag pose is " + closestAprilTagPose.getX() + " " + closestAprilTagPose.getY() + " " + closestAprilTagPose.getRotation() +
+        "\nfirstpose is " + firstPoseDriveTo.getX() + " " + firstPoseDriveTo.getY() +
+        "\nsecondpose is " + secondPoseDriveTo.getX() + " " + secondPoseDriveTo.getY());
+
+      return
+        new SequentialCommandGroup(
+          m_DriveSubsystem.driveToPose(firstPoseDriveTo),
+          new ParallelDeadlineGroup(
+            m_DriveSubsystem.driveToPoseSlowMode(secondPoseDriveTo),
+            new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint).asProxy()));
+    }, Set.of());
   }
 
   public void scheduleScoreNearestReefFace(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset, Supplier<Pose2d> closestTag) {
@@ -97,11 +128,11 @@ public class AutoScoreCommands {
     Pose2d closestAprilTagPose = closestTag.get();
 
     // straight behind the april tag by quite a bit
-    firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(1,0));
+    firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, AutoScoreConstants.firstScoreLocationOffset);
 
     // left or right side of reef
-    double sideOffset = (side.get() == Side.RIGHT) ? -0.2 : 0.2;
-    secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(0.6, sideOffset));
+    double sideOffset = (side.get() == Side.RIGHT) ? AutoScoreConstants.secondScoreLocationRightYOffset : AutoScoreConstants.secondScoreLocationLeftYOffset;
+    secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(AutoScoreConstants.secondScoreLocationXOffset, sideOffset));
 
     // intake offset
     secondPoseDriveTo = applyOffsetToPose(secondPoseDriveTo, offset.get());
@@ -122,8 +153,7 @@ public class AutoScoreCommands {
   }
   
 
-  public Supplier<Command> scoreSpecificTag(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset, int tag) {
-    return () -> {
+  public Command scoreSpecificTag(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset, int tag) {
     Pose2d firstPoseDriveTo, secondPoseDriveTo;
     Pose2d closestAprilTagPose = getAprilTagPose2d(tag);
 
@@ -148,7 +178,6 @@ public class AutoScoreCommands {
         new ParallelCommandGroup(
           m_DriveSubsystem.driveToPoseSlowMode(secondPoseDriveTo),
           new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint).asProxy()));
-    };
   }
 
 
