@@ -61,6 +61,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "barge"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -89,6 +95,12 @@
           "type": "path",
           "data": {
             "pathName": "KJSideToBargeBarge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "barge"
           }
         },
         {
