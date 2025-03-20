@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "HPoleBack"
+            "pathName": "HPoleBackAlgaeLow"
           }
         },
         {
@@ -48,6 +48,7 @@
               {
                 "type": "named",
                 "data": {
+<<<<<<< Updated upstream:src/main/deploy/pathplanner/autos/Coral2AlgaeHGHIJPoles.auto
                   "name": "algaeLow"
                 }
               },
@@ -55,6 +56,9 @@
                 "type": "named",
                 "data": {
                   "name": "algaeInOne"
+=======
+                  "name": "algaeIn"
+>>>>>>> Stashed changes:src/main/deploy/pathplanner/autos/Coral2AlgaeHGHKJPoles.auto
                 }
               }
             ]
@@ -63,13 +67,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GHSideToBarge"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "barge"
+            "pathName": "GHSideToBargeBarge"
           }
         },
         {
@@ -100,6 +98,7 @@
         {
           "type": "path",
           "data": {
+<<<<<<< Updated upstream:src/main/deploy/pathplanner/autos/Coral2AlgaeHGHIJPoles.auto
             "pathName": "IJSideToBarge"
           }
         },
@@ -107,6 +106,9 @@
           "type": "named",
           "data": {
             "name": "barge"
+=======
+            "pathName": "KJSideToBargeBarge"
+>>>>>>> Stashed changes:src/main/deploy/pathplanner/autos/Coral2AlgaeHGHKJPoles.auto
           }
         },
         {
