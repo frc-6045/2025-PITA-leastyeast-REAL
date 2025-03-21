@@ -4,22 +4,22 @@
 
 package frc.robot.commands.AutoScoring;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
+import static frc.robot.commands.AutoScoring.AutoScoreUtil.closestAprilTag;
+import static frc.robot.commands.AutoScoring.AutoScoreUtil.applyOffsetToPose;
+import static frc.robot.commands.AutoScoring.AutoScoreUtil.getAprilTagPose2d;
+import static frc.robot.commands.AutoScoring.AutoScoreUtil.getPathFromWaypoint;
+
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.AutoScoreConstants;
 import frc.robot.Constants.AutoScoreConstants.Side;
@@ -43,9 +43,6 @@ public class AutoScoreCommands {
 
   private final Timer timer = new Timer();
   private static final Timer apriltagTimer = new Timer();
-  
-  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
-  private static List<Pose2d> tagPoses;
 
   public AutoScoreCommands(
       SwerveSubsystem m_DriveSubsystem, 
@@ -60,38 +57,7 @@ public class AutoScoreCommands {
     timer.reset();
     apriltagTimer.stop();
     apriltagTimer.reset();
-    
-    tagPoses = getListOfApriltags();
 
-  }
-
-  public Supplier<Command> scoreNearestReefFaceOther(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset, Supplier<Pose2d> closestTag) {
-    return () -> {
-    Pose2d firstPoseDriveTo, secondPoseDriveTo;
-    Pose2d closestAprilTagPose = closestTag.get();
-
-    // straight behind the april tag by quite a bit
-    firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, AutoScoreConstants.firstScoreLocationOffset);
-
-    // left or right side of reef
-    double sideOffset = (side.get() == Side.RIGHT) ? AutoScoreConstants.secondScoreLocationRightYOffset : AutoScoreConstants.secondScoreLocationLeftYOffset;
-    secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(AutoScoreConstants.secondScoreLocationXOffset, sideOffset));
-
-    // intake offset
-    secondPoseDriveTo = applyOffsetToPose(secondPoseDriveTo, offset.get());
-
-    System.out.println("align to nearest reef face, side is " + side.get() +
-      "\napriltag pose is " + closestAprilTagPose.getX() + " " + closestAprilTagPose.getY() + " " + closestAprilTagPose.getRotation() +
-      "\nfirstpose is " + firstPoseDriveTo.getX() + " " + firstPoseDriveTo.getY() +
-      "\nsecondpose is " + secondPoseDriveTo.getX() + " " + secondPoseDriveTo.getY());
-
-    return
-        m_DriveSubsystem.driveToPose(firstPoseDriveTo).andThen(
-          new ParallelCommandGroup(
-            m_DriveSubsystem.driveToPoseSlowMode(secondPoseDriveTo),
-            new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint).asProxy()),
-          new IntakeClosedLoop(m_IntakeSubsystem, 0.8, true));
-    };
   }
 
   public Command generateScoreNearestReefFace(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset) {
@@ -120,6 +86,33 @@ public class AutoScoreCommands {
           new ParallelDeadlineGroup(
             m_DriveSubsystem.driveToPoseSlowMode(secondPoseDriveTo),
             new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint).asProxy()));
+    }, Set.of());
+  }
+
+  public Command generateScoreNearestReefFaceOther(Setpoints setpoint, Supplier<Side> side, Supplier<Translation2d> offset) {
+    return Commands.defer(() -> {
+      Pose2d firstPoseDriveTo, secondPoseDriveTo;
+      Pose2d closestAprilTagPose = closestAprilTag(m_DriveSubsystem.getPose());
+
+      // straight behind the april tag by quite a bit
+      firstPoseDriveTo = applyOffsetToPose(closestAprilTagPose, AutoScoreConstants.firstScoreLocationOffset);
+
+      // left or right side of reef
+      double sideOffset = (side.get() == Side.RIGHT) ? AutoScoreConstants.secondScoreLocationRightYOffset : AutoScoreConstants.secondScoreLocationLeftYOffset;
+      secondPoseDriveTo = applyOffsetToPose(closestAprilTagPose, new Translation2d(AutoScoreConstants.secondScoreLocationXOffset, sideOffset));
+
+      // intake offset
+      secondPoseDriveTo = applyOffsetToPose(secondPoseDriveTo, offset.get());
+
+      return
+        getPathFromWaypoint(firstPoseDriveTo, m_DriveSubsystem).andThen(
+          new ParallelDeadlineGroup(
+            getPathFromWaypoint(secondPoseDriveTo, m_DriveSubsystem),
+            new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint)
+          ),
+          new IntakeClosedLoop(m_IntakeSubsystem, 0.8, true)
+        );
+
     }, Set.of());
   }
 
@@ -180,47 +173,7 @@ public class AutoScoreCommands {
           new PIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem, setpoint).asProxy()));
   }
 
-
-  public static Pose2d applyOffsetToPose(Pose2d pose, Translation2d offset) {
-    Translation2d rotatedOffset = offset.rotateBy(pose.getRotation());
-    return new Pose2d(pose.getTranslation().plus(rotatedOffset), pose.getRotation());
-  }
-
-  public Pose2d getAprilTagPose2d(int id) {
-      var tagPose = aprilTagFieldLayout.getTagPose(id).get();
-      return new Pose2d(tagPose.getX(), tagPose.getY(), new Rotation2d(tagPose.getRotation().getZ()));
-    }
-
-    public List<Pose2d> getListOfApriltags() {
-      List<Pose2d> tagPoses = new ArrayList<>();
-      for (int tagID : List.of(17, 18, 19, 20, 21, 22)) {
-        var tagPose = aprilTagFieldLayout.getTagPose(tagID).get();
-        tagPoses.add(
-          new Pose2d(tagPose.getX(), tagPose.getY(), new Rotation2d(tagPose.getRotation().getZ()))
-        );
-      }
-      return tagPoses;
-    }
-
-  public static Pose2d closestAprilTag(Pose2d robotPose) {
-      apriltagTimer.start();
-      double minDistance = Double.MAX_VALUE;
-      Pose2d closestTagPose = new Pose2d();
-      Translation2d poseTranslation = robotPose.getTranslation();
-
-      for (Pose2d tagPose : tagPoses) {
-        double distance = poseTranslation.getDistance(tagPose.getTranslation());
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestTagPose = tagPose;
-        }
-      }
-      apriltagTimer.stop();
-      System.out.println("timer value (apriltags) " + apriltagTimer.get());
-      apriltagTimer.reset();
-      return closestTagPose;
-    }
-  }
+}
 
 
 

@@ -14,6 +14,9 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
+import static frc.robot.commands.AutoScoring.AutoScoreUtil.closestAprilTag;
+import static frc.robot.commands.AutoScoring.AutoScoreUtil.applyOffsetToPose;
+
 public class AutoAlign extends Command {
     private Setpoints m_setpoint;
     private Side m_side;
@@ -38,17 +41,17 @@ public class AutoAlign extends Command {
     public void initialize() {
         Pose2d firstPoseDriveTo, secondPoseDriveTo;
 
-        m_closestTag = AutoScoreCommands.closestAprilTag(m_swerveSubsystem.getPose());
+        m_closestTag = closestAprilTag(m_swerveSubsystem.getPose());
 
         // straight behind the april tag by quite a bit
-        firstPoseDriveTo = AutoScoreCommands.applyOffsetToPose(m_closestTag, new Translation2d(1,0));
+        firstPoseDriveTo = applyOffsetToPose(m_closestTag, new Translation2d(1,0));
 
         // left or right side of reef
         double sideOffset = (m_side == Side.RIGHT) ? -0.2 : 0.2;
-        secondPoseDriveTo = AutoScoreCommands.applyOffsetToPose(m_closestTag, new Translation2d(0.6, sideOffset));
+        secondPoseDriveTo = applyOffsetToPose(m_closestTag, new Translation2d(0.6, sideOffset));
 
         // intake offset
-        secondPoseDriveTo = AutoScoreCommands.applyOffsetToPose(secondPoseDriveTo, m_offset);
+        secondPoseDriveTo = applyOffsetToPose(secondPoseDriveTo, m_offset);
 
         System.out.println("align to nearest reef face, side is " + m_side +
         "\napriltag pose is " + m_closestTag.getX() + " " + m_closestTag.getY() + " " + m_closestTag.getRotation() +
