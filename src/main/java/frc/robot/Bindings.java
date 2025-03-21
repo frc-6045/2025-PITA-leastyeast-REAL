@@ -18,6 +18,7 @@ import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.AutoScoring.AutoAlign;
 import frc.robot.commands.AutoScoring.AutoScoreCommands;
+import frc.robot.commands.AutoScoring.AutoScoreUtil;
 import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
@@ -145,7 +146,7 @@ public class Bindings {
                     Setpoints.L3,
                     ()->{return Side.LEFT;},
                     ()->{return m_Intake.getAlignOffset();},
-                    ()->{return AutoScoreCommands.closestAprilTag(m_driveSubsystem.getPose());}
+                    ()->{return AutoScoreUtil.closestAprilTag(m_driveSubsystem.getPose());}
                 );
             })
         );
