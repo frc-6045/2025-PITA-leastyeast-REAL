@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 7.768032786885246,
-        "y": 5.073924180327869
+        "x": 7.6599725115740736,
+        "y": 4.97802589699074
       },
       "prevControl": {
-        "x": 6.669295641344672,
-        "y": 4.497779651253618
+        "x": 6.561235366033499,
+        "y": 4.401881367916489
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "barge",
-      "waypointRelativePos": 0.8008998977803735,
+      "waypointRelativePos": 0.8557060455607474,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

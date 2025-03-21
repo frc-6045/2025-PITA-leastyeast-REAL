@@ -12,11 +12,13 @@ public class IntakeConditional extends Command {
     private final BooleanSupplier run;
     private final boolean direction;
     private final Timer timer = new Timer();
+    private final double time;
     
-    public IntakeConditional(IntakeSubsystem intakeSubsystem, BooleanSupplier run, boolean direction) {
+    public IntakeConditional(IntakeSubsystem intakeSubsystem, BooleanSupplier run, boolean direction, double time) {
         m_IntakeSubsystem = intakeSubsystem;
         this.run = run;
         this.direction = direction;
+        this.time=time;
         addRequirements(m_IntakeSubsystem);
     }
 
@@ -39,7 +41,7 @@ public class IntakeConditional extends Command {
 
     @Override
     public boolean isFinished() {
-        if (timer.get() > 2) {
+        if (timer.get() > time) {
             return true;
         }
         return false;

@@ -36,12 +36,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "algaeLow"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -54,7 +48,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeInTwo"
+                  "name": "algaeInOne"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeLow"
                 }
               }
             ]
