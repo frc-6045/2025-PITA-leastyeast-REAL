@@ -106,8 +106,8 @@ public class Bindings {
         m_driverController.rightStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.RIGHT;}));
         m_driverController.rightStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
         
-        m_driverController.x().onTrue(new AlignToReefTagRelative(Side.LEFT, m_driveSubsystem).withTimeout(3));
-		m_driverController.b().onTrue(new AlignToReefTagRelative(Side.RIGHT, m_driveSubsystem).withTimeout(3));
+        m_driverController.x().whileTrue(new AlignToReefTagRelative(Side.LEFT, m_driveSubsystem, () -> {return m_Intake.getAlignOffset();}));
+		m_driverController.b().whileTrue(new AlignToReefTagRelative(Side.RIGHT, m_driveSubsystem, () -> {return m_Intake.getAlignOffset();}));
 
         // // reef score
         // m_driverController.y().onTrue(
