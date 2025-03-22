@@ -7,12 +7,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.MotorConstants;
+import frc.robot.Constants.PositionConstants;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
+import frc.robot.commands.ArmCommands.PIDArmCommand;
 import frc.robot.commands.AutoScoring.AutoScoreCommands;
 import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
+import frc.robot.commands.ElevatorCommands.PIDElevatorCommand;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeIntakeClosedLoop;
@@ -55,6 +59,14 @@ public class Autos {
                 new PIDArmAndElevator(arm, elev, Setpoints.BARGE).asProxy(),
                 new IntakeConditional(intake, () -> {return arm.getSketchyOffsettedPosition()<0.55;}, true, 1.6)
                 ));
+        NamedCommands.registerCommand("bargeNew",
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    Commands.none().until(() -> elev.getRelativeEncoderPosition()<-50),
+                    new PIDArmCommand(arm, PositionConstants.kBargeArm).asProxy()),
+                new PIDElevatorCommand(elev, PositionConstants.kBargeElev),
+                new IntakeConditional(intake, () -> {return arm.getSketchyOffsettedPosition()<0.55;}, true, 1.6)
+            ));
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(arm, elev, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(arm, elev, Setpoints.HOME).asProxy());
         NamedCommands.registerCommand("alignToReefScoreL3Left", 

@@ -29,7 +29,7 @@ public class PIDArmCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        //if (m_ArmSubsystem.atSetpoint()) return true;
+        if (m_ArmSubsystem.atSetpoint()) return true;
         return false;
     }
 }
