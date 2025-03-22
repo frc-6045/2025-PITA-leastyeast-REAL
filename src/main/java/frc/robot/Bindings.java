@@ -109,25 +109,6 @@ public class Bindings {
         m_driverController.x().whileTrue(new AlignToReefTagRelative(Side.LEFT, m_driveSubsystem, () -> {return m_Intake.getAlignOffset();}));
 		m_driverController.b().whileTrue(new AlignToReefTagRelative(Side.RIGHT, m_driveSubsystem, () -> {return m_Intake.getAlignOffset();}));
 
-        // // reef score
-        // m_driverController.y().onTrue(
-        //     new TeleopScoreNearestReefFace(
-        //         m_driveSubsystem, m_Arm, m_Elev, m_Intake,
-        //         Setpoints.L4,
-        //         ()->{return reefScoreLeftOrRight;},
-        //         ()->{return m_Intake.getAlignOffset();}
-        //     )
-        // );
-
-        // m_driverController.b().onTrue(
-        //     new TeleopScoreNearestReefFace(
-        //         m_driveSubsystem, m_Arm, m_Elev, m_Intake,
-        //         Setpoints.L3,
-        //         ()->{return reefScoreLeftOrRight;},
-        //         ()->{return m_Intake.getAlignOffset();}
-        //     )
-        // );
-
         m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
         m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
         m_testController.b().onTrue(
