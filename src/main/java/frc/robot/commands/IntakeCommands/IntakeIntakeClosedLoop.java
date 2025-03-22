@@ -19,6 +19,7 @@ public class IntakeIntakeClosedLoop extends Command {
         m_IntakeSubsystem = intakeSubsystem;
         this.coralDetected = coralDetected;
         this.speed = speed;
+        
         addRequirements(m_IntakeSubsystem);
     }
 
@@ -33,6 +34,7 @@ public class IntakeIntakeClosedLoop extends Command {
     public void execute() {
         double triggerAxis = -MotorConstants.kIntakeMotorMaxSpeed;
         m_IntakeSubsystem.setSpeed(triggerAxis*speed);
+        
         if (coralDetected.getAsBoolean() && coralTimer.get() == 0) {
             coralTimer.start();
         }
@@ -45,8 +47,10 @@ public class IntakeIntakeClosedLoop extends Command {
             coralTimer.reset();
             timer.stop();
             timer.reset();
+            
             return true;
         }
+        
         return false;
     }
 
@@ -54,5 +58,4 @@ public class IntakeIntakeClosedLoop extends Command {
     public void end(boolean interrupted) {
         m_IntakeSubsystem.stopIntake();   
     }
-
 }

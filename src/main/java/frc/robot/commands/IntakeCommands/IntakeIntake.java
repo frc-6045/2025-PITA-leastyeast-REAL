@@ -21,6 +21,7 @@ public class IntakeIntake extends Command {
         controller = xboxController;
         this.coralDetected = coralDetected;
         this.speed = speed;
+        
         addRequirements(m_IntakeSubsystem);
     }
 
@@ -34,6 +35,7 @@ public class IntakeIntake extends Command {
     public void execute() {
         double triggerAxis = -controller.getLeftTriggerAxis()+controller.getRightTriggerAxis();
         m_IntakeSubsystem.setSpeed(triggerAxis*speed);
+        
         if (coralDetected.getAsBoolean() && timer.get() == 0 && !coralExist) {
             timer.start();
         }
@@ -44,8 +46,10 @@ public class IntakeIntake extends Command {
         if (timer.get() > 0.01) {
             timer.stop();
             timer.reset();
+            
             return true;
         }
+        
         return false;
     }
 
@@ -53,5 +57,4 @@ public class IntakeIntake extends Command {
     public void end(boolean interrupted) {
         m_IntakeSubsystem.stopIntake();   
     }
-
 }

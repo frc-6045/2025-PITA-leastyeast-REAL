@@ -65,14 +65,14 @@ public final class Constants {
     public static final double kOffset = 0; // likely will never be used
     public static final double kSketchyOffset = 0.33;
 
-//SETPOINTS
+    // SETPOINTS
 
     // Human player/coral intake setpoint - A
-    public static final double kHumanArmPosition = 0.9495 + kOffset; //.9561
-    public static final double kHumanElevatorPosition = -39.892; //-40.229
+    public static final double kHumanArmPosition = 0.9495 + kOffset;
+    public static final double kHumanElevatorPosition = -39.892;
 
     // Human player with gap
-    public static final double kHumanGapArmPosition = 0.8896; //temp
+    public static final double kHumanGapArmPosition = 0.8896;
     public static final double kHumanGapElevatorPosition = 0;
 
     // Home setpoint - Y
@@ -92,24 +92,24 @@ public final class Constants {
     public static final double kL3ElevatorPosition = 0;
 
     // L3 Gap
-    public static final double kL3GapArmPosition = 0.8896; //temp
+    public static final double kL3GapArmPosition = 0.8896;
     public static final double kL3GapElevatorPosition = -16.60658489;
 
     // L4 - right stick (top right paddle)
-    public static final double kL4ArmPosition = 0.46265+ kOffset; //0.4526
-    public static final double kL4ElevatorPosition = -75.7899; //-75.17
+    public static final double kL4ArmPosition = 0.46265+ kOffset;
+    public static final double kL4ElevatorPosition = -75.7899;
 
     // L4 Gap
-    public static final double kL4GapArmPosition = 0.8896 + kOffset; //temp
+    public static final double kL4GapArmPosition = 0.8896 + kOffset;
     public static final double kL4GapElevatorPosition = -76.78836822;
 
     // algae high
-    public static final double kHighAlgaeArmPosition = 0.6402 + kOffset; //.6273
-    public static final double kHighAlgaeElevatorPosition = -43.43777; //-36.172
+    public static final double kHighAlgaeArmPosition = 0.6402 + kOffset;
+    public static final double kHighAlgaeElevatorPosition = -43.43777;
     
     // algae low
-    public static final double kLowAlgaeArmPosition = 0.6528 + kOffset; //0.6486
-    public static final double kLowAlgaeElevatorPosition = -7.16; //-2
+    public static final double kLowAlgaeArmPosition = 0.6528 + kOffset;
+    public static final double kLowAlgaeElevatorPosition = -7.16;
     
     // barge
     public static final double kBargeArm = 0.331647 + kOffset;
@@ -120,8 +120,8 @@ public final class Constants {
     public static final double kLollipopElev = 0;
 
     //nonospaces that make turnbuckle vewy vewy sad :(
-    public static final double kArmLimit1=0.884; //0.06
-    public static final double kArmLimit2=0.999; // 0.26
+    public static final double kArmLimit1=0.884;
+    public static final double kArmLimit2=0.999;
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
 
     public static enum Setpoints {
@@ -137,7 +137,7 @@ public final class Constants {
       LOLLIPOP
     }
 
-    // LimeLight Constants ARE BACK
+    // LimeLight Constants
     public static final double Y_REEF_ALIGNMENT_P = 0.2;
     public static final double ROT_REEF_ALIGNMENT_P = 0.05;
   }
@@ -150,10 +150,6 @@ public final class Constants {
   }
 
   public static class AutoScoreConstants {
-    //public static final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
-
-    //public static final Pos aprilTagBlue1 = aprilTagFieldLayout.getTagPose(17);
-
     public static final Pose2d REEF_FACE_ONE = new Pose2d(3.818, 4.014, new Rotation2d());  //AB 
     public static final Pose2d REEF_FACE_TWO = new Pose2d(4.153, 3.416, new Rotation2d());  //CD
     public static final Pose2d REEF_FACE_THREE = new Pose2d(4.842, 3.422, new Rotation2d());//EF
@@ -183,12 +179,14 @@ public final class Constants {
     public static final Pose2d PoleJ = new Pose2d(4.999, 5.242, Rotation2d.fromDegrees(59));
     public static final Pose2d PoleK = new Pose2d(3.956, 5.206, Rotation2d.fromDegrees(123));
     public static final Pose2d PoleL = new Pose2d(3.680, 5.074, Rotation2d.fromDegrees(123));
+    
     // distance sensor values
     public static final double coralLocation0 = 0.11; // no coral
     public static final double coralLocation1 = 0.080;
     public static final double coralLocation2 = 0.062;
     public static final double coralLocation3 = 0.046;
     public static final double coralLocation4 = 0.033;
+    
     // offsets
     public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
     public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
@@ -196,5 +194,3 @@ public final class Constants {
     public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
   }
 }
-
-// maek controler wurk plez
