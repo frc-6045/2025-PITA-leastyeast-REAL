@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -31,7 +30,6 @@ import swervelib.SwerveInputStream;
 
 public class Bindings {
     public static boolean operatorShift = false;
-    public static Side reefScoreLeftOrRight = null;
 
     public static void InitBindings(
         CommandXboxController m_operatorController, 
@@ -47,14 +45,13 @@ public class Bindings {
         AutoScoreCommands m_AutoScoreCommands = 
             new AutoScoreCommands(m_driveSubsystem, m_Arm, m_Elev, m_Intake);
 
-
         /* Operator Controller bindings */
 
-        //intake
+        // Intake
         m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
         m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
 
-        // barge toss
+        // Barge Toss
         m_operatorController.rightBumper().onTrue(
             new ParallelCommandGroup(
                 new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
@@ -62,7 +59,7 @@ public class Bindings {
                 )
         );
 
-        //setpoints
+        // Setpoints
         m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
         m_operatorController.a().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.INTAKE));
 
@@ -74,19 +71,16 @@ public class Bindings {
         m_operatorController.x().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_HIGH));
         m_operatorController.b().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_LOW));
 
-        //elev
+        // Elevator
         m_operatorController.pov(0).whileTrue(new ElevatorOpenLoop(m_Elev, true));
         m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_Elev, false));
 
-        //shift (elevator bottom switch override)
-        //m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {operatorShift=true; System.out.println("SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
-        //m_operatorController.leftBumper().onFalse(new InstantCommand(() -> {operatorShift=false; System.out.println("NOT SHIFT"); SmartDashboard.putBoolean("shift", operatorShift);}));
+        // Shift (elevator bottom switch override)
         m_operatorController.leftBumper().onTrue(new InstantCommand(()->{if (m_Elev.getBottomLimitSwitchState()) m_Elev.zeroEncoder();}));
 
 
         /* Driver Controller bindings */
 
-        //m_driverController.y().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
         m_driverController.a().onTrue((Commands.runOnce(m_driveSubsystem::zeroGyro)));
 
         m_driverController.rightTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return m_Intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
@@ -99,15 +93,11 @@ public class Bindings {
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
         m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
-
-        //reef score left or right
-        m_driverController.leftStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.LEFT;}));
-        m_driverController.leftStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
-        m_driverController.rightStick().onTrue(new InstantCommand(()->{reefScoreLeftOrRight = Side.RIGHT;}));
-        m_driverController.rightStick().onFalse(new InstantCommand(()->{reefScoreLeftOrRight = null;}));
         
         m_driverController.x().whileTrue(new AlignToReefTagRelative(Side.LEFT, m_driveSubsystem, m_driverController, () -> {return m_Intake.getAlignOffsetLimelightTX();}));
 		m_driverController.b().whileTrue(new AlignToReefTagRelative(Side.RIGHT, m_driveSubsystem, m_driverController, () -> {return m_Intake.getAlignOffsetLimelightTX();}));
+
+        /* Test Controller bindings */
 
         m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
         m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
@@ -132,10 +122,6 @@ public class Bindings {
         return operatorShift;
     }
 
-    public static Side getReefScoreLeftOrRight() {
-        return reefScoreLeftOrRight;
-    }
-
     public static void configureDrivetrain(SwerveSubsystem m_DriveSubsystem, CommandXboxController m_driverController) {
         SwerveInputStream driveAngularVelocity = SwerveInputStream.of(m_DriveSubsystem.getSwerveDrive(),
                                                                         () -> m_driverController.getLeftY() * -1,
@@ -148,7 +134,4 @@ public class Bindings {
         Command driveFieldOrientedAnglularVelocity = m_DriveSubsystem.driveFieldOriented(driveAngularVelocity);
         m_DriveSubsystem.setDefaultCommand(driveFieldOrientedAnglularVelocity);
   }
-
-
-
 }

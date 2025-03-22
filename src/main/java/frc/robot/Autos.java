@@ -1,11 +1,11 @@
 package frc.robot;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.MotorConstants;
@@ -15,7 +15,6 @@ import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.PIDArmCommand;
 import frc.robot.commands.AutoScoring.AutoScoreCommands;
-import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.PIDElevatorCommand;
 import frc.robot.commands.IntakeCommands.IntakeClosedLoop;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
@@ -40,10 +39,7 @@ public class Autos {
         AutoScoreCommands m_AutoScoreCommands = 
             new AutoScoreCommands(m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake);
 
-
         // Named Commands //
-
-        NamedCommands.registerCommand("test", Commands.print("I EXIST"));
         NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(intake, 1, false)); //score for L3, L4, algae out
         NamedCommands.registerCommand("coralSpinOther", new IntakeClosedLoop(intake, 0.5, true)); //score for L2, L1
         NamedCommands.registerCommand("algaeInOne", new IntakeClosedLoop(intake, 1.2, false)); //algae in
@@ -97,25 +93,12 @@ public class Autos {
                 ()->{return intake.getAlignOffset();}
             )
         );
-        NamedCommands.registerCommand("alignPrint", Commands.print("The robot is aligning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
-        // NamedCommands.registerCommand("scoreCoralL1",
-        //     new SequentialCommandGroup(
-        //         new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition).asProxy(),
-        //         new AlignToReefTagRelative(m_SwerveSubsystem),
-        //         new IntakeClosedLoop(m_IntakeSubsystem, 1, false)
-        //     )
-        // );
-
 
         // Autos //
-
         autoChooser = new SendableChooser<Command>();
-        autoChooser.addOption("Do Nothing", new InstantCommand(() -> {System.out.println("hi");}));
         autoChooser.addOption("test", AutoBuilder.buildAuto("New New Auto"));
         autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
         autoChooser.addOption("auto that we are testing!!!", AutoBuilder.buildAuto("Coral2AlgaeHGHIJPoles"));
-        //autoChooser.addOption("(Left)Coral2AlgaeHGHKJPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHKJPoles"));
-        //autoChooser.addOption("do not run-(Right)Coral2AlgaeHGHEFPoles", AutoBuilder.buildAuto("Coral2AlgaeHGHEFPoles"));
         SmartDashboard.putData("autos", autoChooser);
     }
 
