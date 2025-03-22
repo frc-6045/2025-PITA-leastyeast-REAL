@@ -55,10 +55,6 @@ public class Autos {
                 new PIDArmAndElevator(arm, elev, Setpoints.BARGE).asProxy(),
                 new IntakeConditional(intake, () -> {return arm.getSketchyOffsettedPosition()<0.55;}, true, 1.6)
                 ));
-        NamedCommands.registerCommand("bargeStartAtElevPoint", new ParallelCommandGroup(
-                new PIDArmAndElevator(arm, elev, Setpoints.BARGE).asProxy(),
-                new IntakeConditional(intake, () -> {return elev.getRelativeEncoderPosition()<-45;}, true, 1.6)
-                ));
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(arm, elev, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(arm, elev, Setpoints.HOME).asProxy());
         NamedCommands.registerCommand("alignToReefScoreL3Left", 
