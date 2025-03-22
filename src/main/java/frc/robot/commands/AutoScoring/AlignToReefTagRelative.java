@@ -4,6 +4,7 @@
 
 package frc.robot.commands.AutoScoring;
 
+import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -19,11 +20,11 @@ public class AlignToReefTagRelative extends Command {
   private PIDController yController, rotController;
   private Side side;
   private SwerveSubsystem swerveSubsystem;
-  private Supplier<Translation2d> coralOffset;
+  private DoubleSupplier coralOffset;
   private CommandXboxController driverController;
   private int pipeline;
 
-  public AlignToReefTagRelative(Side side, SwerveSubsystem swerveSubsystem, CommandXboxController driverController, Supplier<Translation2d> coralOffset) {
+  public AlignToReefTagRelative(Side side, SwerveSubsystem swerveSubsystem, CommandXboxController driverController, DoubleSupplier coralOffset) {
     yController = new PIDController(Constants.PositionConstants.Y_REEF_ALIGNMENT_P, 0.0, 0);  // Horitontal movement
     rotController = new PIDController(Constants.PositionConstants.ROT_REEF_ALIGNMENT_P, 0, 0);  // Rotation
 
@@ -50,14 +51,14 @@ public class AlignToReefTagRelative extends Command {
     if (LimelightHelpers.getTV(Constants.LIMELIGHT)) {
       double driver_speed = driverController.getLeftY();
       double m_tx = LimelightHelpers.getTX(Constants.LIMELIGHT);
-      double m_coralOffset = coralOffset.get().getY();
+      double m_coralOffset = coralOffset.getAsDouble();
 
       System.out.println("Driver Speed: " + driver_speed);
       System.out.println("Using Limelight Pipeline: " + pipeline);
       System.out.println("Limelight X: " + m_tx);
       System.out.println("Coral Intake Offset: " + m_coralOffset);
       
-      double ySpeed = -yController.calculate(m_tx); // - m_coral_Offset);
+      double ySpeed = -yController.calculate(m_tx-m_coralOffset); // - m_coral_Offset);
       double rotValue = -rotController.calculate(0);
       
       swerveSubsystem.drive(new Translation2d(driver_speed, ySpeed), rotValue, false);

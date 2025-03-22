@@ -98,6 +98,26 @@ public class IntakeSubsystem extends SubsystemBase {
         return new Translation2d();
     }
 
+    public double getAlignOffsetLimelightTX() {
+        switch (getCoralPosition()) {
+            case 0:
+                System.out.println("there's no coral :(");
+                return 0;
+            case 1:
+                return 0;
+            case 2:
+                return -4.5;
+                //return SmartDashboard.getNumber("offset2", 0);
+            case 3:
+                //return SmartDashboard.getNumber("offset3", 0);
+                return -9;
+            case 4:
+                return -13;
+        }
+        System.out.println("this will likely and hopefully never be printed");
+        return 0.0;
+    }
+
     @Override
     public void periodic() {
         SmartDashboard.putNumber("INTAKE distance sensor", getDistanceSensorOutput());
