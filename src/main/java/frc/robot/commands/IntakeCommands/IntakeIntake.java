@@ -32,7 +32,7 @@ public class IntakeIntake extends Command {
 
     @Override
     public void execute() {
-        double triggerAxis = -controller.getLeftTriggerAxis();
+        double triggerAxis = -controller.getLeftTriggerAxis()+controller.getRightTriggerAxis();
         m_IntakeSubsystem.setSpeed(triggerAxis*speed);
         if (coralDetected.getAsBoolean() && timer.get() == 0 && !coralExist) {
             timer.start();
@@ -41,7 +41,7 @@ public class IntakeIntake extends Command {
 
     @Override
     public boolean isFinished() {
-        if (timer.get() > 0.13) {
+        if (timer.get() > 0.01) {
             timer.stop();
             timer.reset();
             return true;

@@ -89,8 +89,8 @@ public class Bindings {
         //m_driverController.y().whileTrue(m_LedSubsystem.runPattern(LEDPattern.solid(Color.kRed)));
         m_driverController.a().onTrue((Commands.runOnce(m_driveSubsystem::zeroGyro)));
 
-        m_driverController.leftTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return m_Intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
-        m_driverController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController, MotorConstants.kIntakeMotorSpeed));
+        m_driverController.rightTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return m_Intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
+        m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController, MotorConstants.kIntakeMotorSpeed));
 
         m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_Arm, true));
         m_driverController.leftBumper().whileTrue(new ArmOpenLoop(m_Arm, false));
