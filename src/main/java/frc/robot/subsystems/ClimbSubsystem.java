@@ -48,7 +48,7 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void stopClimbMotor() {
-    //m_ClimbMotor.stopMotor();
+    m_ClimbMotor.stopMotor();
     SmartDashboard.putNumber("Climb speed", 0);
   }
 
