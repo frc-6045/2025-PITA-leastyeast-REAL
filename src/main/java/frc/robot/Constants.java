@@ -138,7 +138,6 @@ public final class Constants {
     }
 
     // LimeLight Constants ARE BACK
-    public static final double X_REEF_ALIGNMENT_P = 0.5;
     public static final double Y_REEF_ALIGNMENT_P = 0.2;
     public static final double ROT_REEF_ALIGNMENT_P = 0.05;
   }

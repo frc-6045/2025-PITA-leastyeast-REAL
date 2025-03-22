@@ -9,25 +9,27 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.util.LimelightHelpers;
 
 public class AlignToReefTagRelative extends Command {
-  private PIDController xController, yController, rotController;
+  private PIDController yController, rotController;
   private Side side;
   private SwerveSubsystem swerveSubsystem;
   private Supplier<Translation2d> coralOffset;
+  private CommandXboxController driverController;
   private int pipeline;
 
-  public AlignToReefTagRelative(Side side, SwerveSubsystem swerveSubsystem, Supplier<Translation2d> coralOffset) {
-    xController = new PIDController(Constants.PositionConstants.X_REEF_ALIGNMENT_P, 0.0, 0);  // Vertical movement
+  public AlignToReefTagRelative(Side side, SwerveSubsystem swerveSubsystem, CommandXboxController driverController, Supplier<Translation2d> coralOffset) {
     yController = new PIDController(Constants.PositionConstants.Y_REEF_ALIGNMENT_P, 0.0, 0);  // Horitontal movement
     rotController = new PIDController(Constants.PositionConstants.ROT_REEF_ALIGNMENT_P, 0, 0);  // Rotation
 
     this.side = side;
     this.swerveSubsystem = swerveSubsystem;
+    this.driverController = driverController;
     this.coralOffset = coralOffset;
 
     addRequirements(swerveSubsystem);
@@ -46,18 +48,19 @@ public class AlignToReefTagRelative extends Command {
   @Override
   public void execute() {
     if (LimelightHelpers.getTV(Constants.LIMELIGHT)) {
+      double driver_speed = driverController.getLeftY();
       double m_tx = LimelightHelpers.getTX(Constants.LIMELIGHT);
       double m_coralOffset = coralOffset.get().getY();
 
+      System.out.println("Driver Speed: " + driver_speed);
       System.out.println("Using Limelight Pipeline: " + pipeline);
       System.out.println("Limelight X: " + m_tx);
       System.out.println("Coral Intake Offset: " + m_coralOffset);
       
-      double xSpeed = -xController.calculate(0);
       double ySpeed = -yController.calculate(m_tx); // - m_coral_Offset);
       double rotValue = -rotController.calculate(0);
       
-      swerveSubsystem.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
+      swerveSubsystem.drive(new Translation2d(driver_speed, ySpeed), rotValue, false);
     } else {
       System.out.println("No Limelight Seen");
 
