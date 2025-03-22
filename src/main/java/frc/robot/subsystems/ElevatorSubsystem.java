@@ -2,10 +2,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
 
-//import com.revrobotics.CANSparkBase.IdleMode;
-//import com.revrobotics.SparkFlex;
-//import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -39,6 +35,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     m_RelativeEncoder = m_ElevatorMotor1.getEncoder();
     topLimitSwitch = new DigitalInput(2);
     bottomLimitSwitch = new DigitalInput(1);
+    zeroEncoder();
 
     m_ElevatorPIDController = new PIDController(0.04, 0, 0.001);
     m_ElevatorPIDController.setTolerance(1.434);
@@ -56,12 +53,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void goToSetpoint(double setpoint) {
     //double feedforward = 0.01;
-        //if (m_ArmMotor.getAbsoluteEncoderPosition()-setPoint<0.01 && m_ArmMotor.getAbsoluteEncoderPosition()-setPoint>-0.01) m_ArmMotor.stopArmMotor();;;
-        double speed = -m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
-        //speed = (speed>0) ? speed + feedforward : speed-feedforward;
-        setSpeed(speed);
-        SmartDashboard.putNumber("ELEVATOR setpoint", setpoint);
-        //System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());
+    double speed = -m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
+    //speed = (speed>0) ? speed + feedforward : speed-feedforward;
+    setSpeed(speed);
+    SmartDashboard.putNumber("ELEVATOR setpoint", setpoint);
   }
 
   public boolean atSetpoint() {
@@ -73,9 +68,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     speed = (speed > MotorConstants.kElevatorMotorsMaxSpeed) ? MotorConstants.kElevatorMotorsMaxSpeed : speed;
     speed = (speed < -MotorConstants.kElevatorMotorsMaxSpeed) ? -MotorConstants.kElevatorMotorsMaxSpeed : speed;
 
-    speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
+    speed = (bottomLimitSwitch.get() && speed < 0) ? 0 : speed;
+
     if (getRelativeEncoderPosition() > -5 && speed<0) { //limit going down
-      if (Bindings.isShift()) {
+      if (Bindings.getOperatorShiftPressed()) {
         speed*=0.75; // override but also slowing a liil
       } else {
         speed*=0.25;
@@ -120,8 +116,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("ELEVATOR position", getRelativeEncoderPosition());
-    if (getBottomLimitSwitchState()) {zeroEncoder();}
-
     SmartDashboard.putBoolean("Upper Limit Switch", getTopLimitSwitchState());
     SmartDashboard.putBoolean("Lower Limit Switch", getBottomLimitSwitchState());
   }

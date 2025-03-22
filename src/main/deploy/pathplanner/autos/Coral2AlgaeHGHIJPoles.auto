@@ -1,0 +1,137 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StartToHPole"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinNormal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HPoleBackAlgaeLow"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "ToGHSide"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeInOne"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeLow"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GHSideToBargeBarge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "barge"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BargeToIJSide"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeHigh"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeInTwo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "KJSideToBargeBarge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "barge"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BargeToHPS"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralIntakeSetpoint"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Coral2AlgaeGHGHIJPoles",
+  "choreoAuto": false
+}

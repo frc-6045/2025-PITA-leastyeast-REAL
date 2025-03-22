@@ -13,19 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "coralL4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "WallStartToIPole2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralSpit"
+            "name": "alignToReefScoreL4Left"
           }
         },
         {
@@ -81,19 +69,7 @@
         {
           "type": "named",
           "data": {
-            "name": "coralL4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "HPSToKPole2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralSpit"
+            "name": "alignToReefScoreL4Left"
           }
         },
         {
@@ -142,19 +118,7 @@
         {
           "type": "named",
           "data": {
-            "name": "coralL4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "HPSToJPole2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralSpit"
+            "name": "alignToReefScoreL4Right"
           }
         },
         {

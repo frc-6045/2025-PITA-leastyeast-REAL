@@ -1,0 +1,162 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StartToHPole1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL4"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StartToHPole2"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinNormal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HPoleBack"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algaeLow"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ToGHSide"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinOther"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GHSideToBarge"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "barge"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinNormal"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BargeToEFSide"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeHigh"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinOther"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "EFSideToBarge"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "barge"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinNormal"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BargeToHPS"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralIntakeSetpoint"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Coral2AlgaeGHGHIJPoles",
+  "choreoAuto": false
+}

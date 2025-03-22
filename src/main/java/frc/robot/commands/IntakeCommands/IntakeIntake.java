@@ -13,37 +13,43 @@ public class IntakeIntake extends Command {
     private final CommandXboxController controller;
     private final BooleanSupplier coralDetected;
     private final Timer timer = new Timer();
+    private final double speed;
+    boolean coralExist = false;
     
-    public IntakeIntake(IntakeSubsystem intakeSubsystem, CommandXboxController xboxController, BooleanSupplier coralDetected) {
+    public IntakeIntake(IntakeSubsystem intakeSubsystem, CommandXboxController xboxController, BooleanSupplier coralDetected, double speed) {
         m_IntakeSubsystem = intakeSubsystem;
         controller = xboxController;
         this.coralDetected = coralDetected;
+        this.speed = speed;
+        
         addRequirements(m_IntakeSubsystem);
     }
 
     @Override
     public void initialize() {
         timer.reset();
+        coralExist = coralDetected.getAsBoolean();
     }
 
     @Override
     public void execute() {
-        double triggerAxis = -controller.getLeftTriggerAxis();
-        m_IntakeSubsystem.setSpeed(triggerAxis);
-        if (coralDetected.getAsBoolean() && timer.get() == 0) {
+        double triggerAxis = -controller.getLeftTriggerAxis()+controller.getRightTriggerAxis();
+        m_IntakeSubsystem.setSpeed(triggerAxis*speed);
+        
+        if (coralDetected.getAsBoolean() && timer.get() == 0 && !coralExist) {
             timer.start();
-            System.out.println("timer started");
         }
     }
 
     @Override
     public boolean isFinished() {
-        if (timer.get() > 0.13) {
-            System.out.println("intake end :3");
+        if (timer.get() > 0.01) {
             timer.stop();
             timer.reset();
+            
             return true;
         }
+        
         return false;
     }
 
@@ -51,5 +57,4 @@ public class IntakeIntake extends Command {
     public void end(boolean interrupted) {
         m_IntakeSubsystem.stopIntake();   
     }
-
 }

@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9224346918596779,
+        "x": 0.922434691859678,
         "y": 7.261541361010651
       },
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -121.74517159850777
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": "JPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -38.46859286476407
+    "rotation": 140.0
   },
   "useDefaultConstraints": true
 }

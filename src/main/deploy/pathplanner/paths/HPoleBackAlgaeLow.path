@@ -1,0 +1,66 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.658196721311475,
+        "y": 4.222797131147541
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.982277092730987,
+        "y": 4.184694032323738
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.278242187499999,
+        "y": 4.007006293402777
+      },
+      "prevControl": {
+        "x": 5.924558241346098,
+        "y": 4.0598040322352436
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "algaeLow",
+      "waypointRelativePos": 0.39616493866822544,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "algaeLow"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 1.459940734764901
+  },
+  "reversed": false,
+  "folder": "HPole",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -2.0095538130211414
+  },
+  "useDefaultConstraints": false
+}
