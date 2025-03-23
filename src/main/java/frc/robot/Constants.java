@@ -69,7 +69,7 @@ public final class Constants {
 
     // Human player/coral intake setpoint - A
     public static final double kHumanArmPosition = 0.9495 + kOffset;
-    public static final double kHumanElevatorPosition = -39.892;
+    public static final double kHumanElevatorPosition = -42.0;
 
     // Human player with gap
     public static final double kHumanGapArmPosition = 0.8896;
@@ -137,7 +137,7 @@ public final class Constants {
       LOLLIPOP
     }
     // LimeLight Constants
-    public static final double Y_REEF_ALIGNMENT_P = 0.15;
+    public static final double Y_REEF_ALIGNMENT_P = 0.1;
     public static final double ROT_REEF_ALIGNMENT_P = 0.05;
   }
 
