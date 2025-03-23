@@ -136,9 +136,8 @@ public final class Constants {
       BARGE,
       LOLLIPOP
     }
-
     // LimeLight Constants
-    public static final double Y_REEF_ALIGNMENT_P = 0.2;
+    public static final double Y_REEF_ALIGNMENT_P = 0.15;
     public static final double ROT_REEF_ALIGNMENT_P = 0.05;
   }
 

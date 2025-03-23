@@ -51,7 +51,7 @@ public class AlignToReefTagRelative extends Command {
       double ySpeed = -yController.calculate(m_tx-m_coralOffset);
       double rotValue = -rotController.calculate(0);
       
-      swerveSubsystem.drive(new Translation2d(driver_speed, ySpeed), rotValue, false);
+      swerveSubsystem.drive(new Translation2d(driver_speed * 2, ySpeed), rotValue, false);
     } else {
       System.out.println("Limelight Cannot See April Tag");
 
