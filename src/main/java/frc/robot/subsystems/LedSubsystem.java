@@ -1,8 +1,10 @@
 /*
+ * The LEDs are 12 volt.
+ * 
  * Things that should make LEDs light up in different ways:
  * When the arm and elevator are at a setpoint - green
  * When the arm and elevator are not at a setpoint (transitioning between setpoints) - yellow
- * When the driver or operator presses a button - blue
+ * When the driver presses y - blue
  */
 
 
@@ -42,5 +44,10 @@ public class LedSubsystem extends SubsystemBase {
     public Command runPattern(LEDPattern pattern) {
       System.out.println("hi");
       return run(() -> pattern.applyTo(m_LEDBuffer));
+
+
+      public void LEDBlue() {
+        runPattern(LEDPattern.solid(Color.kBlue));
+      }
     }
   }

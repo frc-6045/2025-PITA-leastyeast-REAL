@@ -102,6 +102,8 @@ public class Bindings {
         m_driverController.x().whileTrue(new AlignToReefTagRelative(Side.LEFT, m_driveSubsystem, m_driverController, () -> {return m_Intake.getAlignOffsetLimelightTX();}));
 		m_driverController.b().whileTrue(new AlignToReefTagRelative(Side.RIGHT, m_driveSubsystem, m_driverController, () -> {return m_Intake.getAlignOffsetLimelightTX();}));
 
+        m_driverController.y().onTrue((Commands.runOnce(m_LedSubsystem::LEDBlue)));
+
         /* Test Controller bindings */
 
         m_testController.a().onTrue(m_driveSubsystem.driveToFirstAutoScorePose(Side.LEFT));
