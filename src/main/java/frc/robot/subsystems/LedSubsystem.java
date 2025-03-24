@@ -1,3 +1,11 @@
+/*
+ * Things that should make LEDs light up in different ways:
+ * When the arm and elevator are at a setpoint - green
+ * When the arm and elevator are not at a setpoint (transitioning between setpoints) - yellow
+ * When the driver or operator presses a button - blue
+ */
+
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
