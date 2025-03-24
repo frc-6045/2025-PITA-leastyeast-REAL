@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.MotorConstants;
@@ -53,10 +54,13 @@ public class Bindings {
 
         // Barge Toss
         m_operatorController.rightBumper().onTrue(
-            new ParallelCommandGroup(
-                new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
-                new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.6;}, true, 0.9)
+            new SequentialCommandGroup(
+                new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_HIGH),
+                new ParallelCommandGroup(
+                    new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
+                    new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.6;}, true, 0.9)
                 )
+            )
         );
 
         // Setpoints
