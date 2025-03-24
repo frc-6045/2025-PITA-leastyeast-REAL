@@ -53,7 +53,7 @@ public class Autos {
         NamedCommands.registerCommand("algaeLow", new PIDArmAndElevator(arm, elev, Setpoints.ALGAE_LOW).asProxy());
         NamedCommands.registerCommand("barge", new ParallelCommandGroup(
                 new PIDArmAndElevator(arm, elev, Setpoints.BARGE).asProxy(),
-                new IntakeConditional(intake, () -> {return arm.getSketchyOffsettedPosition()<0.55;}, true, 1.6)
+                new IntakeConditional(intake, () -> {return arm.getSketchyOffsettedPosition()<0.6;}, true, 0.9)
                 ));
         NamedCommands.registerCommand("bargeNew",
             new ParallelCommandGroup(
@@ -61,7 +61,7 @@ public class Autos {
                     Commands.none().until(() -> elev.getRelativeEncoderPosition()<-50),
                     new PIDArmCommand(arm, PositionConstants.kBargeArm).asProxy()),
                 new PIDElevatorCommand(elev, PositionConstants.kBargeElev),
-                new IntakeConditional(intake, () -> {return arm.getSketchyOffsettedPosition()<0.55;}, true, 1.6)
+                new IntakeConditional(intake, () -> {return arm.getSketchyOffsettedPosition()<0.6;}, true, 0.9)
             ));
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(arm, elev, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(arm, elev, Setpoints.HOME).asProxy());

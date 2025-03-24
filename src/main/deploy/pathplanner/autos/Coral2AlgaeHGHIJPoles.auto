@@ -61,9 +61,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "GHSideToBargeBarge"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GHSideToBargeBarge"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeHigh"
+                }
+              }
+            ]
           }
         },
         {
