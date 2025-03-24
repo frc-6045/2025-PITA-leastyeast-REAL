@@ -49,7 +49,7 @@ public class AlignToReefTagRelative extends Command {
       double m_coralOffset = coralOffset.getAsDouble();
       
       double ySpeed = -yController.calculate(m_tx - m_coralOffset);
-      double rotValue = -rotController.calculate(0);
+      double rotValue = rotController.calculate(0);
       
       swerveSubsystem.drive(new Translation2d(driver_speed * 2, ySpeed), rotValue, false);
     } else {
