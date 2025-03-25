@@ -9,15 +9,18 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.MotorConstants;
+import frc.robot.Constants.PositionConstants;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
+import frc.robot.commands.ArmCommands.PIDArmCommand;
 import frc.robot.commands.AutoScoring.AlignToReefTagRelative;
 import frc.robot.commands.AutoScoring.AutoScoreCommands;
 import frc.robot.commands.AutoScoring.TeleopScoreNearestReefFace;
 import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
+import frc.robot.commands.ElevatorCommands.PIDElevatorCommand;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeIntake;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
@@ -53,15 +56,24 @@ public class Bindings {
         m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
 
         // Barge Toss
+        // m_operatorController.rightBumper().onTrue(
+        //     new SequentialCommandGroup(
+        //         new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_HIGH).asProxy(),
+        //         new ParallelCommandGroup(
+        //             new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
+        //             new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.6;}, true, 0.9)
+        //         )
+        //     )
+        // );
+
         m_operatorController.rightBumper().onTrue(
-            new SequentialCommandGroup(
-                new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_HIGH),
-                new ParallelCommandGroup(
-                    new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.BARGE).asProxy(),
-                    new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.6;}, true, 0.9)
-                )
-            )
-        );
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    Commands.none().until(() -> m_Elev.getRelativeEncoderPosition()<-50),
+                    new PIDArmCommand(m_Arm, PositionConstants.kBargeArm).asProxy()),
+                new PIDElevatorCommand(m_Elev, PositionConstants.kBargeElev),
+                new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.6;}, true, 0.9)
+            ));
 
         // Setpoints
         m_operatorController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
@@ -82,6 +94,8 @@ public class Bindings {
 
         // Shift (elevator bottom switch override)
         m_operatorController.leftBumper().onTrue(new InstantCommand(()->{if (m_Elev.getBottomLimitSwitchState()) m_Elev.zeroEncoder();}));
+
+        m_operatorController.start().whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
 
         /* Driver Controller bindings */
