@@ -58,6 +58,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public boolean coralDetected() {
         return getDistanceSensorOutput()<0.085;
     }
+    
     /**
      * 0 no coral, 1 is closest to elev, 4 is farthest from elev
      * @return coral position
@@ -73,7 +74,7 @@ public class IntakeSubsystem extends SubsystemBase {
             return 3;
         else if (getDistanceSensorOutput()>(AutoScoreConstants.coralLocation4+0)/2)
             return 4;
-        System.out.println("hey that's funny");
+
         return 0;
     }
 
@@ -81,33 +82,44 @@ public class IntakeSubsystem extends SubsystemBase {
         switch (getCoralPosition()) {
             case 0:
                 System.out.println("there's no coral :(");
+
                 return new Translation2d();
             case 1:
                 return AutoScoreConstants.autoScoreCoralOffset1;
             case 2:
                 return new Translation2d(0, SmartDashboard.getNumber("offset2", 0));
-                //return AutoScoreConstants.autoScoreCoralOffset2;
             case 3:
                 return new Translation2d(0, SmartDashboard.getNumber("offset3", 0));
-                //return AutoScoreConstants.autoScoreCoralOffset3;
             case 4:
                 return new Translation2d(0, SmartDashboard.getNumber("offset4", 0));
-                //return AutoScoreConstants.autoScoreCoralOffset4;
         }
-        System.out.println("this will likely and hopefully never be printed");
+
         return new Translation2d();
+    }
+
+    public double getAlignOffsetLimelightTX() {
+        switch (getCoralPosition()) {
+            case 0:
+                System.out.println("there's no coral :(");
+
+                return 0;
+            case 1:
+                return 0;
+            case 2:
+                return -4.5;
+            case 3:
+                return -9;
+            case 4:
+                return -13;
+        }
+
+        return 0.0;
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("INTAKE distance sensor", getDistanceSensorOutput());
-        //SmartDashboard.putNumber("INTAKE distance sensor inches", getDistanceInches());
         SmartDashboard.putNumber("INTAKE coral position", getCoralPosition());
         SmartDashboard.putBoolean("INTAKE coral detected", coralDetected());
-        // Shuffleboard.getTab("test")
-        //     .add("distance", getDistanceSensorOutput())
-        //     .withWidget(BuiltInWidgets.kNumberSlider)
-        //     .withProperties(Map.of("min", 0, "max", 0.15))
-        //     .getEntry();
     }
 }

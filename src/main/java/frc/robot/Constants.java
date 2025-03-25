@@ -12,9 +12,8 @@ import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
 public final class Constants {
-
-  public static final boolean atRealField = false;
-
+  public static final String LIMELIGHT = "limelight-sabre";
+  
   //  MotorSpeed is the open loop speed.
   //  MotorMaxSpeed is a hard limit on speed.
   public static class MotorConstants {
@@ -29,9 +28,9 @@ public final class Constants {
     // arm constants
     public static final int kArmMotorCurrentLimit = 40;
     public static final double kArmMotorSpeed = .2;
-    public static final double kArmMotorSetpointMaxSpeed = 0.55;
+    public static final double kArmMotorSetpointMaxSpeed = 0.85;
     public static final double kArmMotorBargeMaxSpeed = 0.4;
-    public static final double kArmMotorMaxSpeed = 0.6;
+    public static final double kArmMotorMaxSpeed = 0.85;
 
     // elevator constants
     public static final int kElevatorMotorsCurrentLimit = 40;
@@ -41,7 +40,7 @@ public final class Constants {
 
     // intake constants
     public static final int kIntakeMotorCurrentLimit = 40;
-    public static final double kOperatorIntakeMotorSpeed = 0.4;
+    public static final double kOperatorIntakeMotorSpeed = 1;
     public static final double kIntakeMotorSpeed = .99999;
     public static final double kIntakeMotorMaxSpeed = 1;
 
@@ -67,16 +66,14 @@ public final class Constants {
     // kSketchyOffset makes PID go the right way. It essentially gives a convenient spot (that being a bit behind the intake setpoint) the value of 0.
     public static final double kSketchyOffset = 0.33;
 
-    //SETPOINTS
-
-    // ternary format is atRealField ? real field value : our field value
+//SETPOINTS
 
     // Human player/coral intake setpoint - A
-    public static final double kHumanArmPosition = atRealField ? 0.9495 : 0.9495; //.9561
-    public static final double kHumanElevatorPosition = atRealField ? -39.892 : -39.892; //-40.229
+    public static final double kHumanArmPosition = 0.9495;
+    public static final double kHumanElevatorPosition = -42.0;
 
     // Human player with gap
-    public static final double kHumanGapArmPosition = 0.8896; //temp
+    public static final double kHumanGapArmPosition = 0.8896;
     public static final double kHumanGapElevatorPosition = 0;
 
     // Home setpoint - Y
@@ -96,24 +93,24 @@ public final class Constants {
     public static final double kL3ElevatorPosition = 0;
 
     // L3 Gap
-    public static final double kL3GapArmPosition = 0.8896; //temp
+    public static final double kL3GapArmPosition = 0.8896;
     public static final double kL3GapElevatorPosition = -16.60658489;
 
     // L4 - right stick (top right paddle)
-    public static final double kL4ArmPosition = 0.46265; //0.4526
-    public static final double kL4ElevatorPosition = -72.4326; //-75.17
+    public static final double kL4ArmPosition = 0.46265;
+    public static final double kL4ElevatorPosition = -75.7899;
 
     // L4 Gap
-    public static final double kL4GapArmPosition = 0.8896; //temp
+    public static final double kL4GapArmPosition = 0.8896;
     public static final double kL4GapElevatorPosition = -76.78836822;
 
     // algae high
-    public static final double kHighAlgaeArmPosition = 0.6402; //.6273
-    public static final double kHighAlgaeElevatorPosition = -43.43777; //-36.172
+    public static final double kHighAlgaeArmPosition = 0.6402;
+    public static final double kHighAlgaeElevatorPosition = -43.43777;
     
     // algae low
-    public static final double kLowAlgaeArmPosition = 0.6528; //0.6486
-    public static final double kLowAlgaeElevatorPosition = -7.16; //-2
+    public static final double kLowAlgaeArmPosition = 0.6528;
+    public static final double kLowAlgaeElevatorPosition = -7.16;
     
     // barge
     public static final double kBargeArm = 0.331647;
@@ -124,8 +121,8 @@ public final class Constants {
     public static final double kLollipopElev = 0;
 
     //nonospaces that make turnbuckle vewy vewy sad :(
-    public static final double kArmLimit1=0.884; //0.06
-    public static final double kArmLimit2=0.999; // 0.26
+    public static final double kArmLimit1=0.884;
+    public static final double kArmLimit2=0.999;
     public static final double kMiddleOfArmLimit = (kArmLimit1+kArmLimit2)/2;
 
     public static enum Setpoints {
@@ -140,23 +137,9 @@ public final class Constants {
       BARGE,
       LOLLIPOP
     }
-
-    // LimeLight Constants ARE BACK
-    public static final double X_REEF_ALIGNMENT_P = 1.0;
-    public static final double Y_REEF_ALIGNMENT_P = 1.0;
-    public static final double ROT_REEF_ALIGNMENT_P = 0.06;
-
-    public static final double ROT_SETPOINT_REEF_ALIGNMENT = 0;  // Rotation
-    public static final double ROT_TOLERANCE_REEF_ALIGNMENT = 0.5;
-
-    public static final double X_SETPOINT_REEF_ALIGNMENT = 0.0;  // Vertical pose
-    public static final double X_TOLERANCE_REEF_ALIGNMENT = 0.005;
-
-    public static final double Y_SETPOINT_REEF_ALIGNMENT = 0.19;  // Horizontal pose
-    public static final double Y_TOLERANCE_REEF_ALIGNMENT = 0.005;
-    
-    public static final double DONT_SEE_TAG_WAIT_TIME = 1;
-    public static final double POSE_VALIDATION_TIME = 0.3;
+    // LimeLight Constants
+    public static final double Y_REEF_ALIGNMENT_P = 0.1;
+    public static final double ROT_REEF_ALIGNMENT_P = 1.5;
   }
 
   public static class SwerveConstants {
@@ -175,37 +158,9 @@ public final class Constants {
   }
 
   public static class AutoScoreConstants {
+    //public static final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
-    // distance sensor values
-    public static final double coralLocation0 = 0.11; // no coral
-    public static final double coralLocation1 = 0.080;
-    public static final double coralLocation2 = 0.062;
-    public static final double coralLocation3 = 0.046;
-    public static final double coralLocation4 = 0.033;
-
-    // first pose offset
-    public static final Translation2d firstScoreLocationOffset = new Translation2d(1,0);
-
-    // second pose offset
-    public static final double secondScoreLocationXOffset = 0.5;
-    public static final double secondScoreLocationLeftYOffset = 0.2;
-    public static final double secondScoreLocationRightYOffset = -0.2;
-
-    // coral location offsets
-    public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
-    public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
-    public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
-    public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
-
-
-
-
-
-
-
-
-
-    // isaac's stuff that we probably won't really use anymore
+    //public static final Pos aprilTagBlue1 = aprilTagFieldLayout.getTagPose(17);
 
     public static final Pose2d REEF_FACE_ONE = new Pose2d(3.818, 4.014, new Rotation2d());  //AB 
     public static final Pose2d REEF_FACE_TWO = new Pose2d(4.153, 3.416, new Rotation2d());  //CD
@@ -236,8 +191,24 @@ public final class Constants {
     public static final Pose2d PoleJ = new Pose2d(4.999, 5.242, Rotation2d.fromDegrees(59));
     public static final Pose2d PoleK = new Pose2d(3.956, 5.206, Rotation2d.fromDegrees(123));
     public static final Pose2d PoleL = new Pose2d(3.680, 5.074, Rotation2d.fromDegrees(123));
-    
+    // distance sensor values
+    public static final double coralLocation0 = 0.11; // no coral
+    public static final double coralLocation1 = 0.080;
+    public static final double coralLocation2 = 0.062;
+    public static final double coralLocation3 = 0.046;
+    public static final double coralLocation4 = 0.033;
+    // offsets
+    public static final Translation2d autoScoreCoralOffset1 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
+    public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
+
+    // first pose offset
+    public static final Translation2d firstScoreLocationOffset = new Translation2d(1,0);
+
+    // second pose offset
+    public static final double secondScoreLocationXOffset = 0.5;
+    public static final double secondScoreLocationLeftYOffset = 0.2;
+    public static final double secondScoreLocationRightYOffset = -0.2;
   }
 }
-
-// maek controler wurk plez

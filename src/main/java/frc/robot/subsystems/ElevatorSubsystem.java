@@ -2,10 +2,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
 
-//import com.revrobotics.CANSparkBase.IdleMode;
-//import com.revrobotics.SparkFlex;
-//import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -72,8 +68,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     speed = (speed > MotorConstants.kElevatorMotorsMaxSpeed) ? MotorConstants.kElevatorMotorsMaxSpeed : speed;
     speed = (speed < -MotorConstants.kElevatorMotorsMaxSpeed) ? -MotorConstants.kElevatorMotorsMaxSpeed : speed;
 
-    //TODO: when top limit switch doesn't run against the chain anymore, have it work again in code
-    //speed = ((topLimitSwitch.get() && speed > 0) || (bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
     speed = (bottomLimitSwitch.get() && speed < 0) ? 0 : speed;
 
     if (getRelativeEncoderPosition() > -5 && speed<0) { //limit going down
@@ -122,8 +116,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("ELEVATOR position", getRelativeEncoderPosition());
-    //if (getBottomLimitSwitchState()) {zeroEncoder();}
-
     SmartDashboard.putBoolean("Upper Limit Switch", getTopLimitSwitchState());
     SmartDashboard.putBoolean("Lower Limit Switch", getBottomLimitSwitchState());
   }

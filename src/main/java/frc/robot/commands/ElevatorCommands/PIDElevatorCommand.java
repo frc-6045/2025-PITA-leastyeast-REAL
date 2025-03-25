@@ -28,7 +28,7 @@ public class PIDElevatorCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        //if (m_ElevatorSubsystem.atSetpoint()) return true;
+        if (m_ElevatorSubsystem.atSetpoint()) return true;
         return false;
     }
 }

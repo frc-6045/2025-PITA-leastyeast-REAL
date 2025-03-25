@@ -26,13 +26,13 @@
         {
           "type": "named",
           "data": {
-            "name": "coralSpinOther"
+            "name": "coralSpinNormal"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "HPoleBack"
+            "pathName": "HPoleBackAlgaeLow"
           }
         },
         {
@@ -48,22 +48,35 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeLow"
+                  "name": "algaeInOne"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeIn"
+                  "name": "algaeLow"
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "GHSideToBarge"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GHSideToBargeBarge"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeHigh"
+                }
+              }
+            ]
           }
         },
         {
@@ -79,7 +92,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BargeToKJSide"
+                  "pathName": "BargeToIJSide"
                 }
               },
               {
@@ -91,7 +104,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeIn"
+                  "name": "algaeInTwo"
                 }
               }
             ]
@@ -100,7 +113,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "KJSideToBarge"
+            "pathName": "KJSideToBargeBarge"
           }
         },
         {
@@ -132,6 +145,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Coral2AlgaeGHGHKJPoles",
+  "folder": "Coral2AlgaeGHGHIJPoles",
   "choreoAuto": false
 }
