@@ -115,6 +115,9 @@ public class Bindings {
         
         m_driverController.x().whileTrue(new AlignToReefTagRelative(Side.LEFT, m_driveSubsystem, m_driverController, () -> {return m_Intake.getAlignOffsetLimelightTX();}));
 		m_driverController.b().whileTrue(new AlignToReefTagRelative(Side.RIGHT, m_driveSubsystem, m_driverController, () -> {return m_Intake.getAlignOffsetLimelightTX();}));
+        
+        m_driverController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.LOLLIPOP));
+
 
         /* Test Controller bindings */
 

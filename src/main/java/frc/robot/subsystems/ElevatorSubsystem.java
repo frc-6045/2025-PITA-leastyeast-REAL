@@ -33,7 +33,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     updateMotorSettings(m_ElevatorMotor1);
     updateMotorSettings(m_ElevatorMotor2);
     m_RelativeEncoder = m_ElevatorMotor1.getEncoder();
-    topLimitSwitch = new DigitalInput(2);
+    topLimitSwitch = new DigitalInput(0);
     bottomLimitSwitch = new DigitalInput(1);
     zeroEncoder();
 
