@@ -115,35 +115,23 @@ public class Bindings {
 
         m_testController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
         
-        m_testController.leftBumper().onTrue(
-            new InstantCommand(()->{
-                m_AutoScoreCommands.scheduleScoreNearestReefFace(
-                    Setpoints.L3,
-                    ()->{return Side.LEFT;},
-                    ()->{return m_Intake.getAlignOffset();},
-                    ()->{return AutoScoreUtil.closestAprilTag(m_driveSubsystem.getPose());}
-                );
-            })
-        );
         m_testController.rightBumper().onTrue(
             m_driveSubsystem.driveToPose(new Pose2d(6.32,4.02, new Rotation2d(0)))
         );
 
-        // m_testController.x().onTrue(
-        //     new AutoAlign(
-        //         Setpoints.L3,
-        //         ()->{return Side.LEFT;},
-        //         ()->{return m_Intake.getAlignOffset();},
-        //         m_driveSubsystem,
-        //         m_Arm,
-        //         m_Elev
-        //     )
-        // );
 
         m_testController.b().onTrue(
             m_AutoScoreCommands.generateScoreNearestReefFace(
                 Setpoints.L3,
                 ()->{return Side.LEFT;},
+                ()->{return m_Intake.getAlignOffset();}
+            )
+        );
+
+        m_testController.x().onTrue(
+            m_AutoScoreCommands.generateScoreNearestReefFace(
+                Setpoints.L3,
+                ()->{return Side.RIGHT;},
                 ()->{return m_Intake.getAlignOffset();}
             )
         );
