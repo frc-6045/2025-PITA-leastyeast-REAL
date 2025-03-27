@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.MotorConstants;
@@ -100,6 +101,7 @@ public class Autos {
         // autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
         autoChooser.addOption("coral l4 then 2 algae", AutoBuilder.buildAuto("Coral2AlgaeHGHIJPoles"));
         autoChooser.addOption("drive forward", AutoBuilder.buildAuto("driveForward"));
+        autoChooser.addOption("test", AutoBuilder.buildAuto("testingpath"));
         SmartDashboard.putData("autos", autoChooser);
     }
 
