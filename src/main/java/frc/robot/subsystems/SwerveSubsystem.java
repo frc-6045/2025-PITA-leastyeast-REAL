@@ -49,6 +49,7 @@ import java.io.File;
   import java.io.IOException;
   import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
   import java.util.function.DoubleSupplier;
   import java.util.function.Supplier;
@@ -138,59 +139,62 @@ import java.util.concurrent.atomic.AtomicReference;
     @Override
     public void periodic()
     {
-
+      Optional<Alliance> alliance = DriverStation.getAlliance();
     
-    if(DriverStation.getAlliance().get() == Alliance.Blue) {
-    LimelightHelpers.SetRobotOrientation("limelight-sabre", swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-    LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-sabre");
-    if(mt2 != null) {
-    boolean doRejectUpdate = false;
-    // if our angular velocity is greater than 360 degrees per second, ignore vision updates
-    if(Math.abs(swerveDrive.getRobotVelocity().omegaRadiansPerSecond) > 360)
-    {
-      doRejectUpdate = true;
-    }
-    if(mt2.tagCount == 0)
-    {
-      doRejectUpdate = true;
-    }
-    if(!doRejectUpdate)
-    {
-      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,999999999));
-      swerveDrive.addVisionMeasurement(
-          mt2.pose,
-          mt2.timestampSeconds);
-    }
-    }
-  } else {
-    LimelightHelpers.SetRobotOrientation("limelight-sabre", swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-    LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2("limelight-sabre");
-    if(mt2 != null) {
-    boolean doRejectUpdate = false;
-    // if our angular velocity is greater than 360 degrees per second, ignore vision updates
-    if(Math.abs(swerveDrive.getRobotVelocity().omegaRadiansPerSecond) > 360)
-    {
-      doRejectUpdate = true;
-    }
-    if(mt2.tagCount == 0)
-    {
-      doRejectUpdate = true;
-    }
-    if(!doRejectUpdate)
-    {
-      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,999999999));
-      swerveDrive.addVisionMeasurement(
-          mt2.pose,
-          mt2.timestampSeconds);
-    }
-    }
+      if (alliance.isPresent() && alliance.get() == Alliance.Blue) {
+        LimelightHelpers.SetRobotOrientation("limelight-sabre", swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+        LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-sabre");
+        
+        if (mt2 != null) {
+          boolean doRejectUpdate = false;
+          // if our angular velocity is greater than 360 degrees per second, ignore vision updates
+          if(Math.abs(swerveDrive.getRobotVelocity().omegaRadiansPerSecond) > 360)
+          {
+            doRejectUpdate = true;
+          }
+          
+          if(mt2.tagCount == 0)
+          {
+            doRejectUpdate = true;
+          }
+          
+          if(!doRejectUpdate)
+          {
+            swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,999999999));
+            swerveDrive.addVisionMeasurement(
+                mt2.pose,
+                mt2.timestampSeconds);
+          }
+        }
+      } else {
+        LimelightHelpers.SetRobotOrientation("limelight-sabre", swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+        LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2("limelight-sabre");
+        
+        if (mt2 != null) {
+          boolean doRejectUpdate = false;
+          // if our angular velocity is greater than 360 degrees per second, ignore vision updates
+          if(Math.abs(swerveDrive.getRobotVelocity().omegaRadiansPerSecond) > 360)
+          {
+            doRejectUpdate = true;
+          }
+          
+          if(mt2.tagCount == 0)
+          {
+            doRejectUpdate = true;
+          }
+          
+          if(!doRejectUpdate)
+          {
+            swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,999999999));
+            swerveDrive.addVisionMeasurement(
+                mt2.pose,
+                mt2.timestampSeconds);
+          }
+        }
 
-    m_field2d.setRobotPose(swerveDrive.getPose());
-    SmartDashboard.putData(m_field2d);
-
-
-  }
-
+        m_field2d.setRobotPose(swerveDrive.getPose());
+        SmartDashboard.putData(m_field2d);
+      }
     }
 
     @Override
