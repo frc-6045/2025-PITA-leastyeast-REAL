@@ -60,7 +60,7 @@
   "folder": "GHSide",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.11144196761019647
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }
