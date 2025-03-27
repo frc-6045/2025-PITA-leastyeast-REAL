@@ -27,9 +27,9 @@ public class ArmSubsystem extends SubsystemBase {
   PIDController m_ArmPIDController = new PIDController(9, 0, 0);
 
   /** Creates a new ExampleSubsystem. */
-  public ArmSubsystem() {
+  public ArmSubsystem(IntakeSubsystem intake) {
     m_ArmMotor = new SparkFlex(MotorConstants.kArmMotorCANID, MotorType.kBrushless);
-    m_AbsoluteEncoder = m_ArmMotor.getAbsoluteEncoder();
+    m_AbsoluteEncoder = intake.armEncoder;
     m_ArmPIDController.setTolerance(0.01);
 
     updateMotorSettings(m_ArmMotor);

@@ -1,7 +1,9 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 
@@ -20,11 +22,13 @@ public class IntakeSubsystem extends SubsystemBase {
     private final SparkFlex m_IntakeMotor1;
     private SparkFlexConfig config = new SparkFlexConfig();
     private AnalogPotentiometer m_DistanceSensor = new AnalogPotentiometer(3);
+    public AbsoluteEncoder armEncoder;
 
     public IntakeSubsystem() {
         m_IntakeMotor1 = new SparkFlex(MotorConstants.kIntakeMotorCANID, MotorType.kBrushless);
 
         updateMotorSettings(m_IntakeMotor1);
+        armEncoder = m_IntakeMotor1.getAbsoluteEncoder();
         SmartDashboard.putNumber("offset2", 0);
         SmartDashboard.putNumber("offset3", 0);
         SmartDashboard.putNumber("offset4", 0);
@@ -33,6 +37,8 @@ public class IntakeSubsystem extends SubsystemBase {
         config
             .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(MotorConstants.kIntakeMotorCurrentLimit);
+        config.closedLoop
+            .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 

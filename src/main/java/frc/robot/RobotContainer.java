@@ -23,9 +23,9 @@ import edu.wpi.first.wpilibj.Filesystem;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
-  private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+  private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem(m_IntakeSubsystem);
+  private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
   private final LedSubsystem m_LedSubsystem = new LedSubsystem();
   private Autos m_Autos;
