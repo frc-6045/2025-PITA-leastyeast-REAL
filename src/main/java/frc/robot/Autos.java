@@ -96,9 +96,9 @@ public class Autos {
 
         // Autos //
         autoChooser = new SendableChooser<Command>();
-        autoChooser.addOption("test", AutoBuilder.buildAuto("New New Auto"));
-        autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
-        autoChooser.addOption("auto that we are testing!!!", AutoBuilder.buildAuto("Coral2AlgaeHGHIJPoles"));
+        // autoChooser.addOption("test", AutoBuilder.buildAuto("New New Auto"));
+        // autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
+        autoChooser.addOption("coral l4 then 2 algae", AutoBuilder.buildAuto("Coral2AlgaeHGHIJPoles"));
         SmartDashboard.putData("autos", autoChooser);
     }
 
