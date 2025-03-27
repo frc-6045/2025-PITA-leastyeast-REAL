@@ -18,7 +18,7 @@
       "drive": 0.25,
       "angle": 0.25
     },
-    "robotMass": 148,
+    "robotMass": 140,
     "wheelGripCoefficientOfFriction": 1.19,
     "optimalVoltage": 12
   }
