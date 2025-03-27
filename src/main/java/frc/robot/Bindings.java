@@ -100,7 +100,7 @@ public class Bindings {
 
         /* Driver Controller bindings */
 
-        m_driverController.a().onTrue((Commands.runOnce(m_driveSubsystem::zeroGyro)));
+        m_driverController.a().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
 
         m_driverController.rightTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return m_Intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController, MotorConstants.kIntakeMotorSpeed));
