@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 5.68217213114754,
-        "y": 4.186834016393442
+        "x": 5.820749999999999,
+        "y": 4.1225
       },
       "prevControl": {
-        "x": 6.09248920312321,
-        "y": 4.352194320468382
+        "x": 6.23106707197567,
+        "y": 4.287860304074941
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -0.5160541969743325
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "HPole",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.9322821698089213
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }

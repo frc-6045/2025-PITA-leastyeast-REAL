@@ -54,7 +54,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.459940734764901
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "HPole",

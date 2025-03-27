@@ -1,0 +1,25 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "resetHeading"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of StartToHPole"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": false,
+  "folder": "Coral2AlgaeGHGHIJPoles",
+  "choreoAuto": false
+}
