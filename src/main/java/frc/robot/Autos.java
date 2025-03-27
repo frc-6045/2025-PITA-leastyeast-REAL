@@ -99,6 +99,7 @@ public class Autos {
         // autoChooser.addOption("test", AutoBuilder.buildAuto("New New Auto"));
         // autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
         autoChooser.addOption("coral l4 then 2 algae", AutoBuilder.buildAuto("Coral2AlgaeHGHIJPoles"));
+        autoChooser.addOption("drive forward", AutoBuilder.buildAuto("driveForward"));
         SmartDashboard.putData("autos", autoChooser);
     }
 
