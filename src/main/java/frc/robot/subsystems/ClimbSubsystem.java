@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -19,12 +20,12 @@ import frc.robot.Constants.MotorConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
   private final SparkFlex m_ClimbMotor;
-  private final RelativeEncoder m_RelativeEncoder;
+  private final AbsoluteEncoder m_AbsEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
 
   public ClimbSubsystem() {
     m_ClimbMotor = new SparkFlex(MotorConstants.kClimbMotorCANID, MotorType.kBrushless);
-    m_RelativeEncoder = m_ClimbMotor.getEncoder();
+    m_AbsEncoder = m_ClimbMotor.getAbsoluteEncoder();
 
     updateMotorSettings(m_ClimbMotor);
     m_ClimbMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -52,17 +53,17 @@ public class ClimbSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Climb speed", 0);
   }
 
-  public RelativeEncoder getRelativeEncoder() {
-    return m_RelativeEncoder;
+  public AbsoluteEncoder getAbsoluteEncoder() {
+    return m_AbsEncoder;
   }
 
-  public double getRelativeEncoderPosition() {
-    return m_RelativeEncoder.getPosition();
+  public double getAbsoluteEncoderPosition() {
+    return m_AbsEncoder.getPosition();
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Climb position", getRelativeEncoderPosition());
+    SmartDashboard.putNumber("Climb position", getAbsoluteEncoderPosition());
   }
 
   @Override
