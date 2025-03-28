@@ -109,7 +109,7 @@ public class Bindings {
 
         m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
-        m_driverController.a().onTrue(new ClimbClosedLoop(m_ClimbSubsystem, -23452,5));
+       // m_driverController.a().onTrue(new ClimbClosedLoop(m_ClimbSubsystem, -23452,5));
 
         m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
         
