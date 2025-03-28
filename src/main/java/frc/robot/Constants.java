@@ -69,7 +69,7 @@ public final class Constants {
 
     // Human player/coral intake setpoint - A
     public static final double kHumanArmPosition = 0.9495 + kOffset;
-    public static final double kHumanElevatorPosition = -42.0;
+    public static final double kHumanElevatorPosition = -36.21;
 
     // Human player with gap
     public static final double kHumanGapArmPosition = 0.8896;
