@@ -12,6 +12,7 @@ import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
+import frc.robot.commands.ClimbClosedLoop;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
@@ -100,8 +101,6 @@ public class Bindings {
 
         /* Driver Controller bindings */
 
-        m_driverController.a().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
-
         m_driverController.rightTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_driverController, () -> {return m_Intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
         m_driverController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_driverController, MotorConstants.kIntakeMotorSpeed));
 
@@ -110,6 +109,7 @@ public class Bindings {
 
         m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
         m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
+        m_driverController.a().onTrue(new ClimbClosedLoop(m_ClimbSubsystem, -23452,5));
 
         m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
         
