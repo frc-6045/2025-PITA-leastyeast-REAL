@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
