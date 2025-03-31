@@ -1,10 +1,7 @@
 /*
  * The LEDs are 12 volt.
  * 
- * Things that should make LEDs light up in different ways:
- * When the arm and elevator are at a setpoint - green
- * When the arm and elevator are not at a setpoint (transitioning between setpoints) - yellow
- * When the driver presses y - blue
+ * They need to be blue normally, but if Adam auto-aligns and the robot can see an AprilTag, they should be green.
  */
 
 
