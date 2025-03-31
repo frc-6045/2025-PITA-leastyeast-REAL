@@ -142,13 +142,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BargeToHPS"
+                  "pathName": "BargeToLollipop"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "coralIntakeSetpoint"
+                  "name": "LOLLIPOP"
                 }
               }
             ]
