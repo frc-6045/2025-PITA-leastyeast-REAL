@@ -44,7 +44,7 @@ public class ClimbSubsystem extends SubsystemBase {
       speed = MotorConstants.kClimbMotorMaximumSpeed;
     if (speed<-MotorConstants.kClimbMotorMaximumSpeed)
       speed = -MotorConstants.kClimbMotorMaximumSpeed;
-    //m_ClimbMotor.set(speed);
+    m_ClimbMotor.set(speed);
     SmartDashboard.putNumber("Climb speed", speed);
   }
 
