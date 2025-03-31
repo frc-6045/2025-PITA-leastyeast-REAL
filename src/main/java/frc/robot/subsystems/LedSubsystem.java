@@ -42,9 +42,7 @@ public class LedSubsystem extends SubsystemBase {
       System.out.println("hi");
       return run(() -> pattern.applyTo(m_LEDBuffer));
 
-
-      public void LEDBlue() {
         runPattern(LEDPattern.solid(Color.kBlue));
-      }
+      
     }
   }
