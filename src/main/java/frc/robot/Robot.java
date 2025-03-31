@@ -25,6 +25,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    //PWM port 9 (Actually usable for our robot, not just stolen from the docs)
     m_led = new AddressableLED(9);
   }
   /**
