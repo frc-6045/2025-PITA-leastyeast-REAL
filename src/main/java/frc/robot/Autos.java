@@ -41,7 +41,7 @@ public class Autos {
             new AutoScoreCommands(m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake);
 
         // Named Commands //
-        NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(intake, 1, false)); //score for L3, L4, algae out
+        NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(intake, 0.5, false)); //score for L3, L4, algae out
         NamedCommands.registerCommand("coralSpinOther", new IntakeClosedLoop(intake, 0.5, true)); //score for L2, L1
         NamedCommands.registerCommand("algaeInOne", new IntakeClosedLoop(intake, 1.2, false)); //algae in
         NamedCommands.registerCommand("algaeInTwo", new IntakeClosedLoop(intake, 2.1, false)); //algae in
