@@ -94,6 +94,7 @@ public class Autos {
                 ()->{return intake.getAlignOffset();}
             )
         );
+        NamedCommands.registerCommand("LOLLIPOP", new PIDArmAndElevator(arm, elev, Setpoints.LOLLIPOP).asProxy());
 
         // Autos //
         autoChooser = new SendableChooser<Command>();
