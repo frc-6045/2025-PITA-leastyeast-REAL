@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -35,6 +36,7 @@ import swervelib.SwerveInputStream;
 
 public class Bindings {
     public static boolean operatorShift = false;
+    public static boolean ledstate = false;
 
     public static void InitBindings(
         CommandXboxController m_operatorController, 
@@ -117,7 +119,9 @@ public class Bindings {
 		m_driverController.b().whileTrue(new AlignToReefTagRelative(Side.RIGHT, m_driveSubsystem, m_driverController, () -> {return m_Intake.getAlignOffsetLimelightTX();}));
         
         m_driverController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.LOLLIPOP));
-
+        
+        
+        m_driverController.a().onTrue(new ConditionalCommand(Commands.runOnce(()->{m_LedSubsystem.set(-0.49);}), Commands.runOnce(()->{m_LedSubsystem.set(-0.7);}), ()->{return ledstate;}).alongWith(new InstantCommand(()->ledstate = !ledstate)));
 
         /* Test Controller bindings */
 
