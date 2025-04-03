@@ -41,7 +41,7 @@ public class Autos {
             new AutoScoreCommands(m_SwerveSubsystem, m_Arm, m_Elevator, m_Intake);
 
         // Named Commands //
-        NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(intake, 0.5, false)); //score for L3, L4, algae out
+        NamedCommands.registerCommand("coralSpinNormal", new IntakeClosedLoop(intake, 0.75, false)); //score for L3, L4, algae out
         NamedCommands.registerCommand("coralSpinOther", new IntakeClosedLoop(intake, 0.5, true)); //score for L2, L1
         NamedCommands.registerCommand("algaeInOne", new IntakeClosedLoop(intake, 1.2, false)); //algae in
         NamedCommands.registerCommand("algaeInTwo", new IntakeClosedLoop(intake, 2.1, false)); //algae in
@@ -66,6 +66,7 @@ public class Autos {
             new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.54
                 ;}, true, 0.9)
         ));
+
         NamedCommands.registerCommand("coralIntakeSetpoint", new PIDArmAndElevator(arm, elev, Setpoints.INTAKE).asProxy());
         NamedCommands.registerCommand("homePosition", new PIDArmAndElevator(arm, elev, Setpoints.HOME).asProxy());
         NamedCommands.registerCommand("alignToReefScoreL3Left", 

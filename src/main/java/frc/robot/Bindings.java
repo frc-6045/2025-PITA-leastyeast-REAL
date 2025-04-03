@@ -41,8 +41,7 @@ public class Bindings {
     public static void InitBindings(
         CommandXboxController m_operatorController, 
         CommandXboxController m_driverController, 
-        CommandXboxController m_testController,
-        SwerveSubsystem m_driveSubsystem,
+        CommandXboxController m_testController,        SwerveSubsystem m_driveSubsystem,
         ArmSubsystem m_Arm, 
         ElevatorSubsystem m_Elev, 
         IntakeSubsystem m_Intake,
@@ -74,7 +73,7 @@ public class Bindings {
                 new SequentialCommandGroup(
                     Commands.none().until(() -> m_Elev.getRelativeEncoderPosition()<-50),
                     new PIDArmCommand(m_Arm, PositionConstants.kBargeArm).asProxy()),
-                new PIDElevatorCommand(m_Elev, PositionConstants.kBargeElev),
+                new PIDElevatorCommand(m_Elev, PositionConstants.kBargeElev).asProxy(),
                 new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.54
                     ;}, true, 0.9)
             ));
