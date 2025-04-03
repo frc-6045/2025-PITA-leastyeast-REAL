@@ -77,7 +77,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.25
+                        "waitTime": 0.5
                       }
                     },
                     {
@@ -95,7 +95,7 @@
         {
           "type": "named",
           "data": {
-            "name": "barge"
+            "name": "bargeNew"
           }
         },
         {
@@ -132,7 +132,7 @@
         {
           "type": "named",
           "data": {
-            "name": "barge"
+            "name": "bargeNew"
           }
         },
         {
