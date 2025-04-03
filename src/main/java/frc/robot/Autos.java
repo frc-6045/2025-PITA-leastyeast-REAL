@@ -45,6 +45,7 @@ public class Autos {
         NamedCommands.registerCommand("coralSpinOther", new IntakeClosedLoop(intake, 0.5, true)); //score for L2, L1
         NamedCommands.registerCommand("algaeInOne", new IntakeClosedLoop(intake, 1.2, false)); //algae in
         NamedCommands.registerCommand("algaeInTwo", new IntakeClosedLoop(intake, 2.1, false)); //algae in
+        NamedCommands.registerCommand("algaeInThree", new IntakeClosedLoop(intake, 0.5, false)); //algae in
         NamedCommands.registerCommand("coralIntake", new IntakeIntakeClosedLoop(intake, ()->{return intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
         NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(arm, elev, Setpoints.L1).asProxy());
         NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(arm, elev, Setpoints.L2).asProxy());
