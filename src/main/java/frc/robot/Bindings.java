@@ -75,7 +75,8 @@ public class Bindings {
                     Commands.none().until(() -> m_Elev.getRelativeEncoderPosition()<-50),
                     new PIDArmCommand(m_Arm, PositionConstants.kBargeArm).asProxy()),
                 new PIDElevatorCommand(m_Elev, PositionConstants.kBargeElev),
-                new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.6;}, true, 0.9)
+                new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.54
+                    ;}, true, 0.9)
             ));
 
         // Setpoints
