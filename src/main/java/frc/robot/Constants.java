@@ -138,7 +138,7 @@ public final class Constants {
     }
     // LimeLight Constants
     public static final double Y_REEF_ALIGNMENT_P = 0.1;
-    public static final double ROT_REEF_ALIGNMENT_P = 1.2;
+    public static final double ROT_REEF_ALIGNMENT_P = 1.5;
   }
 
 
