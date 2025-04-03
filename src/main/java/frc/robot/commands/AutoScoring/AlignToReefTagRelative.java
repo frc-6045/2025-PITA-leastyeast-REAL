@@ -47,6 +47,8 @@ public class AlignToReefTagRelative extends Command {
       double driver_speed = driverController.getLeftY();
       double m_tx = LimelightHelpers.getTX(Constants.LIMELIGHT);
       double m_coralOffset = coralOffset.getAsDouble();
+
+      yController.setTolerance(0.00);
       
       double ySpeed = -yController.calculate(m_tx - m_coralOffset);
       double rotValue = rotController.calculate(0);
