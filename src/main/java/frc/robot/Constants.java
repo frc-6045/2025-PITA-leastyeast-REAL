@@ -68,8 +68,8 @@ public final class Constants {
     // SETPOINTS
 
     // Human player/coral intake setpoint - A
-    public static final double kHumanArmPosition = 0.9495 + kOffset;
-    public static final double kHumanElevatorPosition = -39.21;
+    public static final double kHumanArmPosition = 0.9378 + kOffset;
+    public static final double kHumanElevatorPosition = -40.38;
 
     // Human player with gap
     public static final double kHumanGapArmPosition = 0.8896;
@@ -84,8 +84,8 @@ public final class Constants {
     public static final double kL1ElevatorPosition = 0;
 
     // L2
-    public static final double kL2ArmPosition = 0.7473 + kOffset;
-    public static final double kL2ElevatorPosition = -20.9609;
+    public static final double kL2ArmPosition = 0.7543 + kOffset;
+    public static final double kL2ElevatorPosition = -26.156;
 
     // L3 - left stick (top left paddle)
     public static final double kL3ArmPosition = 0.4526 + kOffset;
@@ -96,8 +96,8 @@ public final class Constants {
     public static final double kL3GapElevatorPosition = -16.60658489;
 
     // L4 - right stick (top right paddle)
-    public static final double kL4ArmPosition = 0.46265+ kOffset;
-    public static final double kL4ElevatorPosition = -72.7899;
+    public static final double kL4ArmPosition = 0.46166+ kOffset;
+    public static final double kL4ElevatorPosition = -74.67;
 
     // L4 Gap
     public static final double kL4GapArmPosition = 0.8896 + kOffset;
@@ -137,9 +137,10 @@ public final class Constants {
       LOLLIPOP
     }
     // LimeLight Constants
-    public static final double Y_REEF_ALIGNMENT_P = 0.1;
-    public static final double ROT_REEF_ALIGNMENT_P = 1.5;
+    public static final double Y_REEF_ALIGNMENT_P = 0.04;
+    public static final double ROT_REEF_ALIGNMENT_P = 1.2;
   }
+
 
   public static class SwerveConstants {
     public static final double ROBOT_MASS = (149) * 0.453592; // lbs * kg per pound
