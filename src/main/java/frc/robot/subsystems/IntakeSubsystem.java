@@ -62,7 +62,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public boolean coralDetected() {
-        return getDistanceSensorOutput()<0.085;
+        return getDistanceSensorOutput()<(AutoScoreConstants.coralLocation0+AutoScoreConstants.coralLocation1)/2;
     }
     
     /**
@@ -92,8 +92,7 @@ public class IntakeSubsystem extends SubsystemBase {
                 return new Translation2d();
             case 1:
                 return AutoScoreConstants.autoScoreCoralOffset1;
-            case 2:
-                return new Translation2d(0, SmartDashboard.getNumber("offset2", 0));
+            case 2:                return new Translation2d(0, SmartDashboard.getNumber("offset2", 0));
             case 3:
                 return new Translation2d(0, SmartDashboard.getNumber("offset3", 0));
             case 4:
