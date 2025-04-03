@@ -75,9 +75,9 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
+                      "type": "wait",
                       "data": {
-                        "name": "algaeInThree"
+                        "waitTime": 0.5
                       }
                     },
                     {
@@ -95,7 +95,7 @@
         {
           "type": "named",
           "data": {
-            "name": "barge"
+            "name": "bargeNew"
           }
         },
         {
@@ -132,7 +132,7 @@
         {
           "type": "named",
           "data": {
-            "name": "barge"
+            "name": "bargeNew"
           }
         },
         {

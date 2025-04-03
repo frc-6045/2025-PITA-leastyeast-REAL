@@ -62,7 +62,7 @@ public class Autos {
             new SequentialCommandGroup(
                 Commands.none().until(() -> m_Elevator.getRelativeEncoderPosition()<-50),
                 new PIDArmCommand(m_Arm, PositionConstants.kBargeArm).asProxy()),
-            new PIDElevatorCommand(m_Elevator, PositionConstants.kBargeElev),
+            new PIDElevatorCommand(m_Elevator, PositionConstants.kBargeElev).asProxy(),
             new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.54
                 ;}, true, 0.9)
         ));

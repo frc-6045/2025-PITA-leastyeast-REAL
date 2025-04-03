@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "barge",
+      "name": "bargeNew",
       "waypointRelativePos": 0.8307692307692295,
       "endWaypointRelativePos": null,
       "command": null
@@ -49,7 +49,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 14.999999999999998
   },
   "reversed": false,
   "folder": null,
