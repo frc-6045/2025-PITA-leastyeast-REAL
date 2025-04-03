@@ -105,11 +105,11 @@ public final class Constants {
 
     // algae high
     public static final double kHighAlgaeArmPosition = 0.6402 + kOffset;
-    public static final double kHighAlgaeElevatorPosition = -43.43777;
+    public static final double kHighAlgaeElevatorPosition = -50.00;
     
     // algae low
-    public static final double kLowAlgaeArmPosition = 0.6528 + kOffset;
-    public static final double kLowAlgaeElevatorPosition = -7.16;
+    public static final double kLowAlgaeArmPosition = 0.6567 + kOffset;
+    public static final double kLowAlgaeElevatorPosition = -8.89;
     
     // barge
     public static final double kBargeArm = 0.331647 + kOffset;
