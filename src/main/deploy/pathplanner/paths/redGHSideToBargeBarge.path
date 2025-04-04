@@ -33,6 +33,17 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
+      "name": "algae",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": 0.27819041188385635,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "algaeInThree"
+        }
+      }
+    },
+    {
       "name": "barge",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
