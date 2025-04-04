@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blueHPoleBackAlgaeLow"
+            "pathName": "redHPoleBackAlgaeLow"
           }
         },
         {
@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "blueToGHSide"
+                  "pathName": "redToGHSide"
                 }
               },
               {
@@ -67,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "blueGHSideToBargeBarge"
+                  "pathName": "redGHSideToBargeBarge"
                 }
               },
               {
@@ -105,7 +105,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "blueBargeToIJSide"
+                  "pathName": "redBargeToIJSide"
                 }
               },
               {
@@ -126,7 +126,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blueKJSideToBargeBarge"
+            "pathName": "redKJSideToBargeBarge"
           }
         },
         {
@@ -142,7 +142,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "blueBargeToLollipop"
+                  "pathName": "redBargeToLollipop"
                 }
               },
               {
