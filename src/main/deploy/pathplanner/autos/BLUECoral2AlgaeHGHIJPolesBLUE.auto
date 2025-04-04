@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "redHPoleBackAlgaeLow"
+            "pathName": "blueHPoleBackAlgaeLow"
           }
         },
         {
@@ -67,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "redGHSideToBargeBarge"
+                  "pathName": "blueGHSideToBargeBarge"
                 }
               },
               {
@@ -105,7 +105,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "redBargeToIJSide"
+                  "pathName": "blueBargeToIJSide"
                 }
               },
               {
@@ -126,7 +126,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "redKJSideToBargeBarge"
+            "pathName": "blueKJSideToBargeBarge"
           }
         },
         {

@@ -1,0 +1,77 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.60625,
+        "y": 3.8884999999999996
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.585325679205825,
+        "y": 4.412030935097487
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.95,
+        "y": 5.1
+      },
+      "prevControl": {
+        "x": 6.851262854459426,
+        "y": 4.523855470925748
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "algae",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": 0.27819041188385635,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "algaeInThree"
+        }
+      }
+    },
+    {
+      "name": "barge",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "bargeNew"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 14.999999999999998
+  },
+  "reversed": false,
+  "folder": "GHSide",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -0.0
+  },
+  "useDefaultConstraints": false
+}
