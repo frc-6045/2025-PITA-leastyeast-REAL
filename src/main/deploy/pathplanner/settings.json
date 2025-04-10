@@ -9,11 +9,12 @@
     "GHSide",
     "GPole",
     "HPole",
+    "IJSide",
     "IPole",
     "JPole",
-    "IJSide",
     "KPole",
     "LPole",
+    "State Paths",
     "Test Paths"
   ],
   "autoFolders": [
