@@ -19,7 +19,6 @@
   import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
   import edu.wpi.first.apriltag.AprilTagFieldLayout;
   import edu.wpi.first.apriltag.AprilTagFields;
-  import edu.wpi.first.math.VecBuilder;
   import edu.wpi.first.math.controller.SimpleMotorFeedforward;
   import edu.wpi.first.math.geometry.Pose2d;
   import edu.wpi.first.math.geometry.Rotation2d;
@@ -31,25 +30,19 @@
   import edu.wpi.first.math.util.Units;
   import edu.wpi.first.wpilibj.DriverStation;
   import edu.wpi.first.wpilibj.Timer;
-  import edu.wpi.first.wpilibj.DriverStation.Alliance;
   import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
   import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-  import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-  import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
   import edu.wpi.first.wpilibj2.command.Command;
   import edu.wpi.first.wpilibj2.command.Commands;
   import edu.wpi.first.wpilibj2.command.SubsystemBase;
-  import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
   import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants.AutoScoreConstants;
   import frc.robot.Constants.SwerveConstants;
-import frc.robot.util.LimelightHelpers;
 
 import java.io.File;
   import java.io.IOException;
   import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
   import java.util.function.DoubleSupplier;
   import java.util.function.Supplier;
@@ -71,7 +64,6 @@ import java.util.concurrent.atomic.AtomicReference;
      * Swerve drive object.
      */
     private final SwerveDrive swerveDrive;
-    private final Field2d m_field2d = new Field2d();
     private ShuffleboardTab m_driveTrainTab = Shuffleboard.getTab("driveTrain");
 
     /**

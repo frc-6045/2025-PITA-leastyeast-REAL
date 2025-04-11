@@ -13,7 +13,6 @@ import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
-import frc.robot.commands.ClimbClosedLoop;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
