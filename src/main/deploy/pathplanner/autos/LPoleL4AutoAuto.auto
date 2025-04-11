@@ -33,6 +33,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "AutoScoreShortPaths",
+  "folder": "Other",
   "choreoAuto": false
 }

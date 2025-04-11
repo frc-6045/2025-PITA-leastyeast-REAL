@@ -3,29 +3,12 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "AutoScorePaths",
-    "Dominic's Folder",
-    "EFSide",
-    "GHSide",
-    "GPole",
-    "HPole",
-    "IJSide",
-    "IPole",
-    "JPole",
-    "KPole",
-    "LPole",
     "State Paths",
-    "Test Paths"
+    "Other"
   ],
   "autoFolders": [
-    "2PieceGHPoles",
-    "3PieceIKJPoles",
-    "4PieceIJKLPoles",
-    "AutoScoreShortPaths",
-    "Coral2AlgaeGHGHIJPoles",
-    "Dominic's Folder",
-    "State Autos",
-    "Other"
+    "Other",
+    "State Autos"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

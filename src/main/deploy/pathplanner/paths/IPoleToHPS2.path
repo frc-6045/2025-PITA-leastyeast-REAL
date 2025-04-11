@@ -20,7 +20,7 @@
         "y": 7.341665219907408
       },
       "prevControl": {
-        "x": 0.936520134498815,
+        "x": 0.9365201344988151,
         "y": 7.255539988460995
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
     "rotation": 140.0
   },
   "reversed": false,
-  "folder": "IPole",
+  "folder": "Other",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 59.99999999999999

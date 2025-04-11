@@ -45,10 +45,10 @@
     "rotation": -178.38774134690897
   },
   "reversed": false,
-  "folder": "HPole",
+  "folder": "Other",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 178.01171712674847
+    "rotation": 178.0117171267485
   },
   "useDefaultConstraints": false
 }
