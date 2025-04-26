@@ -1,0 +1,74 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1JPokeL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinNormal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2HPSIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3KPoleL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinNormal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4Lollipop"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeInOne"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5Lollipop"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
