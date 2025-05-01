@@ -53,8 +53,11 @@ public class Bindings {
         /* Operator Controller bindings */
 
         // Intake
-        m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
-        m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
+        // m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
+        // m_operatorController.rightTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kOperatorIntakeMotorSpeed));
+        m_operatorController.rightTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_operatorController, () -> {return m_Intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
+        m_operatorController.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_operatorController, MotorConstants.kIntakeMotorSpeed));
+
 
         // Barge Toss
         // m_operatorController.rightBumper().onTrue(
