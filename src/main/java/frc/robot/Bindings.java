@@ -103,7 +103,7 @@ public class Bindings {
         // Shift (elevator bottom switch override)
         m_operatorController.leftBumper().onTrue(new InstantCommand(()->{if (m_Elev.getBottomLimitSwitchState()) m_Elev.zeroEncoder();}));
 
-        m_operatorController.start().whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
+        //m_operatorController.start().whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
 
         /* Driver Controller bindings */
@@ -114,11 +114,11 @@ public class Bindings {
         m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_Arm, true));
         m_driverController.leftBumper().whileTrue(new ArmOpenLoop(m_Arm, false));
 
-        m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
-        m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
+        // m_driverController.pov(0).whileTrue(new ClimbCommand(m_ClimbSubsystem, true));
+        // m_driverController.pov(180).whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
 
-        m_driverController.pov(90).whileTrue(new ClimbWristOpenLoop(m_Wrist, MotorConstants.kWristMotorSpeed));
-        m_driverController.pov(270).whileTrue(new ClimbWristOpenLoop(m_Wrist, -MotorConstants.kWristMotorSpeed));
+        // m_driverController.pov(90).whileTrue(new ClimbWristOpenLoop(m_Wrist, MotorConstants.kWristMotorSpeed));
+        // m_driverController.pov(270).whileTrue(new ClimbWristOpenLoop(m_Wrist, -MotorConstants.kWristMotorSpeed));
        // m_driverController.a().onTrue(new ClimbClosedLoop(m_ClimbSubsystem, -23452,5));
 
         m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));

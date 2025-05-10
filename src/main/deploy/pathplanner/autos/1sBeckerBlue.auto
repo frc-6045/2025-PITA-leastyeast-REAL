@@ -1,0 +1,169 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BeckerBlueStartToHPole"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpinNormal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blueHPoleBackAlgaeLow"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BeckerB]lueToGHSide"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeInOne"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeLow"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "blueGHSideToBargeBarge"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "algaeHigh"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "bargeNew"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "blueBargeToIJSide"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeHigh"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeInTwo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blueKJSideToBargeBarge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "bargeNew"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "blueBargeToLollipop"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "LOLLIPOP"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "State Autos",
+  "choreoAuto": false
+}
