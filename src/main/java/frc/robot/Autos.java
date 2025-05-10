@@ -77,7 +77,10 @@ public class Autos {
         // autoChooser.addOption("3PieceIKJPolesLimelight", AutoBuilder.buildAuto("3PieceIKJPolesLimelight"));
         autoChooser.addOption("BLUE coral l4 then 2 algae", AutoBuilder.buildAuto("BLUECoral2AlgaeHGHIJPolesBLUE"));
         autoChooser.addOption("RED coral l4 then 2 algae", AutoBuilder.buildAuto("REDCoral2AlgaeHGHIJPolesRED"));
+        autoChooser.addOption("Side Auto", AutoBuilder.buildAuto("SideAuto"));
         autoChooser.addOption("drive forward", AutoBuilder.buildAuto("driveForward"));
+        autoChooser.addOption("becker RED", AutoBuilder.buildAuto("BeckerRed"));
+        autoChooser.addOption("becker BLUE", AutoBuilder.buildAuto("BeckerBlue"));
         autoChooser.addOption("test", AutoBuilder.buildAuto("testingpath"));
         SmartDashboard.putData("autos", autoChooser);
     }

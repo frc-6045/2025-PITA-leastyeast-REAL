@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -17,39 +18,39 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
 
-public class ClimbSubsystem extends SubsystemBase {
-  private final SparkFlex m_ClimbMotor;
+public class ClimbWristSubsystem extends SubsystemBase {
+  private final SparkFlex m_WristMotor;
   private final AbsoluteEncoder m_AbsEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
 
-  public ClimbSubsystem() {
-    m_ClimbMotor = new SparkFlex(MotorConstants.kClimbMotorCANID, MotorType.kBrushless);
-    m_AbsEncoder = m_ClimbMotor.getAbsoluteEncoder();
+  public ClimbWristSubsystem() {
+    m_WristMotor = new SparkFlex(MotorConstants.kClimbWristMotorCANID, MotorType.kBrushless);
+    m_AbsEncoder = m_WristMotor.getAbsoluteEncoder();
 
-    updateMotorSettings(m_ClimbMotor);
-    m_ClimbMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    updateMotorSettings(m_WristMotor);
+    m_WristMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
    public void updateMotorSettings(SparkFlex motor) {
     config
         .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(MotorConstants.kClimbMotorCurrentLimit);
+        .smartCurrentLimit(MotorConstants.kWristCurrentLimit);
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
   }
 
   public void setSpeed(double speed) {
-    if (speed>MotorConstants.kClimbMotorMaximumSpeed)
-      speed = MotorConstants.kClimbMotorMaximumSpeed;
-    if (speed<-MotorConstants.kClimbMotorMaximumSpeed)
-      speed = -MotorConstants.kClimbMotorMaximumSpeed;
-    m_ClimbMotor.set(speed);
-    SmartDashboard.putNumber("Climb speed", speed);
+    if (speed>MotorConstants.kWristMotorMaxSpeed)
+      speed = MotorConstants.kWristMotorMaxSpeed;
+    if (speed<-MotorConstants.kWristMotorMaxSpeed)
+      speed = -MotorConstants.kWristMotorMaxSpeed;
+    m_WristMotor.set(speed);
+    SmartDashboard.putNumber("Wrist speed", speed);
   }
 
   public void stopClimbMotor() {
-    m_ClimbMotor.stopMotor();
-    SmartDashboard.putNumber("Climb speed", 0);
+    m_WristMotor.stopMotor();
+    SmartDashboard.putNumber("Wrist speed", 0);
   }
 
   public AbsoluteEncoder getAbsoluteEncoder() {

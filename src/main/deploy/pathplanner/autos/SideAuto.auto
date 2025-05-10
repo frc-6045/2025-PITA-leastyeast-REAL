@@ -5,61 +5,100 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "1JPokeL1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralSpinOther"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "2HPSIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3KPoleL1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralSpinOther"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4Lollipop"
-          }
-        },
-        {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "algaeInTwo"
+                  "pathName": "1JPokeL1"
                 }
               },
               {
+                "type": "named",
+                "data": {
+                  "name": "coralL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralSpinNormal"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
                 "type": "path",
                 "data": {
-                  "pathName": "5Lollipop"
+                  "pathName": "2HPSIntake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralIntakeSetpoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3KPoleL1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralL1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralSpinOther"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "KPoleHPS"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralIntakeSetpoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralIntake"
                 }
               }
             ]
