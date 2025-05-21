@@ -110,7 +110,7 @@ public final class Constants {
 
     // algae high
     public static final double kHighAlgaeArmPosition = 0.6402 + kOffset;
-    public static final double kHighAlgaeElevatorPosition = -50.00;
+    public static final double kHighAlgaeElevatorPosition = -42.53;
     
     // algae low
     public static final double kLowAlgaeArmPosition = 0.6567 + kOffset;
@@ -151,7 +151,7 @@ public final class Constants {
     public static final double ROBOT_MASS = (149) * 0.453592; // lbs * kg per pound
     public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-    public static final double MAX_SPEED = Units.feetToMeters(25);
+    public static final double MAX_SPEED = Units.feetToMeters(14); // was 25
   }
 
   public static class AutoScoreConstants {

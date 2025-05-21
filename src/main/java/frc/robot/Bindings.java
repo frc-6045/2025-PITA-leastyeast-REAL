@@ -42,7 +42,9 @@ public class Bindings {
     public static void InitBindings(
         CommandXboxController m_operatorController, 
         CommandXboxController m_driverController, 
-        CommandXboxController m_testController,        SwerveSubsystem m_driveSubsystem,
+        CommandXboxController m_testController,
+        CommandXboxController m_quinn,
+        SwerveSubsystem m_driveSubsystem,
         ArmSubsystem m_Arm, 
         ElevatorSubsystem m_Elev, 
         IntakeSubsystem m_Intake,
@@ -104,6 +106,37 @@ public class Bindings {
         m_operatorController.leftBumper().onTrue(new InstantCommand(()->{if (m_Elev.getBottomLimitSwitchState()) m_Elev.zeroEncoder();}));
 
         //m_operatorController.start().whileTrue(new ClimbCommand(m_ClimbSubsystem, false));
+//QUINNS TEST CRAP
+
+        m_quinn.rightTrigger(.15).whileTrue(new IntakeIntake(m_Intake, m_quinn, () -> {return m_Intake.coralDetected();}, MotorConstants.kIntakeMotorSpeed));
+        m_quinn.leftTrigger(.15).whileTrue(new IntakeOpenLoop(m_Intake, m_quinn, MotorConstants.kIntakeMotorSpeed));
+
+        m_quinn.leftBumper().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
+
+        
+        m_quinn.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.HOME));
+        m_quinn.a().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.INTAKE));
+
+        m_quinn.pov(90).onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.L1));
+        m_quinn.pov(180).onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.L2));
+        m_quinn.pov(270).onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.L3));
+        m_quinn.pov(0).onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.L4));
+
+        m_quinn.x().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_HIGH));
+        m_quinn.b().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.ALGAE_LOW));
+
+        m_quinn.start().onTrue(
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    Commands.none().until(() -> m_Elev.getRelativeEncoderPosition()<-50),
+                    new PIDArmCommand(m_Arm, PositionConstants.kBargeArm).asProxy()),
+                new PIDElevatorCommand(m_Elev, PositionConstants.kBargeElev).asProxy(),
+                new IntakeConditional(m_Intake, () -> {return m_Arm.getSketchyOffsettedPosition()<0.54
+                    ;}, true, 0.9)
+            ));
+
+
+        
 
 
         /* Driver Controller bindings */

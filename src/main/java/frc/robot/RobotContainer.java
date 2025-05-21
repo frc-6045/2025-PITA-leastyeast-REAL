@@ -42,15 +42,18 @@ public class RobotContainer {
       new CommandXboxController(ControllerConstants.kDriverControllerPort);
   private final CommandXboxController m_testVisionController =
       new CommandXboxController(ControllerConstants.kTestControllerPort);   
+  private final CommandXboxController m_quinn =
+      new CommandXboxController(5);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
-    Bindings.InitBindings(m_operatorController, m_driverController, m_testVisionController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, m_ClimbSubsystem, m_LedSubsystem, m_Wrist);
-    Bindings.configureDrivetrain(m_DriveSubsystem, m_driverController);
+    Bindings.InitBindings(m_operatorController, m_driverController, m_testVisionController, m_quinn, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, m_ClimbSubsystem, m_LedSubsystem, m_Wrist);
+    Bindings.configureDrivetrain(m_DriveSubsystem, m_quinn);
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
     DriverStation.silenceJoystickConnectionWarning(true);
+    
   }
   
   /** 
