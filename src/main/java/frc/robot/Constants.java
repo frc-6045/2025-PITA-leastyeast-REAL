@@ -19,14 +19,12 @@ public final class Constants {
     public static final int kElevatorMotor1CANID = 10;
     public static final int kElevatorMotor2CANID = 11;
     public static final int kIntakeMotorCANID = 12;
-    public static final int kClimbWristMotorCANID = 13;
-    public static final int kClimbMotorCANID = 15;
 
     // arm constants
     public static final int kArmMotorCurrentLimit = 40;
     public static final double kArmMotorSpeed = .2;
     public static final double kArmMotorSetpointMaxSpeed = 0.85;
-    public static final double kArmMotorBargeMaxSpeed = 0.4;
+    public static final double kArmMotorBargeMaxSpeed = 0.6; //0.4
     public static final double kArmMotorMaxSpeed = 0.85;
 
     // elevator constants

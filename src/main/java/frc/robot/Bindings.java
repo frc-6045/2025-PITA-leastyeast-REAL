@@ -13,8 +13,6 @@ import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.Constants.AutoScoreConstants.Side;
 import frc.robot.Constants.PositionConstants.Setpoints;
-import frc.robot.commands.ClimbCommand;
-import frc.robot.commands.ClimbWristOpenLoop;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ArmCommands.PIDArmCommand;
@@ -27,8 +25,6 @@ import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeIntake;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.ClimbWristSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LedSubsystem;
@@ -46,9 +42,7 @@ public class Bindings {
         ArmSubsystem m_Arm, 
         ElevatorSubsystem m_Elev, 
         IntakeSubsystem m_Intake,
-        ClimbSubsystem m_ClimbSubsystem,
-        LedSubsystem m_LedSubsystem,
-        ClimbWristSubsystem m_Wrist) {
+        LedSubsystem m_LedSubsystem) {
 
         AutoScoreCommands m_AutoScoreCommands = 
             new AutoScoreCommands(m_driveSubsystem, m_Arm, m_Elev, m_Intake);
