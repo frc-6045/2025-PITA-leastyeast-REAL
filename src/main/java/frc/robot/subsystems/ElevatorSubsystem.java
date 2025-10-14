@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Bindings;
@@ -26,7 +27,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private PIDController m_ElevatorPIDController;
     SparkFlexConfig config = new SparkFlexConfig();
 
-  /** Creates a new ExampleSubsystem. */
+  /** Creates a new ElevatorSubsystem that controls the robot's elevator mechanism. */
   public ElevatorSubsystem() {
     m_ElevatorMotor1 = new SparkFlex(MotorConstants.kElevatorMotor1CANID, MotorType.kBrushless);
     m_ElevatorMotor2 = new SparkFlex(MotorConstants.kElevatorMotor2CANID, MotorType.kBrushless);
@@ -63,24 +64,43 @@ public class ElevatorSubsystem extends SubsystemBase {
     return m_ElevatorPIDController.atSetpoint();
   }
 
+  /**
+   * Sets the elevator motor speed with safety limits.
+   * Positive speed goes up, negative goes down.
+   *
+   * @param speed Desired motor speed (-1 to 1)
+   */
   public void setSpeed(double speed) {
-    // positive speed goes up
+    // Clamp to max speed
     speed = (speed > MotorConstants.kElevatorMotorsMaxSpeed) ? MotorConstants.kElevatorMotorsMaxSpeed : speed;
     speed = (speed < -MotorConstants.kElevatorMotorsMaxSpeed) ? -MotorConstants.kElevatorMotorsMaxSpeed : speed;
 
-    speed = (bottomLimitSwitch.get() && speed < 0) ? 0 : speed;
-
-    if (getRelativeEncoderPosition() > -5 && speed<0) { //limit going down
-      if (Bindings.getOperatorShiftPressed()) {
-        speed*=0.75; // override but also slowing a liil
-      } else {
-        speed*=0.25;
-      }
-    } else if (getRelativeEncoderPosition()<-78.2 && speed>0){
-      speed = 0; // hard limit
-    } else if (getRelativeEncoderPosition()<-76.5 && speed>0) {
-      speed*=0.2;
+    // Hardware limit switch - stop if hitting bottom
+    if (bottomLimitSwitch.get() && speed < 0) {
+      speed = 0;
+      DriverStation.reportWarning("ELEVATOR: Bottom limit switch triggered", false);
     }
+
+    double encoderPos = getRelativeEncoderPosition();
+
+    // Soft limit approaching bottom
+    if (encoderPos > MotorConstants.kElevatorSoftLimitLow && speed < 0) {
+      if (Bindings.getOperatorShiftPressed()) {
+        speed *= MotorConstants.kElevatorLowSpeedOverrideMultiplier; // Operator override with reduced speed
+      } else {
+        speed *= MotorConstants.kElevatorLowSpeedMultiplier; // Normal slow down
+      }
+    }
+    // Hard limit at top
+    else if (encoderPos < MotorConstants.kElevatorHardLimitLow && speed > 0) {
+      speed = 0;
+      DriverStation.reportWarning("ELEVATOR: Hit hard limit at top", false);
+    }
+    // Slow zone before hard limit
+    else if (encoderPos < MotorConstants.kElevatorSlowLimitLow && speed > 0) {
+      speed *= MotorConstants.kElevatorHighSpeedMultiplier;
+    }
+
     m_ElevatorMotor1.set(-speed);
     m_ElevatorMotor2.set(speed);
 

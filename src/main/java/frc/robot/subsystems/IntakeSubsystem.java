@@ -13,6 +13,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoScoreConstants;
@@ -46,8 +47,16 @@ public class IntakeSubsystem extends SubsystemBase {
         return m_DistanceSensor.get();
     }
 
+    /**
+     * Gets the distance measurement from the sensor in inches.
+     * Uses calibration constants to convert raw voltage to distance.
+     *
+     * @return Distance in inches
+     */
     public double getDistanceInches() {
-        return (m_DistanceSensor.get()-0.024)/(7.76*0.001)*1.267;
+        return (m_DistanceSensor.get() - MotorConstants.kDistanceSensorOffset)
+               / MotorConstants.kDistanceSensorScale
+               * MotorConstants.kDistanceSensorInchMultiplier;
     }
 
     public void setSpeed(double speed) {
@@ -84,41 +93,52 @@ public class IntakeSubsystem extends SubsystemBase {
         return 0;
     }
 
+    /**
+     * Gets the alignment offset based on coral position in the intake.
+     * Returns a Translation2d offset to compensate for coral placement.
+     *
+     * @return Translation2d offset for auto-scoring alignment
+     */
     public Translation2d getAlignOffset() {
         switch (getCoralPosition()) {
             case 0:
-                System.out.println("there's no coral :(");
-
+                DriverStation.reportWarning("INTAKE: No coral detected for alignment", false);
                 return new Translation2d();
             case 1:
                 return AutoScoreConstants.autoScoreCoralOffset1;
-            case 2:                return new Translation2d(0, SmartDashboard.getNumber("offset2", 0));
+            case 2:
+                return new Translation2d(0, SmartDashboard.getNumber("offset2", 0));
             case 3:
                 return new Translation2d(0, SmartDashboard.getNumber("offset3", 0));
             case 4:
                 return new Translation2d(0, SmartDashboard.getNumber("offset4", 0));
+            default:
+                return new Translation2d();
         }
-
-        return new Translation2d();
     }
 
+    /**
+     * Gets the Limelight TX (horizontal angle) offset based on coral position.
+     * Used for vision-assisted alignment during auto-scoring.
+     *
+     * @return TX offset in degrees
+     */
     public double getAlignOffsetLimelightTX() {
         switch (getCoralPosition()) {
             case 0:
-                System.out.println("there's no coral :(");
-
+                DriverStation.reportWarning("INTAKE: No coral detected for Limelight alignment", false);
                 return 0;
             case 1:
-                return 0;
+                return AutoScoreConstants.kLimelightTXOffsetPosition1;
             case 2:
-                return -4.5;
+                return AutoScoreConstants.kLimelightTXOffsetPosition2;
             case 3:
-                return -9;
+                return AutoScoreConstants.kLimelightTXOffsetPosition3;
             case 4:
-                return -13;
+                return AutoScoreConstants.kLimelightTXOffsetPosition4;
+            default:
+                return 0.0;
         }
-
-        return 0.0;
     }
 
     @Override

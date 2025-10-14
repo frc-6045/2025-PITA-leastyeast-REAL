@@ -28,18 +28,31 @@ public final class Constants {
     public static final double kArmMotorSetpointMaxSpeed = 0.85;
     public static final double kArmMotorBargeMaxSpeed = 0.4;
     public static final double kArmMotorMaxSpeed = 0.85;
+    public static final double kArmEncoderPositionWrapOffset = 14.0; // Ensures encoder values stay in 0-1 range after offset
 
     // elevator constants
     public static final int kElevatorMotorsCurrentLimit = 40;
     public static final double kElevatorMotorsSpeed = .4;
     public static final double kElevatorSetpointMaxSpeed = 0.7;
     public static final double kElevatorMotorsMaxSpeed = 0.7;
+    // Elevator soft limits (encoder positions)
+    public static final double kElevatorSoftLimitLow = -5.0; // Slow down zone when approaching bottom
+    public static final double kElevatorHardLimitLow = -78.2; // Absolute bottom limit
+    public static final double kElevatorSlowLimitLow = -76.5; // Start slowing down before hard limit
+    public static final double kElevatorLowSpeedMultiplier = 0.25; // Speed reduction when near bottom without override
+    public static final double kElevatorLowSpeedOverrideMultiplier = 0.75; // Speed reduction with operator override
+    public static final double kElevatorHighSpeedMultiplier = 0.2; // Speed reduction when near top limit
 
     // intake constants
     public static final int kIntakeMotorCurrentLimit = 40;
     public static final double kOperatorIntakeMotorSpeed = 1;
     public static final double kIntakeMotorSpeed = .99999;
     public static final double kIntakeMotorMaxSpeed = 1;
+
+    // Distance sensor calibration constants
+    public static final double kDistanceSensorOffset = 0.024;
+    public static final double kDistanceSensorScale = 7.76 * 0.001;
+    public static final double kDistanceSensorInchMultiplier = 1.267;
 
     //climb constants
     public static final int kClimbMotorCurrentLimit = 50;
@@ -197,5 +210,11 @@ public final class Constants {
     public static final Translation2d autoScoreCoralOffset2 = new Translation2d();
     public static final Translation2d autoScoreCoralOffset3 = new Translation2d();
     public static final Translation2d autoScoreCoralOffset4 = new Translation2d();
+
+    // Limelight TX offsets for coral positions (degrees)
+    public static final double kLimelightTXOffsetPosition1 = 0.0;
+    public static final double kLimelightTXOffsetPosition2 = -4.5;
+    public static final double kLimelightTXOffsetPosition3 = -9.0;
+    public static final double kLimelightTXOffsetPosition4 = -13.0;
   }
 }

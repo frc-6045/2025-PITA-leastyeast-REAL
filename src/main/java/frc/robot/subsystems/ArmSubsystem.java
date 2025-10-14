@@ -15,6 +15,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
@@ -26,7 +27,7 @@ public class ArmSubsystem extends SubsystemBase {
   SparkFlexConfig config = new SparkFlexConfig();
   PIDController m_ArmPIDController = new PIDController(9, 0, 0);
 
-  /** Creates a new ExampleSubsystem. */
+  /** Creates a new ArmSubsystem that controls the robot's arm mechanism. */
   public ArmSubsystem(IntakeSubsystem intake) {
     m_ArmMotor = new SparkFlex(MotorConstants.kArmMotorCANID, MotorType.kBrushless);
     m_AbsoluteEncoder = intake.armEncoder;
@@ -39,57 +40,61 @@ public class ArmSubsystem extends SubsystemBase {
    public void updateMotorSettings(SparkFlex motor) {
     config
         .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(MotorConstants.kIntakeMotorCurrentLimit);
+        .smartCurrentLimit(MotorConstants.kArmMotorCurrentLimit); // FIXED: Was using kIntakeMotorCurrentLimit
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
   }
 
+  /**
+   * Commands the arm to move to a target setpoint using PID control.
+   *
+   * @param setpoint The target position in the sketchy offset coordinate system (0-1 range)
+   * @param speedLimit Maximum speed for the arm motor (0-1 range)
+   */
   public void goToSetpoint(double setpoint, double speedLimit) {
     SmartDashboard.putNumber("ARM setpoint (sketchy btw)", getSketchyOffsettedPosition());
     SmartDashboard.putNumber("ARM difference", setpoint-getSketchyOffsettedPosition());
-    
-    double speed = m_ArmPIDController.calculate(
-      getSketchyOffsettedPosition(), 
-      (setpoint+14)%1); // just make sure value is between 0 and 1
-    
-      setSpeed(MathUtil.clamp(speed, -speedLimit, speedLimit));
+
+    // Wrap setpoint to 0-1 range for proper modulo arithmetic with encoder
+    double wrappedSetpoint = (setpoint + MotorConstants.kArmEncoderPositionWrapOffset) % 1;
+    double speed = m_ArmPIDController.calculate(getSketchyOffsettedPosition(), wrappedSetpoint);
+
+    setSpeed(MathUtil.clamp(speed, -speedLimit, speedLimit));
   }
 
+  /**
+   * Commands the arm to move to a target setpoint using default speed limit.
+   *
+   * @param setpoint The target position in the sketchy offset coordinate system (0-1 range)
+   */
   public void goToSetpoint(double setpoint) {
-    SmartDashboard.putNumber("ARM setpoint (sketchy btw)", getSketchyOffsettedPosition());
-    SmartDashboard.putNumber("ARM difference", setpoint-getSketchyOffsettedPosition());
-    
-    double speed = m_ArmPIDController.calculate(
-      getSketchyOffsettedPosition(), 
-      (setpoint+14)%1); // just make sure value is between 0 and 1
-    
-      setSpeed(MathUtil.clamp(speed, -MotorConstants.kArmMotorSetpointMaxSpeed, MotorConstants.kArmMotorSetpointMaxSpeed));
+    goToSetpoint(setpoint, MotorConstants.kArmMotorSetpointMaxSpeed);
   }
 
   public boolean atSetpoint() {
     return m_ArmPIDController.atSetpoint();
   }
 
+  /**
+   * Sets the arm motor speed with safety limits to prevent turnbuckle damage.
+   *
+   * @param speed Desired motor speed (-1 to 1)
+   */
   public void setSpeed(double speed) {
-    if (speed>MotorConstants.kArmMotorMaxSpeed)
-      speed = MotorConstants.kArmMotorMaxSpeed;
-    if (speed<-MotorConstants.kArmMotorMaxSpeed)
-      speed = -MotorConstants.kArmMotorMaxSpeed;
-    
-    // prevent turnbuckle from being run over
-    
-    if (speed<0 && 
-    (getAbsoluteEncoderPosition()<PositionConstants.kArmLimit2 && 
-    getAbsoluteEncoderPosition()>PositionConstants.kMiddleOfArmLimit)) {
+    // Clamp to max speed
+    speed = MathUtil.clamp(speed, -MotorConstants.kArmMotorMaxSpeed, MotorConstants.kArmMotorMaxSpeed);
+
+    // Prevent turnbuckle from being run over - software limits
+    double encoderPos = getAbsoluteEncoderPosition();
+
+    if (speed < 0 && encoderPos < PositionConstants.kArmLimit2 && encoderPos > PositionConstants.kMiddleOfArmLimit) {
       speed = 0;
-      System.out.println("LIMIT 2");
+      DriverStation.reportWarning("ARM: Hit software limit 2 (preventing turnbuckle collision)", false);
     }
-    if (speed>0 &&
-    (getAbsoluteEncoderPosition()>PositionConstants.kArmLimit1) &&
-    getAbsoluteEncoderPosition()<PositionConstants.kMiddleOfArmLimit) {
-      speed=0;
-      System.out.println("LIMIT 1");
-    } 
+    if (speed > 0 && encoderPos > PositionConstants.kArmLimit1 && encoderPos < PositionConstants.kMiddleOfArmLimit) {
+      speed = 0;
+      DriverStation.reportWarning("ARM: Hit software limit 1 (preventing turnbuckle collision)", false);
+    }
 
     m_ArmMotor.set(speed);
     SmartDashboard.putNumber("ARM speed", speed);
@@ -108,8 +113,14 @@ public class ArmSubsystem extends SubsystemBase {
     return m_AbsoluteEncoder.getPosition();
   }
 
+  /**
+   * Gets the arm position with the sketchy offset applied.
+   * This offset shifts the coordinate system to make setpoints more intuitive.
+   *
+   * @return The offsetted position in 0-1 range
+   */
   public double getSketchyOffsettedPosition() {
-    return (m_AbsoluteEncoder.getPosition() + PositionConstants.kSketchyOffset+14)%1;
+    return (m_AbsoluteEncoder.getPosition() + PositionConstants.kSketchyOffset + MotorConstants.kArmEncoderPositionWrapOffset) % 1;
   }
 
   @Override

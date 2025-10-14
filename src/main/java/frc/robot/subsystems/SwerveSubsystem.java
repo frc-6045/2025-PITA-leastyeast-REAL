@@ -197,10 +197,15 @@ import java.util.concurrent.atomic.AtomicReference;
             // Reference to this subsystem to set requirements
                             );
 
+      } catch (IOException e)
+      {
+        DriverStation.reportError("SWERVE: Failed to load PathPlanner RobotConfig from GUI settings - check PathPlannerLib installation and config files", e.getStackTrace());
+      } catch (ParseException e)
+      {
+        DriverStation.reportError("SWERVE: Failed to parse PathPlanner RobotConfig - check pathplanner/settings.json format", e.getStackTrace());
       } catch (Exception e)
       {
-        // Handle exception as needed
-        e.printStackTrace();
+        DriverStation.reportError("SWERVE: Unexpected error during PathPlanner setup: " + e.getMessage(), e.getStackTrace());
       }
 
       //Preload PathPlanner Path finding
@@ -751,8 +756,13 @@ import java.util.concurrent.atomic.AtomicReference;
       return new Pose2d(newTranslation, currentPose.getRotation());
     }
 
+    /**
+     * Finds the nearest reef pole based on current robot position and desired side.
+     *
+     * @param side LEFT or RIGHT side of the reef face
+     * @return Pose2d of the nearest pole
+     */
     public Pose2d getNearestPole(AutoScoreConstants.Side side) {
-        System.out.println("getting nearest pole");
         Pose2d currentPose = getPose();
         Pose2d closestPose = AutoScoreConstants.REEF_FACE_ARRAY[0];
         double closestDistance = 999999;
@@ -782,30 +792,53 @@ import java.util.concurrent.atomic.AtomicReference;
         }
     }
 
-    //needed because otherwise command will precalcualte all the nearest pole values rather than on the fly, specifically the getNearestPole
+    /**
+     * Drives to the first auto-score pose (1 meter back from nearest pole).
+     * Note: Command factory method needed because getNearestPole() must be evaluated
+     * on-the-fly during command execution, not when command is created.
+     *
+     * @param side LEFT or RIGHT side of the reef face
+     * @return Command to drive to the initial scoring position
+     */
     public Command driveToFirstAutoScorePose(AutoScoreConstants.Side side){
       Translation2d shiftBackward = new Translation2d(-1, 0);
       Pose2d nearestPole = getNearestPole(side);
       Pose2d initalPoseToPlanTo = shiftPoseRobotRelative(nearestPole, shiftBackward);
-      System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + nearestPole.getRotation().getRadians());
+      SmartDashboard.putString("SWERVE Target Pose", String.format("(%.2f, %.2f, %.2f°)",
+          initalPoseToPlanTo.getX(), initalPoseToPlanTo.getY(), nearestPole.getRotation().getDegrees()));
       return driveToPose(initalPoseToPlanTo);
     }
 
+    /**
+     * Drives to the first auto-score pose for a specific pole.
+     *
+     * @param pole Target pole pose
+     * @return Command to drive to the initial scoring position
+     */
     public Command driveToFirstAutoScorePose(Pose2d pole){
       Translation2d shiftBackward = new Translation2d(-1, 0);
       Pose2d initalPoseToPlanTo = shiftPoseRobotRelative(pole, shiftBackward);
-      System.out.println("Initial Target Pose: " + initalPoseToPlanTo.getX() + ", " + initalPoseToPlanTo.getY()+ ", " + pole.getRotation().getRadians());
+      SmartDashboard.putString("SWERVE Target Pose", String.format("(%.2f, %.2f, %.2f°)",
+          initalPoseToPlanTo.getX(), initalPoseToPlanTo.getY(), pole.getRotation().getDegrees()));
       return driveToPose(initalPoseToPlanTo);
     }
 
+    /**
+     * Drives to the second auto-score pose with coral position offset compensation.
+     *
+     * @param side LEFT or RIGHT side of the reef face
+     * @param coralOffset Translation offset based on coral position in intake
+     * @return Command to drive to final scoring position in slow mode
+     */
     public Command driveToSecondAutoScorePose(AutoScoreConstants.Side side, Translation2d coralOffset) {
       Pose2d nearestPole = getNearestPole(side);
       // offset depending on coral location in intake
       Pose2d nearestPoleOffsetted = shiftPoseRobotRelative(nearestPole, coralOffset);
-      System.out.println(
-        "nearest pole: " + nearestPole.getX() + ", " + nearestPole.getY() + 
-        "\noffset: " + coralOffset.getX() + ", " + coralOffset.getY() +
-        "finalpose: " + nearestPoleOffsetted.getX() + ", " + nearestPoleOffsetted.getY());
+      SmartDashboard.putString("SWERVE Auto-Score Debug", String.format(
+          "Pole:(%.2f,%.2f) Offset:(%.2f,%.2f) Final:(%.2f,%.2f)",
+          nearestPole.getX(), nearestPole.getY(),
+          coralOffset.getX(), coralOffset.getY(),
+          nearestPoleOffsetted.getX(), nearestPoleOffsetted.getY()));
       return driveToPoseSlowMode(nearestPoleOffsetted);
     }
 
