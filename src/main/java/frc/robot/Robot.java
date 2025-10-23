@@ -1,8 +1,10 @@
 package frc.robot;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.util.LimelightHelpers;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -37,6 +39,31 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putData(CommandScheduler.getInstance());
+
+    // Check for AprilTag detection and print robot position relative to tag
+    checkAprilTagDetection();
+  }
+
+  /**
+   * Checks if an AprilTag is detected by the Limelight and prints the robot's position
+   * relative to the detected tag.
+   */
+  private void checkAprilTagDetection() {
+    // Check if Limelight has a valid target
+    if (LimelightHelpers.getTV(Constants.LIMELIGHT)) {
+      // Get the AprilTag ID
+      int fiducialId = (int) LimelightHelpers.getFiducialID(Constants.LIMELIGHT);
+
+      // Get robot position relative to the detected tag (target space)
+      Pose3d robotPoseTargetSpace = LimelightHelpers.getBotPose3d_TargetSpace(Constants.LIMELIGHT);
+
+      // Print the information
+      System.out.printf("AprilTag ID %d detected - Robot position relative to tag: X=%.3fm, Y=%.3fm, Z=%.3fm%n",
+          fiducialId,
+          robotPoseTargetSpace.getX(),
+          robotPoseTargetSpace.getY(),
+          robotPoseTargetSpace.getZ());
+    }
   }
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
