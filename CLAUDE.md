@@ -19,8 +19,14 @@ This project uses Gradle with the GradleRIO plugin for FRC development.
 # Deploy code to the robot (RoboRIO)
 ./gradlew deploy
 
-# Run tests
+# Run all tests
 ./gradlew test
+
+# Run a specific test class
+./gradlew test --tests RobotTest
+
+# Run a specific test method
+./gradlew test --tests RobotTest.testCheckAprilTagDetection_TargetDetected
 
 # Clean build artifacts
 ./gradlew clean
@@ -52,6 +58,8 @@ The simulation includes DriverStation and GUI by default (configured in build.gr
 The codebase follows WPILib's command-based architecture:
 
 1. **Robot.java** - Entry point, extends `TimedRobot`, calls `CommandScheduler.getInstance().run()` every 20ms
+   - Includes `checkAprilTagDetection()` method that runs every cycle to monitor Limelight for AprilTag detections
+   - Prints robot position relative to detected tags (X, Y, Z coordinates in meters)
 2. **RobotContainer.java** - Central configuration point that:
    - Instantiates all subsystems
    - Creates controller bindings via `Bindings.InitBindings()`
@@ -130,6 +138,13 @@ Constants.java uses nested classes for organization:
 - Distance sensor values for coral positioning (coralLocation0-4 in AutoScoreConstants)
 - Robot can determine nearest reef face and appropriate pole based on current pose
 
+**Vision & AprilTag Detection**:
+- Continuous AprilTag monitoring in `Robot.checkAprilTagDetection()` (runs every 20ms)
+- Uses `LimelightHelpers` utility class for all Limelight interactions
+- When AprilTag detected, prints: tag ID and robot position relative to tag (X, Y, Z in meters)
+- Robot position in target space retrieved via `LimelightHelpers.getBotPose3d_TargetSpace()`
+- Console output format: `AprilTag ID {id} detected - Robot position relative to tag: X={x}m, Y={y}m, Z={z}m`
+
 ## Vendor Dependencies
 
 Key libraries installed (vendordeps/):
@@ -142,24 +157,73 @@ Key libraries installed (vendordeps/):
 
 ## Testing
 
-- JUnit 5 configured for unit tests
+### Test Framework
+- **JUnit 5** configured for unit tests
+- **Mockito 5.8.0** for mocking (including static method mocking with mockito-inline)
 - Test configuration in `.vscode/settings.json` sets up native library paths
 - Auto-detection enabled for JUnit extensions
 - Working directory: `${workspaceFolder}/build/jni/release`
+
+### Test Structure
+Tests located in `src/test/java/frc/robot/`:
+- **RobotTest.java** - Unit tests for Robot class functionality
+  - Tests AprilTag detection logic with various scenarios (no target, different tag IDs, various positions)
+  - Uses Mockito to mock LimelightHelpers static methods
+  - Captures System.out to verify console output
+- **RobotIntegrationTest.java** - Integration tests
+  - Tests integration between Robot.robotPeriodic() and checkAprilTagDetection()
+  - Verifies correct Limelight name usage from Constants
+  - Tests output format consistency and error handling
+
+### Running Tests
+```bash
+# Run all tests
+./gradlew test
+
+# Run specific test class
+./gradlew test --tests RobotTest
+
+# Run specific test method
+./gradlew test --tests RobotTest.testCheckAprilTagDetection_TargetDetected
+
+# View test report (after running tests)
+open build/reports/tests/test/index.html
+```
+
+## Utility Classes
+
+Located in `src/main/java/frc/robot/util/`:
+- **LimelightHelpers.java** - Comprehensive Limelight vision camera interface
+  - Static methods for all Limelight NetworkTables interactions
+  - Supports AprilTag/fiducial tracking, neural networks, retroreflective targeting
+  - Key methods used: `getTV()`, `getFiducialID()`, `getBotPose3d_TargetSpace()`
+  - Includes data classes: `LimelightResults`, `LimelightTarget_Fiducial`, `PoseEstimate`, `RawFiducial`
+- **Elastic.java** - Telemetry/logging utilities (if present)
 
 ## Development Workflow
 
 1. Make code changes in `src/main/java/frc/robot/`
 2. Build locally with `./gradlew build` to check for compile errors
-3. Test in simulation with `./gradlew simulateJava` if applicable
-4. Deploy to robot with `./gradlew deploy` when connected to robot network
-5. For autonomous development, use PathPlanner GUI to create/edit paths, ensure named commands are registered in Autos.java
+3. Run tests with `./gradlew test` to verify functionality
+4. Test in simulation with `./gradlew simulateJava` if applicable
+5. Deploy to robot with `./gradlew deploy` when connected to robot network
+6. For autonomous development, use PathPlanner GUI to create/edit paths, ensure named commands are registered in Autos.java
+
+### Adding Tests
+When adding new functionality:
+1. Create test file in `src/test/java/frc/robot/` matching the class structure
+2. Use Mockito for mocking static methods (e.g., LimelightHelpers)
+3. Capture System.out with `ByteArrayOutputStream` when verifying console output
+4. Use reflection to test private methods if needed
+5. Run tests to ensure they pass before committing
 
 ## Important Notes
 
+- **AprilTag Detection**: Robot.java continuously monitors for AprilTag detections and prints position data every cycle when tags are visible
 - **Encoder Zeroing**: Elevator has a bottom limit switch that zeros the encoder (see Bindings.java line 104)
 - **Alliance Color**: Many commands (swerve, autos) are alliance-aware and will mirror for red alliance
 - **Coordinate System**: Field-relative control is alliance-relative (blue origin on blue side, paths mirror for red)
 - **Swerve Configuration**: Module configs are in deploy directory, loaded at runtime from JSON
 - **Default Commands**: Arm uses `HoldArm`, Elevator uses `HoldElevator` to maintain position when idle
 - **Controller Bindings**: Three Xbox controllers supported (driver, operator, test/vision)
+- **Limelight Name**: The Limelight camera is named "limelight-sabre" (defined in Constants.LIMELIGHT)
