@@ -169,6 +169,12 @@ public class RobotIntegrationTest {
             assertTrue(firstOutput.contains("Z=0.700m"),
                 "Should show Z coordinate as 0.700m");
 
+            // Verify theta is calculated and displayed
+            double expectedTheta = Math.toDegrees(Math.atan2(-2.3, 1.5));
+            String expectedThetaStr = String.format("Theta=%.2f°", expectedTheta);
+            assertTrue(firstOutput.contains(expectedThetaStr),
+                "Should show theta angle: " + expectedThetaStr);
+
             // Verify format consistency - all coordinates have 3 decimal places
             assertTrue(firstOutput.contains("m, Y=") || firstOutput.contains("m,"),
                 "Output should have proper coordinate formatting");

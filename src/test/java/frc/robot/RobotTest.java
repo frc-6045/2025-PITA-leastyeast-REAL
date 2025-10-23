@@ -120,6 +120,13 @@ public class RobotTest {
             assertTrue(output.contains("Z=0.089m"),
                 "Output should contain Z coordinate");
 
+            // Verify theta is calculated and displayed
+            // theta = atan2(-0.567, 1.234) = atan2(y, x) ≈ -24.69 degrees
+            double expectedTheta = Math.toDegrees(Math.atan2(-0.567, 1.234));
+            String expectedThetaStr = String.format("Theta=%.2f°", expectedTheta);
+            assertTrue(output.contains(expectedThetaStr),
+                "Output should contain theta: " + expectedThetaStr);
+
             // Verify all expected methods were called
             mockedLimelightHelpers.verify(() ->
                 LimelightHelpers.getTV(Constants.LIMELIGHT), times(1));
@@ -247,6 +254,76 @@ public class RobotTest {
                 "Output should contain correct Y coordinate");
             assertTrue(output.contains(String.format("Z=%.3fm", z)),
                 "Output should contain correct Z coordinate");
+
+            // Verify theta calculation
+            double expectedTheta = Math.toDegrees(Math.atan2(y, x));
+            String expectedThetaStr = String.format("Theta=%.2f°", expectedTheta);
+            assertTrue(output.contains(expectedThetaStr),
+                "Output should contain correct theta: " + expectedThetaStr);
+
+        } catch (Exception e) {
+            fail("Failed to invoke checkAprilTagDetection method: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCheckAprilTagDetection_ThetaCalculation_Quadrant1() {
+        // Test theta in first quadrant (positive x, positive y) - should be positive angle
+        testThetaCalculation(1.0, 1.0, 0.0, 45.0);
+    }
+
+    @Test
+    public void testCheckAprilTagDetection_ThetaCalculation_Quadrant2() {
+        // Test theta in second quadrant (negative x, positive y) - should be > 90°
+        testThetaCalculation(-1.0, 1.0, 0.0, 135.0);
+    }
+
+    @Test
+    public void testCheckAprilTagDetection_ThetaCalculation_Quadrant3() {
+        // Test theta in third quadrant (negative x, negative y) - should be < -90°
+        testThetaCalculation(-1.0, -1.0, 0.0, -135.0);
+    }
+
+    @Test
+    public void testCheckAprilTagDetection_ThetaCalculation_Quadrant4() {
+        // Test theta in fourth quadrant (positive x, negative y) - should be negative angle
+        testThetaCalculation(1.0, -1.0, 0.0, -45.0);
+    }
+
+    private void testThetaCalculation(double x, double y, double z, double expectedThetaDegrees) {
+        // Arrange
+        mockedLimelightHelpers.when(() ->
+            LimelightHelpers.getTV(Constants.LIMELIGHT))
+            .thenReturn(true);
+
+        mockedLimelightHelpers.when(() ->
+            LimelightHelpers.getFiducialID(Constants.LIMELIGHT))
+            .thenReturn(1.0);
+
+        Pose3d mockPose = new Pose3d(
+            new Translation3d(x, y, z),
+            new Rotation3d()
+        );
+
+        mockedLimelightHelpers.when(() ->
+            LimelightHelpers.getBotPose3d_TargetSpace(Constants.LIMELIGHT))
+            .thenReturn(mockPose);
+
+        // Create a Robot instance and invoke the check method
+        Robot robot = new Robot();
+        try {
+            java.lang.reflect.Method method = Robot.class.getDeclaredMethod("checkAprilTagDetection");
+            method.setAccessible(true);
+
+            // Act
+            method.invoke(robot);
+
+            // Assert
+            String output = outputStream.toString();
+            String expectedThetaStr = String.format("Theta=%.2f°", expectedThetaDegrees);
+            assertTrue(output.contains(expectedThetaStr),
+                String.format("Output should contain theta=%.2f° for position (%.1f, %.1f, %.1f)",
+                    expectedThetaDegrees, x, y, z));
 
         } catch (Exception e) {
             fail("Failed to invoke checkAprilTagDetection method: " + e.getMessage());
