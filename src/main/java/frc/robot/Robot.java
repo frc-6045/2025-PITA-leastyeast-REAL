@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
 
   /**
    * Checks if an AprilTag is detected by the Limelight and prints the robot's position
-   * relative to the detected tag.
+   * relative to the detected tag, including the horizontal angle (theta).
    */
   private void checkAprilTagDetection() {
     // Check if Limelight has a valid target
@@ -57,12 +57,22 @@ public class Robot extends TimedRobot {
       // Get robot position relative to the detected tag (target space)
       Pose3d robotPoseTargetSpace = LimelightHelpers.getBotPose3d_TargetSpace(Constants.LIMELIGHT);
 
+      // Extract coordinates
+      double x = robotPoseTargetSpace.getX();
+      double y = robotPoseTargetSpace.getY();
+      double z = robotPoseTargetSpace.getZ();
+
+      // Calculate theta (horizontal angle in XY plane)
+      double thetaRadians = Math.atan2(y, x);
+      double thetaDegrees = Math.toDegrees(thetaRadians);
+
       // Print the information
-      System.out.printf("AprilTag ID %d detected - Robot position relative to tag: X=%.3fm, Y=%.3fm, Z=%.3fm%n",
+      System.out.printf("AprilTag ID %d detected - Robot position relative to tag: X=%.3fm, Y=%.3fm, Z=%.3fm, Theta=%.2f°%n",
           fiducialId,
-          robotPoseTargetSpace.getX(),
-          robotPoseTargetSpace.getY(),
-          robotPoseTargetSpace.getZ());
+          x,
+          y,
+          z,
+          thetaDegrees);
     }
   }
   /** This function is called once each time the robot enters Disabled mode. */
