@@ -58,9 +58,9 @@ public class Robot extends TimedRobot {
       Pose3d robotPoseTargetSpace = LimelightHelpers.getBotPose3d_TargetSpace(Constants.LIMELIGHT);
 
       // Extract coordinates
-      double x = robotPoseTargetSpace.getX();
-      double y = robotPoseTargetSpace.getY();
-      double z = robotPoseTargetSpace.getZ();
+      double x = robotPoseTargetSpace.getX(); // Forward/Backward distance
+      double y = robotPoseTargetSpace.getY(); // Left/Right distance
+      double z = robotPoseTargetSpace.getZ(); // Up/Down distance
 
       // Calculate theta (horizontal angle in XY plane)
       double thetaRadians = Math.atan2(y, x);
