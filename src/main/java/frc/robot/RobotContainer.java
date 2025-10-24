@@ -7,6 +7,7 @@ import frc.robot.subsystems.ClimbWristSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LedSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.commands.ArmCommands.HoldArm;
 import frc.robot.commands.ElevatorCommands.HoldElevator;
@@ -24,16 +25,21 @@ import edu.wpi.first.wpilibj.Filesystem;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  // Initialize swerve subsystem first since other subsystems depend on it
+  public final SwerveSubsystem m_DriveSubsystem = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+                                                                                "swerve/neo"));
+
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem(m_IntakeSubsystem);
   private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
   private final LedSubsystem m_LedSubsystem = new LedSubsystem();
   private final ClimbWristSubsystem m_Wrist = new ClimbWristSubsystem();
+
+  // Initialize Limelight subsystem for vision-based pose estimation
+  private final LimelightSubsystem m_LimelightSubsystem = new LimelightSubsystem(m_DriveSubsystem);
+
   private Autos m_Autos;
-  
-  public final SwerveSubsystem m_DriveSubsystem = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
-                                                                                "swerve/neo"));
 
   // define controllers
   private final CommandXboxController m_operatorController =

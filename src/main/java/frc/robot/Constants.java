@@ -8,7 +8,31 @@ import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
 public final class Constants {
+
+  // Limelight Constants
   public static final String LIMELIGHT = "limelight-sabre";
+
+  public static class VisionConstants {
+    // Limelight camera name
+    public static final String LIMELIGHT_NAME = LIMELIGHT;
+
+    // Standard deviations for vision measurements (for pose estimation confidence)
+    // Lower values = more trust in vision, Higher values = less trust in vision
+    public static final double VISION_STD_DEV_X = 0.5; // meters
+    public static final double VISION_STD_DEV_Y = 0.5; // meters
+    public static final double VISION_STD_DEV_THETA = 6.0; // degrees
+
+    // Multi-tag standard deviations (more confident when seeing multiple tags)
+    public static final double MULTI_TAG_STD_DEV_X = 0.3; // meters
+    public static final double MULTI_TAG_STD_DEV_Y = 0.3; // meters
+    public static final double MULTI_TAG_STD_DEV_THETA = 3.0; // degrees
+
+    // Distance-based confidence adjustments
+    public static final double CLOSE_DISTANCE_THRESHOLD = 2.0; // meters
+    public static final double FAR_DISTANCE_THRESHOLD = 4.0; // meters
+    public static final double CLOSE_DISTANCE_MULTIPLIER = 0.5; // More confident when close
+    public static final double FAR_DISTANCE_MULTIPLIER = 2.0; // Less confident when far
+  }
 
   //  MotorSpeed is the open loop speed.
   //  MotorMaxSpeed is a hard limit on speed.
