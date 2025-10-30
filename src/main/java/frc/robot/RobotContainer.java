@@ -1,6 +1,4 @@
-
-
-  package frc.robot;
+package frc.robot;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ClimbWristSubsystem;
