@@ -16,6 +16,21 @@ public final class Constants {
     // Limelight camera name
     public static final String LIMELIGHT_NAME = LIMELIGHT;
 
+    // Pipeline indices
+    public static final int APRILTAG_PIPELINE = 0; // Default AprilTag pipeline
+    public static final int NEURAL_DETECTOR_PIPELINE = 3; // Neural detector for Algae/Coral
+
+    // Neural detector class names (from pre-trained FRC 2025 B2 model)
+    public static final String ALGAE_CLASS_NAME = "algae";
+    public static final String CORAL_CLASS_NAME = "coral";
+
+    // Neural detector class IDs (0-indexed from model)
+    public static final int ALGAE_CLASS_ID = 0;
+    public static final int CORAL_CLASS_ID = 1;
+
+    // Neural detector confidence threshold (0.0 - 1.0)
+    public static final double NEURAL_DETECTOR_CONFIDENCE_THRESHOLD = 0.5;
+
     // Standard deviations for vision measurements (for pose estimation confidence)
     // Lower values = more trust in vision, Higher values = less trust in vision
     public static final double VISION_STD_DEV_X = 0.5; // meters
