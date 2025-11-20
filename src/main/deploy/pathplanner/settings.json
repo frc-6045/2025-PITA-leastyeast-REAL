@@ -3,11 +3,13 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "SideAutoPaths",
+    "illegal stuff",
     "Other",
+    "SideAutoPaths",
     "State Paths"
   ],
   "autoFolders": [
+    "Autos for fun",
     "Other",
     "State Autos"
   ],
