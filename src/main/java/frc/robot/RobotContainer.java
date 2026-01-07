@@ -1,15 +1,8 @@
 
 
   package frc.robot;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.ClimbWristSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.commands.ArmCommands.HoldArm;
-import frc.robot.commands.ElevatorCommands.HoldElevator;
 import frc.robot.Constants.ControllerConstants;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,12 +18,6 @@ import edu.wpi.first.wpilibj.Filesystem;
  */
 public class RobotContainer {
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem(m_IntakeSubsystem);
-  private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
-  private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
-  private final LedSubsystem m_LedSubsystem = new LedSubsystem();
-  private final ClimbWristSubsystem m_Wrist = new ClimbWristSubsystem();
-  private Autos m_Autos;
   
   public final SwerveSubsystem m_DriveSubsystem = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
@@ -45,11 +32,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
-    Bindings.InitBindings(m_operatorController, m_driverController, m_testVisionController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem, m_ClimbSubsystem, m_LedSubsystem, m_Wrist);
+    Bindings.InitBindings(m_operatorController, m_driverController, m_testVisionController, m_DriveSubsystem, m_IntakeSubsystem);
     Bindings.configureDrivetrain(m_DriveSubsystem, m_driverController);
-    m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
-    m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
     DriverStation.silenceJoystickConnectionWarning(true);
   }
   
@@ -58,7 +42,4 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return m_Autos.getAutonomousCommand();
-  }
 }
