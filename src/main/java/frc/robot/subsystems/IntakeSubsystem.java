@@ -40,6 +40,9 @@ public class IntakeSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("offset2", 0);
         SmartDashboard.putNumber("offset3", 0);
         SmartDashboard.putNumber("offset4", 0);
+
+        // Initialize intake velocity testing slider
+        SmartDashboard.putNumber("INTAKE Test RPM", 0);
     }
     public void updateMotorSettings(SparkFlex motor) {
         config
