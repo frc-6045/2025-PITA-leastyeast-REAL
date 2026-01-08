@@ -41,6 +41,13 @@ public final class Constants {
     public static final double kIntakeMotorSpeed = .99999;
     public static final double kIntakeMotorMaxSpeed = 1;
 
+    // intake PID constants for velocity control (RPM)
+    public static final double kIntakeVelocityP = 0.0001;
+    public static final double kIntakeVelocityI = 0.0;
+    public static final double kIntakeVelocityD = 0.0;
+    public static final double kIntakeVelocityFF = 0.000175;
+    public static final double kIntakeMaxVelocityRPM = 6600; // Max free speed measured at ~6592 RPM avg (6580-6620 range)
+
     //climb constants
     public static final int kClimbMotorCurrentLimit = 50;
     public static final double kClimbMotorSpeed = 0.9;

@@ -1,11 +1,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkBase.ControlType;
 
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -23,12 +26,17 @@ public class IntakeSubsystem extends SubsystemBase {
     private SparkFlexConfig config = new SparkFlexConfig();
     private AnalogPotentiometer m_DistanceSensor = new AnalogPotentiometer(3);
     public AbsoluteEncoder armEncoder;
+    private RelativeEncoder m_IntakeEncoder;
+    private SparkClosedLoopController m_IntakePIDController;
 
     public IntakeSubsystem() {
         m_IntakeMotor1 = new SparkFlex(MotorConstants.kIntakeMotorCANID, MotorType.kBrushless);
 
         updateMotorSettings(m_IntakeMotor1);
         armEncoder = m_IntakeMotor1.getAbsoluteEncoder();
+        m_IntakeEncoder = m_IntakeMotor1.getEncoder();
+        m_IntakePIDController = m_IntakeMotor1.getClosedLoopController();
+
         SmartDashboard.putNumber("offset2", 0);
         SmartDashboard.putNumber("offset3", 0);
         SmartDashboard.putNumber("offset4", 0);
@@ -38,7 +46,9 @@ public class IntakeSubsystem extends SubsystemBase {
             .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(MotorConstants.kIntakeMotorCurrentLimit);
         config.closedLoop
-            .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+            .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+            .pid(MotorConstants.kIntakeVelocityP, MotorConstants.kIntakeVelocityI, MotorConstants.kIntakeVelocityD)
+            .velocityFF(MotorConstants.kIntakeVelocityFF);
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
@@ -59,6 +69,27 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void stopIntake() {
         m_IntakeMotor1.set(0);
+    }
+
+    /**
+     * Sets the intake motor to a specific velocity in RPM using PID control.
+     * Positive values spin the intake inward, negative values spin outward.
+     * @param rpm Target velocity in rotations per minute
+     */
+    public void setVelocityRPM(double rpm) {
+        rpm = MathUtil.clamp(rpm, -MotorConstants.kIntakeMaxVelocityRPM, MotorConstants.kIntakeMaxVelocityRPM);
+        m_IntakePIDController.setReference(rpm, ControlType.kVelocity);
+
+        SmartDashboard.putNumber("INTAKE target RPM", rpm);
+        SmartDashboard.putNumber("INTAKE actual RPM", m_IntakeEncoder.getVelocity());
+    }
+
+    /**
+     * Gets the current velocity of the intake motor in RPM.
+     * @return Current velocity in RPM
+     */
+    public double getVelocityRPM() {
+        return m_IntakeEncoder.getVelocity();
     }
 
     public boolean coralDetected() {

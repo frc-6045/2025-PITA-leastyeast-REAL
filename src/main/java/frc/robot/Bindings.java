@@ -16,6 +16,7 @@ import frc.robot.Constants.PositionConstants.Setpoints;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeIntake;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
+import frc.robot.commands.IntakeCommands.IntakeVelocityFromDashboard;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
@@ -71,9 +72,9 @@ public class Bindings {
        // m_driverController.a().onTrue(new ClimbClosedLoop(m_ClimbSubsystem, -23452,5));
 
         m_driverController.start().onTrue(Commands.runOnce(() -> m_driveSubsystem.zeroGyroWithAlliance()).alongWith(new PrintCommand("resest heading")));
-        
-        
-        
+
+        // Test controller - intake velocity testing with dashboard slider
+        m_driverController.a().whileTrue(new IntakeVelocityFromDashboard(m_Intake));
 
     }
 
