@@ -28,6 +28,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public AbsoluteEncoder armEncoder;
     private RelativeEncoder m_IntakeEncoder;
     private SparkClosedLoopController m_IntakePIDController;
+    private double targetRPM = 0; // Track current target for error calculation
 
     public IntakeSubsystem() {
         m_IntakeMotor1 = new SparkFlex(MotorConstants.kIntakeMotorCANID, MotorType.kBrushless);
@@ -43,6 +44,13 @@ public class IntakeSubsystem extends SubsystemBase {
 
         // Initialize intake velocity testing slider
         SmartDashboard.putNumber("INTAKE Test RPM", 0);
+
+        // Initialize PID tuning values from constants
+        SmartDashboard.putNumber("INTAKE PID kP", MotorConstants.kIntakeVelocityP);
+        SmartDashboard.putNumber("INTAKE PID kI", MotorConstants.kIntakeVelocityI);
+        SmartDashboard.putNumber("INTAKE PID kD", MotorConstants.kIntakeVelocityD);
+        SmartDashboard.putNumber("INTAKE PID kFF", MotorConstants.kIntakeVelocityFF);
+        SmartDashboard.putBoolean("INTAKE PID Tuning Mode", false);
     }
     public void updateMotorSettings(SparkFlex motor) {
         config
@@ -72,6 +80,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void stopIntake() {
         m_IntakeMotor1.set(0);
+        targetRPM = 0;
     }
 
     /**
@@ -80,11 +89,8 @@ public class IntakeSubsystem extends SubsystemBase {
      * @param rpm Target velocity in rotations per minute
      */
     public void setVelocityRPM(double rpm) {
-        rpm = MathUtil.clamp(rpm, -MotorConstants.kIntakeMaxVelocityRPM, MotorConstants.kIntakeMaxVelocityRPM);
-        m_IntakePIDController.setReference(rpm, ControlType.kVelocity);
-
-        SmartDashboard.putNumber("INTAKE target RPM", rpm);
-        SmartDashboard.putNumber("INTAKE actual RPM", m_IntakeEncoder.getVelocity());
+        targetRPM = MathUtil.clamp(rpm, -MotorConstants.kIntakeMaxVelocityRPM, MotorConstants.kIntakeMaxVelocityRPM);
+        m_IntakePIDController.setReference(targetRPM, ControlType.kVelocity);
     }
 
     /**
@@ -93,6 +99,27 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public double getVelocityRPM() {
         return m_IntakeEncoder.getVelocity();
+    }
+
+    /**
+     * Updates PID gains from SmartDashboard values if tuning mode is enabled.
+     * This allows real-time tuning without redeploying code.
+     */
+    private void updatePIDFromDashboard() {
+        boolean tuningMode = SmartDashboard.getBoolean("INTAKE PID Tuning Mode", false);
+
+        if (tuningMode) {
+            double kP = SmartDashboard.getNumber("INTAKE PID kP", MotorConstants.kIntakeVelocityP);
+            double kI = SmartDashboard.getNumber("INTAKE PID kI", MotorConstants.kIntakeVelocityI);
+            double kD = SmartDashboard.getNumber("INTAKE PID kD", MotorConstants.kIntakeVelocityD);
+            double kFF = SmartDashboard.getNumber("INTAKE PID kFF", MotorConstants.kIntakeVelocityFF);
+
+            // Update the PID configuration
+            config.closedLoop
+                .pid(kP, kI, kD)
+                .velocityFF(kFF);
+            m_IntakeMotor1.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+        }
     }
 
     public boolean coralDetected() {
@@ -157,8 +184,24 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        // Update PID gains from dashboard if tuning mode is enabled
+        updatePIDFromDashboard();
+
+        // Distance sensor telemetry
         SmartDashboard.putNumber("INTAKE distance sensor", getDistanceSensorOutput());
         SmartDashboard.putNumber("INTAKE coral position", getCoralPosition());
         SmartDashboard.putBoolean("INTAKE coral detected", coralDetected());
+
+        // Velocity telemetry for operators and PID tuning
+        double actualRPM = getVelocityRPM();
+        SmartDashboard.putNumber("INTAKE actual RPM", actualRPM);
+        SmartDashboard.putNumber("INTAKE target RPM", targetRPM);
+        SmartDashboard.putNumber("INTAKE velocity error", targetRPM - actualRPM);
+        SmartDashboard.putNumber("INTAKE velocity error %",
+            targetRPM != 0 ? ((targetRPM - actualRPM) / targetRPM) * 100 : 0);
+
+        // At-speed indicator for operator feedback
+        boolean atSpeed = Math.abs(targetRPM - actualRPM) < 100 && Math.abs(targetRPM) > 100;
+        SmartDashboard.putBoolean("INTAKE at speed", atSpeed);
     }
 }
