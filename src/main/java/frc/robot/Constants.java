@@ -61,6 +61,7 @@ public final class Constants {
     public static final double kFlywheelI = 0.0;
     public static final double kFlywheelD = 0.0;
     public static final double kFlywheelTolerance = 100; // RPM
+    public static final double kFlywheelFF = 0.00015; // Feedforward gain (tune this)
   }
 
   public static class ControllerConstants {

@@ -23,6 +23,13 @@ public class FlywheelSubsystem extends SubsystemBase {
 
     private double m_targetRPM = 0;
 
+    // Cached PID values to avoid updating every cycle
+    private double m_cachedP = MotorConstants.kFlywheelP;
+    private double m_cachedI = MotorConstants.kFlywheelI;
+    private double m_cachedD = MotorConstants.kFlywheelD;
+    private double m_cachedTolerance = MotorConstants.kFlywheelTolerance;
+    private double m_cachedFF = MotorConstants.kFlywheelFF;
+
     public FlywheelSubsystem() {
         m_FlywheelMotor = new SparkFlex(MotorConstants.kFlywheelMotorCANID, MotorType.kBrushless);
         m_Encoder = m_FlywheelMotor.getEncoder();
@@ -43,6 +50,7 @@ public class FlywheelSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Flywheel I", MotorConstants.kFlywheelI);
         SmartDashboard.putNumber("Flywheel D", MotorConstants.kFlywheelD);
         SmartDashboard.putNumber("Flywheel Tolerance", MotorConstants.kFlywheelTolerance);
+        SmartDashboard.putNumber("Flywheel FF", MotorConstants.kFlywheelFF);
     }
 
     private void updateMotorSettings(SparkFlex motor) {
@@ -72,32 +80,54 @@ public class FlywheelSubsystem extends SubsystemBase {
     }
 
     /**
-     * Update PID values from SmartDashboard
+     * Update PID and FF values from SmartDashboard (only when values change)
      */
     public void updatePIDFromDashboard() {
         double p = SmartDashboard.getNumber("Flywheel P", MotorConstants.kFlywheelP);
         double i = SmartDashboard.getNumber("Flywheel I", MotorConstants.kFlywheelI);
         double d = SmartDashboard.getNumber("Flywheel D", MotorConstants.kFlywheelD);
         double tolerance = SmartDashboard.getNumber("Flywheel Tolerance", MotorConstants.kFlywheelTolerance);
+        double ff = SmartDashboard.getNumber("Flywheel FF", MotorConstants.kFlywheelFF);
 
-        m_PIDController.setPID(p, i, d);
-        m_PIDController.setTolerance(tolerance);
+        // Only update PID if values changed
+        if (p != m_cachedP || i != m_cachedI || d != m_cachedD) {
+            m_PIDController.setPID(p, i, d);
+            m_cachedP = p;
+            m_cachedI = i;
+            m_cachedD = d;
+        }
+
+        if (tolerance != m_cachedTolerance) {
+            m_PIDController.setTolerance(tolerance);
+            m_cachedTolerance = tolerance;
+        }
+
+        m_cachedFF = ff;
     }
 
     /**
-     * Run the flywheel to the target RPM using PID control
+     * Run the flywheel to the target RPM using feedforward + PID control
      */
     public void runToTargetRPM() {
         m_targetRPM = getTargetRPM();
         updatePIDFromDashboard();
 
-        double output = m_PIDController.calculate(getCurrentRPM(), m_targetRPM);
+        // Calculate feedforward: baseline power to maintain target RPM
+        double feedforward = (m_targetRPM / MotorConstants.kFlywheelMaxRPM) * m_cachedFF * 1000;
+
+        // Calculate PID correction
+        double pidOutput = m_PIDController.calculate(getCurrentRPM(), m_targetRPM);
+
+        // Combine feedforward + PID
+        double output = feedforward + pidOutput;
 
         // Clamp output to valid motor range [0, 1] for forward-only flywheel
         output = MathUtil.clamp(output, 0, 1);
 
         m_FlywheelMotor.set(output);
         SmartDashboard.putNumber("Flywheel Output", output);
+        SmartDashboard.putNumber("Flywheel FF Output", feedforward);
+        SmartDashboard.putNumber("Flywheel PID Output", pidOutput);
     }
 
     /**

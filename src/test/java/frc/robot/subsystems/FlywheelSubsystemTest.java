@@ -61,6 +61,7 @@ class FlywheelSubsystemTest {
         assertEquals(0.0, MotorConstants.kFlywheelI, 0.0001);
         assertEquals(0.0, MotorConstants.kFlywheelD, 0.0001);
         assertEquals(100, MotorConstants.kFlywheelTolerance, 0.01);
+        assertEquals(0.00015, MotorConstants.kFlywheelFF, 0.00001);
     }
 
     @Test
@@ -86,5 +87,56 @@ class FlywheelSubsystemTest {
         output = 0.7; // Valid range
         clampedOutput = Math.min(Math.max(output, 0), 1);
         assertEquals(0.7, clampedOutput, 0.01);
+    }
+
+    @Test
+    void testFeedforwardCalculation() {
+        // Test the feedforward formula: (targetRPM / maxRPM) * ff * 1000
+        double targetRPM = 4000;
+        double maxRPM = MotorConstants.kFlywheelMaxRPM;
+        double ff = MotorConstants.kFlywheelFF;
+
+        double feedforward = (targetRPM / maxRPM) * ff * 1000;
+
+        // At 4000 RPM with ff=0.00015, expect ~0.092
+        assertTrue(feedforward > 0, "Feedforward should be positive for positive target");
+        assertTrue(feedforward < 1, "Feedforward should be less than 1");
+        assertEquals(0.0923, feedforward, 0.01);
+    }
+
+    @Test
+    void testFeedforwardScalesWithTargetRPM() {
+        // Higher target RPM should produce higher feedforward
+        double ff = MotorConstants.kFlywheelFF;
+        double maxRPM = MotorConstants.kFlywheelMaxRPM;
+
+        double ffLow = (2000 / maxRPM) * ff * 1000;
+        double ffHigh = (5000 / maxRPM) * ff * 1000;
+
+        assertTrue(ffHigh > ffLow, "Higher target RPM should produce higher feedforward");
+    }
+
+    @Test
+    void testFeedforwardAtZeroRPM() {
+        // At zero target RPM, feedforward should be zero
+        double targetRPM = 0;
+        double maxRPM = MotorConstants.kFlywheelMaxRPM;
+        double ff = MotorConstants.kFlywheelFF;
+
+        double feedforward = (targetRPM / maxRPM) * ff * 1000;
+
+        assertEquals(0, feedforward, 0.0001);
+    }
+
+    @Test
+    void testFeedforwardAtMaxRPM() {
+        // At max RPM, feedforward should equal ff * 1000
+        double targetRPM = MotorConstants.kFlywheelMaxRPM;
+        double maxRPM = MotorConstants.kFlywheelMaxRPM;
+        double ff = MotorConstants.kFlywheelFF;
+
+        double feedforward = (targetRPM / maxRPM) * ff * 1000;
+
+        assertEquals(ff * 1000, feedforward, 0.0001);
     }
 }
