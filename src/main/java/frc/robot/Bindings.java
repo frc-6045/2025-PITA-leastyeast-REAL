@@ -39,7 +39,6 @@ import swervelib.SwerveInputStream;
 
 public class Bindings {
     public static boolean operatorShift = false;
-    public static boolean ledstate = false;
 
     public static void InitBindings(
         CommandXboxController m_operatorController,

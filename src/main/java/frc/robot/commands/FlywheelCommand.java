@@ -21,11 +21,6 @@ public class FlywheelCommand extends Command {
     }
 
     @Override
-    public void initialize() {
-        // Reset PID when command starts for clean ramp-up
-    }
-
-    @Override
     public void execute() {
         // Run flywheel to target RPM (reads from SmartDashboard)
         m_Flywheel.runToTargetRPM();
