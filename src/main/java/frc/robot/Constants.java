@@ -49,6 +49,18 @@ public final class Constants {
     public static final int kWristCurrentLimit = 50;
     public static final double kWristMotorSpeed = 1;
     public static final double kWristMotorMaxSpeed = 1;
+
+    // flywheel constants
+    public static final int kFlywheelMotorCANID = 14;
+    public static final int kFlywheelMotorCurrentLimit = 50;
+    public static final double kFlywheelMaxRPM = 6500;
+    public static final double kFlywheelDefaultTargetRPM = 4000;
+
+    // PID defaults for flywheel velocity control
+    public static final double kFlywheelP = 0.0005;
+    public static final double kFlywheelI = 0.0;
+    public static final double kFlywheelD = 0.0;
+    public static final double kFlywheelTolerance = 100; // RPM
   }
 
   public static class ControllerConstants {
