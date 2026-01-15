@@ -190,4 +190,13 @@ public class FlywheelSubsystem extends SubsystemBase {
     public void simulationPeriodic() {
         // Simulation support if needed
     }
+
+    /**
+     * Close the subsystem and release resources.
+     * Used for proper cleanup in tests.
+     */
+    public void close() {
+        m_FlywheelMotor.close();
+        m_PIDController.close();
+    }
 }
