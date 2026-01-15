@@ -16,6 +16,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.FlywheelConstants;
 
 public class FlywheelSubsystem extends SubsystemBase {
+    // Epsilon for floating-point comparisons
+    private static final double EPSILON = 1e-9;
+
     // Hardware
     private final SparkFlex m_FlywheelMotor;
     private final RelativeEncoder m_Encoder;
@@ -59,7 +62,8 @@ public class FlywheelSubsystem extends SubsystemBase {
     private void updateMotorSettings(SparkFlex motor) {
         config
             .idleMode(IdleMode.kCoast)  // Coast for flywheel - lets it spin down naturally
-            .smartCurrentLimit(FlywheelConstants.kFlywheelMotorCurrentLimit);
+            .smartCurrentLimit(FlywheelConstants.kFlywheelMotorCurrentLimit)
+            .inverted(false);  // Explicitly set motor direction - change to true if flywheel spins backwards
         config.closedLoop
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -86,22 +90,31 @@ public class FlywheelSubsystem extends SubsystemBase {
         double newTolerance = SmartDashboard.getNumber("FLYWHEEL Tolerance", cachedTolerance);
         double newFF = SmartDashboard.getNumber("FLYWHEEL FF", cachedFF);
 
-        // Only update if values have actually changed
-        if (newP != cachedP || newI != cachedI || newD != cachedD) {
+        // Only update if values have actually changed (use epsilon for floating-point comparison)
+        if (!isApproximatelyEqual(newP, cachedP) ||
+            !isApproximatelyEqual(newI, cachedI) ||
+            !isApproximatelyEqual(newD, cachedD)) {
             m_PIDController.setPID(newP, newI, newD);
             cachedP = newP;
             cachedI = newI;
             cachedD = newD;
         }
 
-        if (newTolerance != cachedTolerance) {
+        if (!isApproximatelyEqual(newTolerance, cachedTolerance)) {
             m_PIDController.setTolerance(newTolerance);
             cachedTolerance = newTolerance;
         }
 
-        if (newFF != cachedFF) {
+        if (!isApproximatelyEqual(newFF, cachedFF)) {
             cachedFF = newFF;
         }
+    }
+
+    /**
+     * Compare two doubles using epsilon for floating-point tolerance.
+     */
+    private boolean isApproximatelyEqual(double a, double b) {
+        return Math.abs(a - b) < EPSILON;
     }
 
     /**
@@ -114,22 +127,23 @@ public class FlywheelSubsystem extends SubsystemBase {
 
     /**
      * Run flywheel to reach target RPM using PID + feedforward.
-     * @param targetRPM the desired RPM
+     * @param targetRPM the desired RPM (will be clamped to valid range)
      */
     public void runToRPM(double targetRPM) {
-        this.targetRPM = targetRPM;
+        // Clamp target RPM to valid range
+        this.targetRPM = MathUtil.clamp(targetRPM, 0, FlywheelConstants.kMaxRPM);
 
         // Update PID from dashboard (with caching)
         updatePIDFromDashboard();
 
         double currentRPM = getVelocityRPM();
 
-        // Calculate PID output
-        lastPIDOutput = m_PIDController.calculate(currentRPM, targetRPM);
+        // Calculate PID output (use clamped this.targetRPM)
+        lastPIDOutput = m_PIDController.calculate(currentRPM, this.targetRPM);
 
         // Calculate feedforward: FF * targetRPM
         // This provides a baseline output proportional to desired velocity
-        lastFFOutput = cachedFF * targetRPM;
+        lastFFOutput = cachedFF * this.targetRPM;
 
         // Combine PID + Feedforward
         double output = lastPIDOutput + lastFFOutput;

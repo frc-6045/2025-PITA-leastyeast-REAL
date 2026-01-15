@@ -121,4 +121,36 @@ class FlywheelSubsystemTest {
         flywheel.runToRPM(5000);
         assertEquals(5000, flywheel.getTargetRPM());
     }
+
+    @Test
+    void testRunToRPMClampsToMaxRPM() {
+        // Target RPM above max should be clamped to max
+        flywheel.runToRPM(10000);  // Well above max of 6000
+        assertEquals(FlywheelConstants.kMaxRPM, flywheel.getTargetRPM(),
+            "Target RPM should be clamped to max RPM");
+    }
+
+    @Test
+    void testRunToRPMClampsNegativeToZero() {
+        // Negative target RPM should be clamped to 0 (forward only)
+        flywheel.runToRPM(-1000);
+        assertEquals(0, flywheel.getTargetRPM(),
+            "Negative target RPM should be clamped to 0");
+    }
+
+    @Test
+    void testRunToRPMAtMaxBoundary() {
+        // Exactly at max should be accepted
+        flywheel.runToRPM(FlywheelConstants.kMaxRPM);
+        assertEquals(FlywheelConstants.kMaxRPM, flywheel.getTargetRPM(),
+            "Target RPM at max should be accepted");
+    }
+
+    @Test
+    void testRunToRPMAtZeroBoundary() {
+        // Exactly at 0 should be accepted
+        flywheel.runToRPM(0);
+        assertEquals(0, flywheel.getTargetRPM(),
+            "Target RPM at 0 should be accepted");
+    }
 }
