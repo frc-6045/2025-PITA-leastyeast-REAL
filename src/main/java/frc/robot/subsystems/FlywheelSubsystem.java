@@ -1,53 +1,43 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Constants.FlywheelConstants;
 
 public class FlywheelSubsystem extends SubsystemBase {
-    // Epsilon for floating-point comparisons
     private static final double EPSILON = 1e-9;
 
-    // Hardware
     private final SparkFlex m_FlywheelMotor;
     private final RelativeEncoder m_Encoder;
-    private SparkFlexConfig config = new SparkFlexConfig();
+    private final PIDController m_PIDController;
+    SparkFlexConfig config = new SparkFlexConfig();
 
-    // PID Controller (WPILib)
-    private PIDController m_PIDController;
-
-    // PID caching - store last values to avoid unnecessary setPID calls
+    // Cached PID values to avoid unnecessary updates
     private double cachedP = FlywheelConstants.kDefaultP;
     private double cachedI = FlywheelConstants.kDefaultI;
     private double cachedD = FlywheelConstants.kDefaultD;
     private double cachedTolerance = FlywheelConstants.kDefaultToleranceRPM;
     private double cachedFF = FlywheelConstants.kDefaultFF;
 
-    // Target RPM (set by command or dashboard)
     private double targetRPM = 0.0;
-
-    // Output tracking for telemetry
     private double lastPIDOutput = 0.0;
     private double lastFFOutput = 0.0;
 
     public FlywheelSubsystem() {
         m_FlywheelMotor = new SparkFlex(FlywheelConstants.kFlywheelMotorCANID, MotorType.kBrushless);
         m_Encoder = m_FlywheelMotor.getEncoder();
-
-        updateMotorSettings(m_FlywheelMotor);
-
-        // Initialize WPILib PID controller
         m_PIDController = new PIDController(
             FlywheelConstants.kDefaultP,
             FlywheelConstants.kDefaultI,
@@ -55,22 +45,21 @@ public class FlywheelSubsystem extends SubsystemBase {
         );
         m_PIDController.setTolerance(FlywheelConstants.kDefaultToleranceRPM);
 
-        // Initialize dashboard tunable values
+        updateMotorSettings(m_FlywheelMotor);
         initDashboard();
     }
 
-    private void updateMotorSettings(SparkFlex motor) {
+    public void updateMotorSettings(SparkFlex motor) {
         config
-            .idleMode(IdleMode.kCoast)  // Coast for flywheel - lets it spin down naturally
+            .idleMode(IdleMode.kCoast)
             .smartCurrentLimit(FlywheelConstants.kFlywheelMotorCurrentLimit)
-            .inverted(false);  // Explicitly set motor direction - change to true if flywheel spins backwards
+            .inverted(false);
         config.closedLoop
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     private void initDashboard() {
-        // Initialize tunable values on SmartDashboard/Elastic
         SmartDashboard.putNumber("FLYWHEEL Target RPM", FlywheelConstants.kDefaultTargetRPM);
         SmartDashboard.putNumber("FLYWHEEL P", FlywheelConstants.kDefaultP);
         SmartDashboard.putNumber("FLYWHEEL I", FlywheelConstants.kDefaultI);
@@ -79,10 +68,6 @@ public class FlywheelSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("FLYWHEEL Tolerance", FlywheelConstants.kDefaultToleranceRPM);
     }
 
-    /**
-     * Update PID gains from dashboard if they have changed.
-     * Uses caching to avoid setting gains every cycle.
-     */
     private void updatePIDFromDashboard() {
         double newP = SmartDashboard.getNumber("FLYWHEEL P", cachedP);
         double newI = SmartDashboard.getNumber("FLYWHEEL I", cachedI);
@@ -90,109 +75,66 @@ public class FlywheelSubsystem extends SubsystemBase {
         double newTolerance = SmartDashboard.getNumber("FLYWHEEL Tolerance", cachedTolerance);
         double newFF = SmartDashboard.getNumber("FLYWHEEL FF", cachedFF);
 
-        // Only update if values have actually changed (use epsilon for floating-point comparison)
-        if (!isApproximatelyEqual(newP, cachedP) ||
-            !isApproximatelyEqual(newI, cachedI) ||
-            !isApproximatelyEqual(newD, cachedD)) {
+        boolean pidChanged = Math.abs(newP - cachedP) > EPSILON
+            || Math.abs(newI - cachedI) > EPSILON
+            || Math.abs(newD - cachedD) > EPSILON;
+
+        if (pidChanged) {
             m_PIDController.setPID(newP, newI, newD);
             cachedP = newP;
             cachedI = newI;
             cachedD = newD;
         }
 
-        if (!isApproximatelyEqual(newTolerance, cachedTolerance)) {
+        if (Math.abs(newTolerance - cachedTolerance) > EPSILON) {
             m_PIDController.setTolerance(newTolerance);
             cachedTolerance = newTolerance;
         }
 
-        if (!isApproximatelyEqual(newFF, cachedFF)) {
+        if (Math.abs(newFF - cachedFF) > EPSILON) {
             cachedFF = newFF;
         }
     }
 
-    /**
-     * Compare two doubles using epsilon for floating-point tolerance.
-     */
-    private boolean isApproximatelyEqual(double a, double b) {
-        return Math.abs(a - b) < EPSILON;
-    }
-
-    /**
-     * Get the target RPM from the dashboard.
-     * @return target RPM value from dashboard
-     */
     public double getTargetRPMFromDashboard() {
         return SmartDashboard.getNumber("FLYWHEEL Target RPM", FlywheelConstants.kDefaultTargetRPM);
     }
 
-    /**
-     * Run flywheel to reach target RPM using PID + feedforward.
-     * @param targetRPM the desired RPM (will be clamped to valid range)
-     */
-    public void runToRPM(double targetRPM) {
-        // Clamp target RPM to valid range
-        this.targetRPM = MathUtil.clamp(targetRPM, 0, FlywheelConstants.kMaxRPM);
-
-        // Update PID from dashboard (with caching)
+    public void runToRPM(double rpm) {
+        this.targetRPM = MathUtil.clamp(rpm, 0, FlywheelConstants.kMaxRPM);
         updatePIDFromDashboard();
 
         double currentRPM = getVelocityRPM();
-
-        // Calculate PID output (use clamped this.targetRPM)
         lastPIDOutput = m_PIDController.calculate(currentRPM, this.targetRPM);
-
-        // Calculate feedforward: FF * targetRPM
-        // This provides a baseline output proportional to desired velocity
         lastFFOutput = cachedFF * this.targetRPM;
 
-        // Combine PID + Feedforward
-        double output = lastPIDOutput + lastFFOutput;
-
-        // Clamp to 0-1 (forward only)
-        output = MathUtil.clamp(output, 0.0, 1.0);
-
+        double output = MathUtil.clamp(lastPIDOutput + lastFFOutput, 0.0, 1.0);
         m_FlywheelMotor.set(output);
 
         SmartDashboard.putNumber("FLYWHEEL output", output);
     }
 
-    /**
-     * Stop the flywheel motor.
-     */
     public void stop() {
         m_FlywheelMotor.set(0);
         targetRPM = 0;
-        m_PIDController.reset();  // Reset PID integrator
+        m_PIDController.reset();
         SmartDashboard.putNumber("FLYWHEEL output", 0);
     }
 
-    /**
-     * Get current flywheel velocity in RPM.
-     * @return velocity in RPM
-     */
     public double getVelocityRPM() {
         return m_Encoder.getVelocity();
     }
 
-    /**
-     * Check if flywheel is at the target setpoint within tolerance.
-     * @return true if at setpoint
-     */
     public boolean atSetpoint() {
         return m_PIDController.atSetpoint();
     }
 
-    /**
-     * Get the current target RPM.
-     * @return current target RPM
-     */
     public double getTargetRPM() {
         return targetRPM;
     }
 
     @Override
     public void periodic() {
-        // Publish telemetry
         SmartDashboard.putNumber("FLYWHEEL Actual RPM", getVelocityRPM());
         SmartDashboard.putNumber("FLYWHEEL Target RPM Current", targetRPM);
         SmartDashboard.putBoolean("FLYWHEEL At Setpoint", atSetpoint());
@@ -201,14 +143,8 @@ public class FlywheelSubsystem extends SubsystemBase {
     }
 
     @Override
-    public void simulationPeriodic() {
-        // Simulation support if needed
-    }
+    public void simulationPeriodic() {}
 
-    /**
-     * Close the subsystem and release resources.
-     * Used for proper cleanup in tests.
-     */
     public void close() {
         m_FlywheelMotor.close();
         m_PIDController.close();
