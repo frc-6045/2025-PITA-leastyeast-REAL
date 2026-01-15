@@ -26,7 +26,9 @@ import frc.robot.commands.ElevatorCommands.PIDElevatorCommand;
 import frc.robot.commands.IntakeCommands.IntakeConditional;
 import frc.robot.commands.IntakeCommands.IntakeIntake;
 import frc.robot.commands.IntakeCommands.IntakeOpenLoop;
+import frc.robot.commands.FlywheelCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.FlywheelSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ClimbWristSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -40,15 +42,17 @@ public class Bindings {
     public static boolean ledstate = false;
 
     public static void InitBindings(
-        CommandXboxController m_operatorController, 
-        CommandXboxController m_driverController, 
-        CommandXboxController m_testController,        SwerveSubsystem m_driveSubsystem,
-        ArmSubsystem m_Arm, 
-        ElevatorSubsystem m_Elev, 
+        CommandXboxController m_operatorController,
+        CommandXboxController m_driverController,
+        CommandXboxController m_testController,
+        SwerveSubsystem m_driveSubsystem,
+        ArmSubsystem m_Arm,
+        ElevatorSubsystem m_Elev,
         IntakeSubsystem m_Intake,
         ClimbSubsystem m_ClimbSubsystem,
         LedSubsystem m_LedSubsystem,
-        ClimbWristSubsystem m_Wrist) {
+        ClimbWristSubsystem m_Wrist,
+        FlywheelSubsystem m_Flywheel) {
 
         AutoScoreCommands m_AutoScoreCommands = 
             new AutoScoreCommands(m_driveSubsystem, m_Arm, m_Elev, m_Intake);
@@ -129,7 +133,7 @@ public class Bindings {
         m_driverController.y().onTrue(new PIDArmAndElevator(m_Arm, m_Elev, Setpoints.LOLLIPOP));
         
         
-        m_driverController.a().onTrue(new ConditionalCommand(Commands.runOnce(()->{m_LedSubsystem.set(-0.49);}), Commands.runOnce(()->{m_LedSubsystem.set(-0.7);}), ()->{return ledstate;}).alongWith(new InstantCommand(()->ledstate = !ledstate)));
+        m_driverController.a().whileTrue(new FlywheelCommand(m_Flywheel));
 
         /* Test Controller bindings */
 

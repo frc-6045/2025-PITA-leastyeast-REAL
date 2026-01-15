@@ -51,6 +51,21 @@ public final class Constants {
     public static final double kWristMotorMaxSpeed = 1;
   }
 
+  public static class FlywheelConstants {
+    public static final int kFlywheelMotorCANID = 14;
+    public static final int kFlywheelMotorCurrentLimit = 40;
+
+    // Default PID gains (tunable via dashboard)
+    public static final double kDefaultP = 0.0005;
+    public static final double kDefaultI = 0.0;
+    public static final double kDefaultD = 0.0;
+    public static final double kDefaultFF = 0.00018;  // feedforward (kV)
+
+    public static final double kDefaultTargetRPM = 3000.0;
+    public static final double kMaxRPM = 6000.0;
+    public static final double kDefaultToleranceRPM = 100.0;
+  }
+
   public static class ControllerConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
